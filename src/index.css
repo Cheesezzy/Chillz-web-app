@@ -1,3 +1,11 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; 
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+@font-face {
+  font-family: myFirstFont;
+  src: url(sansation_light.woff);
+}
+
+* {
+  font-family: myFirstFont;
 }

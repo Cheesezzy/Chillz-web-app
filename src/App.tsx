@@ -1,3 +1,4 @@
+import Categories from "./components/Categories";
 import DefaultLayout from "./components/layout/DefaultLayout";
 import Nav from "./components/Nav";
 import Slides from "./components/Slider/Slides";
@@ -7,6 +8,7 @@ function App() {
     <DefaultLayout>
       <Nav />
       <Slides />
+      <Categories />
     </DefaultLayout>
   );
 }

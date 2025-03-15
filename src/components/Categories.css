@@ -1,0 +1,116 @@
+/* .categories {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 140px;
+}
+.con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+
+.categories {
+  display: grid;
+  width: 100%;
+  gap: 20px;
+  padding: 15px;
+  margin-top: 100px !important;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+
+/* Styles for each category container */
+.con {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.con:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Image styles */
+.con img {
+  width: 80%;
+  height: auto;
+  max-width: 100px;
+  border-radius: 8px;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+
+/* Heading styles */
+.con h6 {
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* Media Queries for responsive layouts */
+/* Small mobile devices (320px and up) */
+@media (min-width: 320px) {
+  .categories {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Larger mobile devices (480px and up) */
+@media (min-width: 480px) {
+  .categories {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablets (768px and up) */
+@media (min-width: 768px) {
+  .categories {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding: 20px;
+  }
+
+  .con img {
+    max-width: 120px;
+  }
+
+  .con h6 {
+    font-size: 16px;
+  }
+}
+
+/* Small laptops (1024px and up) */
+@media (min-width: 1024px) {
+  .categories {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+  }
+}
+
+/* Large screens (1280px and up) */
+@media (min-width: 1280px) {
+  .categories {
+    grid-template-columns: repeat(6, 1fr);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .con img {
+    max-width: 140px;
+  }
+}
+
+/* Extra large screens (1440px and up) */
+@media (min-width: 1440px) {
+  .categories {
+    grid-template-columns: repeat(9, 1fr);
+    max-width: 1400px;
+  }
+}
