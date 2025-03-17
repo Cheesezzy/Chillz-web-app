@@ -1,5 +1,7 @@
 import "./Footer.css";
 import chillzLogo from "../assets/chillz.png";
+import playstore from "/play-store.png";
+import appstore from "/app-store.png";
 export default function Footer() {
   return (
     <div className="pg-footer">
@@ -31,11 +33,23 @@ export default function Footer() {
                 <li className="menu-item menu-item-type-post_type menu-item-object-product">
                   <a href="#" className="footer-call-to-action-button">
                     App Store
+                    <img
+                      src={appstore}
+                      alt="appstore-icon"
+                      width={30}
+                      height={30}
+                    />
                   </a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-product">
                   <a href="#" className="footer-call-to-action-button">
                     Play Store
+                    <img
+                      src={playstore}
+                      alt="playstore-icon"
+                      width={30}
+                      height={30}
+                    />
                   </a>
                 </li>
               </ul>

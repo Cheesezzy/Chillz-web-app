@@ -1,3 +1,4 @@
+import Cards from "./components/Cards";
 import Categories from "./components/Categories";
 import Footer from "./components/Footer";
 import DefaultLayout from "./components/layout/DefaultLayout";
@@ -6,12 +7,15 @@ import Slides from "./components/Slider/Slides";
 
 function App() {
   return (
-    <DefaultLayout>
+    <div>
       <Nav />
-      <Slides />
-      <Categories />
+      <DefaultLayout>
+        <Slides />
+        <Categories />
+        <Cards />
+      </DefaultLayout>
       <Footer />
-    </DefaultLayout>
+    </div>
   );
 }
 

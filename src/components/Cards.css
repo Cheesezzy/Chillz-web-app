@@ -1,0 +1,91 @@
+button:focus,
+input:focus,
+textarea:focus {
+  outline: 0;
+}
+
+.card_wrapper {
+  padding: 80px 0;
+}
+
+.head_text {
+  text-align: left;
+}
+
+.head_text h2 {
+  font-size: 40px;
+  font-weight: 700;
+  color: #070707;
+  padding-bottom: 50px;
+}
+
+.card_item {
+  padding: 30px;
+  border-radius: 10px;
+  background: #ffffff;
+  max-width: 385px;
+  max-height: fit-content;
+  width: 100%;
+  transition: 0.3s;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card_item:hover {
+  transform: scale(1.1);
+}
+
+.card_img {
+  position: relative;
+}
+
+.card_img a {
+  display: block;
+}
+
+.card_img a img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card_text {
+  padding: 5px 0 0 0;
+}
+
+.card_icon,
+.map,
+.calender,
+.clock {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.card_text h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #192335;
+  padding: 20px 0 15px 0;
+}
+
+.card_text h2 a {
+  text-decoration: none;
+  color: #192335;
+}
+
+.ticket_btn {
+  padding: 10px 20px;
+  display: inline-flex;
+  border: 1px solid #000000;
+  border-radius: 30px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 15px;
+  transition: 0.3s;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ticket_btn:hover {
+  background: #ff5757;
+  color: #ffffff;
+}
