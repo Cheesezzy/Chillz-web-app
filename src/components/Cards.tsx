@@ -34,7 +34,7 @@ function Cards() {
             <a href="#">
               <p className="clock">
                 <img src={clock} alt="clock" width={10} height={10} />
-                <p>8:00am - 5:00pm</p>
+                <i>8:00am - 5:00pm</i>
               </p>
             </a>
           </div>

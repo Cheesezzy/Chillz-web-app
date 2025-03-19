@@ -213,7 +213,7 @@ export default function Footer() {
             <p className="footer-copyright-text">
               <a className="footer-copyright-link" href="#" target="_self">
                 {" "}
-                ©2025. | Designed By: Chllz Team. | All rights reserved.{" "}
+                ©2025 | Designed By: Chllz Team | All rights reserved.{" "}
               </a>
             </p>
           </div>

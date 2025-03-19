@@ -45,9 +45,49 @@ input {
   border-radius: 30px;
   padding: 5px 7px;
 }
-a {
+.search:hover {
+  border: 2px solid #ff9d9d;
+}
+
+.link {
   text-decoration: none;
-  color: #39364f;
+  color: black;
+}
+
+.link:hover {
+  color: #ff9d9d;
+  width: fit-content;
+}
+.link:active {
+  animation: clickAnimation 0.2s ease-in-out;
+}
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.auth {
+  background-color: #ff5757;
+  width: 120px;
+  text-align: center;
+  border-radius: 20px;
+}
+.auth:hover {
+  background-color: #ff9d9d;
+  cursor: pointer;
+}
+.auth:active {
+  animation: clickAnimation 0.2s ease-in-out;
+}
+.log {
+  text-decoration: none;
+  color: black;
 }
 
 @media (max-width: 1130px) {

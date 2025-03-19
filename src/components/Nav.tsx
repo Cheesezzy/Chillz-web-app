@@ -1,4 +1,5 @@
 import chillzLogo from "../assets/chillz.png";
+import { Link } from "react-router-dom";
 import search from "../assets/vectors/search.svg";
 import "../App.css";
 
@@ -6,9 +7,9 @@ function Nav() {
   return (
     <>
       <div className="nav">
-        <a href="" target="_blank">
+        <Link to="/">
           <img src={chillzLogo} className="logo" alt="Chillz logo" />
-        </a>
+        </Link>
         <div className="search">
           <div className="icon-sec">
             <img src={search} alt="search" className="search-img" />
@@ -17,25 +18,23 @@ function Nav() {
           <input type="text" placeholder="Location" className="loc" />
           <img src={search} alt="search" className="ser" />
         </div>
-        <a href="#" className="list">
-          <h5>Contact Sales</h5>
-        </a>
-        <a href="#" className="list">
-          <h5>Create Events</h5>
-        </a>
-        <a href="#" className="list">
-          <h5>Help Center</h5>
-        </a>
-        <a href="#">
-          <h5>Tickets</h5>
-        </a>
-        <a href="#">
-          {" "}
-          <h5>Log In</h5>
-        </a>
-        <a href="#">
-          <h5>Sign Up</h5>
-        </a>
+        <Link to="/contact" className=" link ">
+          <p>Contact</p>
+        </Link>
+        <Link to="#" className="link list">
+          <p> All Events</p>
+        </Link>
+        <Link to="#" className="link list">
+          <p>Help Center</p>
+        </Link>
+        <Link to="#" className="link list">
+          <p>Tickets</p>
+        </Link>
+        <div className="auth">
+          <Link to="#" className="log">
+            <h5>Create Event</h5>
+          </Link>
+        </div>
       </div>
       <div className="line"></div>
     </>
