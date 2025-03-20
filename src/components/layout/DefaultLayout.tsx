@@ -8,9 +8,10 @@ const DefaultLayout = (props: Props) => {
   return (
     <div
       style={{
-        maxWidth: "1440px",
-        marginLeft: "auto",
-        marginRight: "auto",
+        maxWidth: "1400px",
+        margin: "0 auto",
+        padding: "0 auto",
+        width: "100%",
       }}
     >
       {props.children}

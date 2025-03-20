@@ -1,20 +1,35 @@
 #root {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 .logo {
   height: 5em;
 }
-.line {
-  border: solid 1px rgb(242, 242, 242);
-  width: 100%;
+.logo:active {
+  transform: scale(1.2);
 }
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays on top of other elements */
+  background-color: white; /* Add a background color to avoid transparency issues */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+body {
+  padding-top: 80px;
+  margin: 0;
+  overflow-x: hidden;
 }
 input {
   border: none;
@@ -48,10 +63,17 @@ input {
 .search:hover {
   border: 2px solid #ff9d9d;
 }
+.search:active {
+  transform: scale(1.01);
+}
 
 .link {
   text-decoration: none;
   color: black;
+}
+
+.link p {
+  font-size: 13px;
 }
 
 .link:hover {
@@ -72,22 +94,21 @@ input {
     transform: scale(1);
   }
 }
-.auth {
-  background-color: #ff5757;
-  width: 120px;
-  text-align: center;
-  border-radius: 20px;
-}
-.auth:hover {
+
+.log:hover {
   background-color: #ff9d9d;
   cursor: pointer;
 }
-.auth:active {
+.log:active {
   animation: clickAnimation 0.2s ease-in-out;
 }
 .log {
   text-decoration: none;
   color: black;
+  background-color: #ff5757;
+  width: 120px;
+  text-align: center;
+  border-radius: 20px;
 }
 
 @media (max-width: 1130px) {
@@ -102,6 +123,17 @@ input {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top of other elements */
+    background-color: white; /* Add a background color to avoid transparency issues */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0px;
+    box-sizing: border-box;
+  }
+  body {
+    padding-top: 80px;
   }
 
   .nav > *:not(.search) {
@@ -122,5 +154,8 @@ input {
 @media (max-width: 510px) {
   .loc {
     display: none;
+  }
+  .auth {
+    width: fit-content;
   }
 }

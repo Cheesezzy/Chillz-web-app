@@ -5,7 +5,7 @@ textarea:focus {
 }
 
 .card_wrapper {
-  padding: 80px 0;
+  padding: 10px 20px 80px 20px;
 }
 
 .head_text {
@@ -20,7 +20,6 @@ textarea:focus {
 }
 
 .card_item {
-  padding: 30px;
   border-radius: 10px;
   background: #ffffff;
   max-width: 385px;
@@ -88,4 +87,10 @@ textarea:focus {
 .ticket_btn:hover {
   background: #ff5757;
   color: #ffffff;
+}
+
+@media (max-width: 510px) {
+  .card_wrapper {
+    padding: 20px;
+  }
 }
