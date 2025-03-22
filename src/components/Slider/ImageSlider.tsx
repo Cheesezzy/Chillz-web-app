@@ -11,7 +11,6 @@ interface ImageSliderProps {
 const slideStyles: React.CSSProperties = {
   width: "100%",
   height: "400px",
-  borderRadius: "10px",
   backgroundSize: "cover",
   backgroundPosition: "center",
   transition: "background-image 1s ease-in-out",

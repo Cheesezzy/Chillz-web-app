@@ -13,7 +13,7 @@
 .logo:active {
   transform: scale(1.2);
 }
-.nav {
+nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +27,6 @@
   box-sizing: border-box;
 }
 body {
-  padding-top: 80px;
   margin: 0;
   overflow-x: hidden;
 }
@@ -35,6 +34,7 @@ input {
   border: none;
   padding: 10px 30px;
   outline: none;
+  width: 320px;
 }
 .icon-sec {
   display: flex;
@@ -54,7 +54,7 @@ input {
   align-content: center;
 }
 .search {
-  border: solid 1px rgb(201, 201, 201);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   border-radius: 30px;
@@ -70,9 +70,7 @@ input {
 .link {
   text-decoration: none;
   color: black;
-}
-
-.link p {
+  margin: 0 20px;
   font-size: 13px;
 }
 
@@ -98,6 +96,10 @@ input {
 .log:hover {
   background-color: #ff9d9d;
   cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .log:active {
   animation: clickAnimation 0.2s ease-in-out;
@@ -105,53 +107,38 @@ input {
 .log {
   text-decoration: none;
   color: black;
-  background-color: #ff5757;
   width: 120px;
   text-align: center;
   border-radius: 20px;
 }
+.display {
+  display: none;
+}
 
-@media (max-width: 1130px) {
-  .list {
+@media (max-width: 560px) {
+  .search {
+    display: none;
+  }
+  .display {
+    border-radius: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 5px 7px;
+    margin: 0 10px;
+    width: 100%;
+  }
+  .rev {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+
+  .search-img,
+  .ser {
     display: none;
   }
 }
 
-@media (max-width: 810px) {
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000; /* Ensure it stays on top of other elements */
-    background-color: white; /* Add a background color to avoid transparency issues */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px 0px;
-    box-sizing: border-box;
-  }
-  body {
-    padding-top: 80px;
-  }
-
-  .nav > *:not(.search) {
-    order: 0;
-    flex: 1 1 auto;
-  }
-
-  .search {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 10px;
-    order: 1;
-    flex: 1 1 100%;
-  }
-}
-
-@media (max-width: 510px) {
+@media (max-width: 900px) {
   .loc {
     display: none;
   }

@@ -1,5 +1,5 @@
 import "./Footer.css";
-import chillzLogo from "../assets/chillz.png";
+import chillzLogo from "/chillz.png";
 import playstore from "/play-store.png";
 import appstore from "/app-store.png";
 export default function Footer() {
@@ -159,7 +159,6 @@ export default function Footer() {
               <svg
                 className="footer-social-icon-svg"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 30 30"
               >
                 <path
                   className="footer-social-icon-path"
@@ -172,7 +171,6 @@ export default function Footer() {
               <svg
                 className="footer-social-icon-svg"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 26 26"
               >
                 <path
                   className="footer-social-icon-path"
@@ -185,7 +183,6 @@ export default function Footer() {
               <svg
                 className="footer-social-icon-svg"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 30 30"
               >
                 <path
                   className="footer-social-icon-path"
@@ -198,7 +195,6 @@ export default function Footer() {
               <svg
                 className="footer-social-icon-svg"
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 32 32"
               >
                 <path
                   className="footer-social-icon-path"
