@@ -1,41 +1,33 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Contact from "./pages/ContactPage/Contact";
-import AllEvents from "./pages/AllEvents/AllEvents";
-import HelpCenter from "./pages/HelpCenter/HelpCenter";
-import Tickets from "./pages/Tickets/Tickets";
-import CreateEvent from "./pages/Auth/CreateEvents";
-import DefaultLayout from "./components/layout/DefaultLayout";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header";
-import { SetStateAction, useState } from "react"; // Import useState from react
-import DesktopHeader from "./components/Header/DesktopHeader";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { RoutesEnum } from "./routes";
+import React from "react";
+const Home = React.lazy(() => import("./pages/Home/Home"));
+const Login = React.lazy(() => import("./pages/Login"));
+const Register = React.lazy(() => import("./pages/Register"));
+const ForgotPassword = React.lazy(() => import("./pages/ForgotPassword"));
+const Account = React.lazy(() => import("./pages/Account"));
+const RequireUser = React.lazy(
+  () => import("./lib/firebase/components/RequireUser")
+);
 
 const App = () => {
-  const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const hideNavAndFooter = location.pathname === "/auth-page";
-
   return (
     <>
-      {!hideNavAndFooter && <Header />}
-      <DefaultLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/all-events" element={<AllEvents />} />
-          <Route path="/help-center" element={<HelpCenter />} />
-          <Route path="/tickets" element={<Tickets />} />
-          <Route path="/auth-page" element={<CreateEvent />} />
-          {/* Add other routes here */}
-        </Routes>
-      </DefaultLayout>
-      {!hideNavAndFooter && <Footer />}
+      <Routes>
+        <Route path={RoutesEnum.Login} element={<Login />} />
+        <Route path={RoutesEnum.Home} element={<Home />} />
+        <Route path={RoutesEnum.Register} element={<Register />} />
+        <Route path={RoutesEnum.ForgotPassword} element={<ForgotPassword />} />
+        <Route
+          path={RoutesEnum.Account}
+          element={
+            <RequireUser>
+              <Account />
+            </RequireUser>
+          }
+        />
+        <Route path="*" element={<div>Not Found</div>} />
+      </Routes>
     </>
   );
 };

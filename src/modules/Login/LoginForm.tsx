@@ -33,7 +33,7 @@ const LoginForm = () => {
       />
       <Link
         to={RoutesEnum.ForgotPassword}
-        className="flex justify-end text-sm leading-6 font-semibold text-red-600 hover:text-red-500"
+        className="flex justify-end text-sm leading-6 font-semibold text-customRed hover:text-red-300"
       >
         Forgot Password
       </Link>

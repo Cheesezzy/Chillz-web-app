@@ -45,7 +45,7 @@ function DesktopHeader({
         ))}
       </div>
       {/* login */}
-      <div className="hidden 2xl:flex 2xl:justify-end 2xl:gap-4 log">
+      <div className="hidden 2xl:flex 2xl:justify-end 2xl:gap-4">
         <SignIn />
       </div>
     </nav>

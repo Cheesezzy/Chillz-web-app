@@ -23,7 +23,7 @@ nav {
   z-index: 1000; /* Ensure it stays on top of other elements */
   background-color: white; /* Add a background color to avoid transparency issues */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
+  padding: 0 20px;
   box-sizing: border-box;
 }
 body {
@@ -96,18 +96,14 @@ input {
 .log:hover {
   background-color: #ff9d9d;
   cursor: pointer;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0 15px;
+  color: black;
 }
 .log:active {
   animation: clickAnimation 0.2s ease-in-out;
 }
 .log {
   text-decoration: none;
-  color: black;
-  width: 120px;
   text-align: center;
   border-radius: 20px;
 }

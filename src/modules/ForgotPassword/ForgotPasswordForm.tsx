@@ -9,7 +9,7 @@ const ForgotPasswordForm = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-28">
       <form
         className="mx-auto max-w-3xl space-y-6"
         onSubmit={(e) => {
@@ -18,7 +18,7 @@ const ForgotPasswordForm = () => {
         }}
       >
         <Input
-          label="Email address"
+          label="Enter Your Email Address"
           name="email"
           value={email}
           onChange={setEmail}

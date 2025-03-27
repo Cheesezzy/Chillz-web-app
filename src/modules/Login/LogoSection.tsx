@@ -1,20 +1,18 @@
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
-import logo from "../../assets/logo.png";
+import logo from "/chillz.png";
 
 type LogoSectionProps = {
   isRegisterPage?: boolean;
 };
 
 const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
-  const appColor = "red";
-
   if (isRegisterPage) {
     return (
       <>
         {/* Logo */}
         <Link to={RoutesEnum.Home}>
-          <img className="h-16 w-auto" src={logo} alt="BallersBoutique" />
+          <img className="h-16 w-auto" src={logo} alt="Chillz logo" />
         </Link>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Register for an account
@@ -23,7 +21,7 @@ const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
           Are you a member?{" "}
           <Link
             to={RoutesEnum.Login}
-            className={`cursor-pointer font-semibold text-${appColor}-600 hover:text-${appColor}-500`}
+            className={`cursor-pointer font-semibold text-customRed hover:text-red-300`}
           >
             {" "}
             Sign In
@@ -46,7 +44,7 @@ const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
         Not a member?{" "}
         <Link
           to={RoutesEnum.Register}
-          className={`cursor-pointer font-semibold text-${appColor}-600 hover:text-${appColor}-500`}
+          className={`cursor-pointer font-semibold text-customRed hover:text-red-300`}
         >
           {" "}
           Register Now

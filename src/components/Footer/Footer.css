@@ -1,3 +1,13 @@
+/* Ensure the main container takes full height and uses flexbox */
+html,
+body,
+#root {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+}
+
 .pg-footer {
   font-family: "Roboto", sans-serif;
 }
@@ -5,7 +15,10 @@
 .footer {
   background-color: #445b60;
   color: #fff;
+  width: 100%;
+  margin-top: auto;
 }
+
 .footer-wave-svg {
   background-color: transparent;
   display: block;
@@ -206,6 +219,7 @@
   color: #fff;
   padding: 15px 30px;
   text-align: center;
+  height: 15vh;
 }
 
 .footer-copyright-wrapper {
@@ -219,8 +233,6 @@
   font-size: 13px;
   font-weight: 400;
   line-height: 18px;
-  margin-bottom: 0;
-  margin-top: 0;
 }
 
 .footer-copyright-link {

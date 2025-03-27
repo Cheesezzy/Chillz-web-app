@@ -1,7 +1,7 @@
 import { Dialog } from "@headlessui/react";
 import { MobileHeaderProps, NavigationType } from "./types";
 import { Link } from "react-router-dom";
-import { RoutesEnum } from "../routes";
+import { RoutesEnum } from "../../routes";
 import chillzlogo from "/chillz.png";
 import { navigation } from "./helper";
 import SignIn from "./SignIn";
