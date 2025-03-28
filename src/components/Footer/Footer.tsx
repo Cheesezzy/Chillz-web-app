@@ -20,11 +20,8 @@ export default function Footer() {
         <div className="footer-content">
           <div className="footer-content-column">
             <div className="footer-logo">
-              <a className="footer-logo-link" href="#">
-                <span className="hidden-link-text">LOGO</span>
-                <a href="" target="_blank">
-                  <img src={chillzLogo} className="logo" alt="Chillz logo" />
-                </a>
+              <a className="footer-logo-link" href="#" target="blank">
+                <img src={chillzLogo} className="logo" alt="Chillz logo" />
               </a>
             </div>
             <div className="footer-menu">

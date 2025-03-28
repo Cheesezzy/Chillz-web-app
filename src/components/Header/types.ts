@@ -8,6 +8,7 @@ export type MenuIconsProps = {
 
 export interface MobileHeaderProps extends DesktopHeaderProps {
   mobileMenuOpen: boolean;
+  isUserSignedIn: boolean;
 }
 
 export type NavigationType = {

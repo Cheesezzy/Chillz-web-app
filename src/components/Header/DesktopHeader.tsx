@@ -1,20 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import chillzlogo from "/chillz.png";
 import { DesktopHeaderProps, NavigationType } from "./types";
 import MenuIcon from "./MenuIcon";
 import search from "/search.svg";
-import { navigation } from "./helper";
+// import { navigation } from "./helper";
 import SignIn from "./SignIn";
+import { RoutesEnum } from "../../routes";
 import "./App.css";
 
 function DesktopHeader({
   setMobileMenuOpen,
   mobileMenuOpen,
-}: DesktopHeaderProps & { mobileMenuOpen: boolean }) {
+  isUserSignedIn,
+}: DesktopHeaderProps & { mobileMenuOpen: boolean; isUserSignedIn: boolean }) {
+  const navigate = useNavigate();
+
+  const handleNavigation = (href: string) => {
+    if (isUserSignedIn) {
+      navigate(href);
+    } else {
+      navigate(RoutesEnum.Login);
+    }
+  };
+
   return (
     <nav className="" aria-label="Global">
       {/* logo */}
-      <Link to="/">
+      <Link to={RoutesEnum.Home}>
         <img src={chillzlogo} className="logo" alt="Chillz logo" />
       </Link>
       <div className="search">
@@ -34,15 +46,30 @@ function DesktopHeader({
       {/* pages */}
 
       <div className="hidden 2xl:flex 2xl:gap-x-10">
-        {navigation.map((item: NavigationType) => (
-          <a
-            key={item.name}
-            href={item.href}
-            className="text-sm font-semibold leading-6 link"
-          >
-            {item.name}
-          </a>
-        ))}
+        <button
+          onClick={() => handleNavigation(RoutesEnum.ContactUs)}
+          className="text-sm font-semibold leading-6 link"
+        >
+          Contact Us
+        </button>
+        <button
+          onClick={() => handleNavigation(RoutesEnum.EventFeeds)}
+          className="text-sm font-semibold leading-6 link"
+        >
+          Event Feeds
+        </button>
+        <button
+          onClick={() => handleNavigation(RoutesEnum.HelpCenter)}
+          className="text-sm font-semibold leading-6 link"
+        >
+          Help Center
+        </button>
+        <button
+          onClick={() => handleNavigation(RoutesEnum.CreateAnEvent)}
+          className="text-sm font-semibold leading-6 link"
+        >
+          Create an Event
+        </button>
       </div>
       {/* login */}
       <div className="hidden 2xl:flex 2xl:justify-end 2xl:gap-4">
