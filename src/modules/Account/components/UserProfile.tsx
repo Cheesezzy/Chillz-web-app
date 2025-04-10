@@ -43,6 +43,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFile(null);
+      setPreview(undefined);
       return;
     }
 
@@ -53,6 +54,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
     }
 
     setSelectedFile(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string); // Set the preview to the file's data URL
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleUpload = async () => {
@@ -92,7 +98,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
       const imageUrl = data.secure_url;
       setImageUrl(imageUrl);
       setUploadStatus("Upload successful!");
-      console.log("Cloudinary URL:", imageUrl);
 
       const userDocRef = doc(db, "userProfiles", user.email); // Use email as the document ID
       await setDoc(userDocRef, {
@@ -117,7 +122,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
 
         <div className="mb-4">
           <img
-            src={imageUrl || preview || "/user.png"}
+            src={preview || imageUrl || "/user.png"}
             alt="Profile preview"
             className="w-40 h-40 rounded-full object-cover border-4 border-gray-200 mx-auto"
           />

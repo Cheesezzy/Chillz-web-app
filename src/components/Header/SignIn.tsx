@@ -28,7 +28,6 @@ function SignIn({
           const data = docSnap.data();
           setImageUrl(data.imageUrl); // Set the fetched image URL
         } else {
-          console.log("No such document!");
           setImageUrl(null);
         }
       } catch (error) {
