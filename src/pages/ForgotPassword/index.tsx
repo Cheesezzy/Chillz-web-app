@@ -1,9 +1,7 @@
-import { useState } from "react";
 import Header from "../../components/Header";
 import ForgotPasswordForm from "../../modules/ForgotPassword/ForgotPasswordForm";
 
 const ForgotPassword = () => {
-  const [darkMode, setDarkMode] = useState(false);
   return (
     <>
       <Header />

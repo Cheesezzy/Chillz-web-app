@@ -1,9 +1,7 @@
-import { useState } from "react";
 import Header from "../../components/Header";
 import AccountLayout from "../../modules/Account";
 
 const Account = () => {
-  const [darkMode, setDarkMode] = useState(false);
   return (
     <>
       <Header />

@@ -2,8 +2,20 @@ import ContinueWithGoogle from "../../modules/Login/ContineWithGoogle";
 import LogoSection from "../../modules/Login/LogoSection";
 import loginBg from "/event-bg.jpeg";
 import RegisterForm from "../../modules/Register/RegisterForm";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../lib/firebase";
 
 const Register = () => {
+  const [loading] = useAuthState(auth); // Get the user from Firebase Auth
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div> {/* Spinning animation */}
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-1 min-h-screen">
       {/* Left hand column */}

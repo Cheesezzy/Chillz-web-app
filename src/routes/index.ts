@@ -4,8 +4,9 @@ export enum RoutesEnum {
   Home = "/",
   ForgotPassword = "/forgot-password",
   Account = "/account",
-  ContactUs = "/contact-us",
+  Tickets = "/tickets",
   EventFeeds = "/event-feeds",
   HelpCenter = "/help-center",
   CreateAnEvent = "/create-event",
+  EventDashboard = "/dashboard",
 }

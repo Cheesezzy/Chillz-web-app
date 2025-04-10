@@ -7,12 +7,6 @@
   overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
-.logo {
-  height: 5em;
-}
-.logo:active {
-  transform: scale(1.2);
-}
 nav {
   display: flex;
   align-items: center;
@@ -30,7 +24,7 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
-input {
+.nav-input {
   border: none;
   padding: 10px 30px;
   outline: none;
@@ -70,8 +64,7 @@ input {
 .link {
   text-decoration: none;
   color: black;
-  margin: 0 20px;
-  font-size: 13px;
+  margin: 0 10px;
 }
 
 .link:hover {

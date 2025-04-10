@@ -9,10 +9,11 @@ const Account = React.lazy(() => import("./pages/Account"));
 const RequireUser = React.lazy(
   () => import("./lib/firebase/components/RequireUser")
 );
-const ContactUs = React.lazy(() => import("./pages/ContactUs"));
+const Tickets = React.lazy(() => import("./pages/Tickets"));
 const EventFeeds = React.lazy(() => import("./pages/Event/Feeds"));
 const HelpCenter = React.lazy(() => import("./pages/HelpCenter"));
-const CreateAnEvent = React.lazy(() => import("./pages/Event/Create Event"));
+const CreateAnEvent = React.lazy(() => import("./pages/Event/CreateEvent"));
+const UserDashboard = React.lazy(() => import("./pages/UserDashboard"));
 
 const App = () => {
   return (
@@ -30,11 +31,11 @@ const App = () => {
             </RequireUser>
           }
         />
-        <Route path={RoutesEnum.ContactUs} element={<ContactUs />} />
+        <Route path={RoutesEnum.Tickets} element={<Tickets />} />
         <Route path={RoutesEnum.EventFeeds} element={<EventFeeds />} />
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.CreateAnEvent} element={<CreateAnEvent />} />
-
+        <Route path={RoutesEnum.EventDashboard} element={<UserDashboard />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </>

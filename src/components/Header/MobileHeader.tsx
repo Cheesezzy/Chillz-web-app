@@ -2,7 +2,6 @@ import { MobileHeaderProps, NavigationType } from "./types";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import chillzlogo from "/chillz.png";
-import { navigation } from "./helper";
 import SignIn from "./SignIn";
 import search from "/search.svg";
 import "./App.css";
@@ -48,12 +47,6 @@ function MobileHeader({
               <div className="space-y-2 py-6 rev">
                 <button
                   className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  onClick={() => handleNavigation(RoutesEnum.ContactUs)}
-                >
-                  Contact Us
-                </button>
-                <button
-                  className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={() => handleNavigation(RoutesEnum.EventFeeds)}
                 >
                   Event Feeds
@@ -70,7 +63,12 @@ function MobileHeader({
                 >
                   Create an Event
                 </button>
-
+                <button
+                  className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  onClick={() => handleNavigation(RoutesEnum.Tickets)}
+                >
+                  Tickets
+                </button>
                 <div className="display rev">
                   <div className="icon-sec ">
                     <img src={search} alt="search" className="search-img" />

@@ -11,3 +11,36 @@
   font-optical-sizing: auto;
   font-style: normal;
 }
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(0, 0, 0, 0.1); /* Light border */
+  border-top: 5px solid #ff9d9d; /* Blue border for the spinning effect */
+  border-radius: 50%;
+  animation: spin 1s linear infinite; /* Spinning animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start at 0 degrees */
+  }
+  100% {
+    transform: rotate(360deg); /* Rotate a full circle */
+  }
+}
+
+.logo {
+  height: 5em;
+}
+.logo:active {
+  transform: scale(1.2);
+}

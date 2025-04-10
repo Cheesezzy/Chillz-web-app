@@ -32,9 +32,13 @@ function DesktopHeader({
       <div className="search">
         <div className="icon-sec ">
           <img src={search} alt="search" className="search-img" />
-          <input type="text" placeholder="Search for Events" />
+          <input
+            className="nav-input"
+            type="text"
+            placeholder="Search for Events"
+          />
         </div>
-        <input type="text" placeholder="Location" className="loc" />
+        <input className="nav-input loc" type="text" placeholder="Location" />
         <img src={search} alt="search" className="ser" />
       </div>
       <div className="block 2xl:hidden">
@@ -45,30 +49,32 @@ function DesktopHeader({
       </div>
       {/* pages */}
 
-      <div className="hidden 2xl:flex 2xl:gap-x-10">
-        <button
-          onClick={() => handleNavigation(RoutesEnum.ContactUs)}
-          className="text-sm font-semibold leading-6 link"
-        >
-          Contact Us
-        </button>
-        <button
-          onClick={() => handleNavigation(RoutesEnum.EventFeeds)}
+      <div className="hidden 2xl:flex 2xl:gap-x-5">
+        <Link
+          to={RoutesEnum.EventFeeds}
           className="text-sm font-semibold leading-6 link"
         >
           Event Feeds
-        </button>
-        <button
+        </Link>
+        <Link
+          to={RoutesEnum.HelpCenter}
           onClick={() => handleNavigation(RoutesEnum.HelpCenter)}
           className="text-sm font-semibold leading-6 link"
         >
           Help Center
-        </button>
+        </Link>
+
         <button
           onClick={() => handleNavigation(RoutesEnum.CreateAnEvent)}
           className="text-sm font-semibold leading-6 link"
         >
           Create an Event
+        </button>
+        <button
+          onClick={() => handleNavigation(RoutesEnum.Tickets)}
+          className="text-sm font-semibold leading-6 link"
+        >
+          Tickets
         </button>
       </div>
       {/* login */}
