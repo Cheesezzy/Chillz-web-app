@@ -1,55 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import chillzlogo from "/chillz.png";
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import SignIn from "../../components/Header/SignIn";
 import StatCard from "../../components/UserDashboard/StatCard";
 import PersonalEventList from "../../components/UserDashboard/PersonalEventList";
 import AttendingEventList from "../../components/UserDashboard/AttendingEventList";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
+interface Event {
+  id: string;
+  title: string;
+  date: string;
+  location: string;
+  attendees: number;
+}
 // Main Personal Dashboard Component
 const UserDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [user, loading] = useAuthState(auth);
+  const [events, setEvents] = useState<Event[]>([]); // State to store events
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Mock user data
+  useEffect(() => {
+    const fetchEvents = async () => {
+      if (!user?.uid) return; // Ensure the user is authenticated
 
-  // Mock data for demonstration
-  const stats = {
-    myEvents: 8,
-    attending: 12,
-    completedTasks: 24,
-    pendingTasks: 7,
-  };
+      try {
+        setIsLoading(true);
 
-  const myEvents = [
-    {
-      id: 1,
-      title: "Team Building Workshop",
-      date: "2025-04-10",
-      location: "Office HQ",
-      role: "Organizer",
-      attendees: 15,
-    },
-    {
-      id: 2,
-      title: "Product Roadmap Review",
-      date: "2025-04-17",
-      location: "Conference Room A",
-      role: "Organizer",
-      attendees: 8,
-    },
-    {
-      id: 3,
-      title: "Client Pitch Meeting",
-      date: "2025-04-25",
-      location: "Downtown Office",
-      role: "Organizer",
-      attendees: 5,
-    },
-  ];
+        // Query Firestore for events created by the authenticated user
+        const eventsRef = collection(db, "events");
+        const q = query(eventsRef, where("createdBy", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        // Map the Firestore documents to an array of events
+        const userEvents: Event[] = querySnapshot.docs.map((doc) => ({
+          id: doc.id, // Firestore document ID
+          title: doc.data().title,
+          date: doc.data().date,
+          location: doc.data().location,
+          attendees: doc.data(doc.data().maxAttendees).attendees || 0, // Default to 0 if attendees is not set
+        }));
+
+        setEvents(userEvents); // Update the state with the fetched events
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchEvents();
+  }, [user?.uid]);
+
+  if (loading || isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+      </div>
+    );
+  }
 
   const eventsAttending = [
     {
@@ -147,7 +160,7 @@ const UserDashboard: React.FC = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-6">
+        {/* <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-6">
           <StatCard
             title="My Events"
             value={stats.myEvents}
@@ -158,7 +171,7 @@ const UserDashboard: React.FC = () => {
             value={stats.attending}
             color="bg-blue-500"
           />
-        </div>
+        </div> */}
 
         {/* Tabs */}
         <div className="bg-white shadow rounded-lg mb-6">
@@ -180,7 +193,7 @@ const UserDashboard: React.FC = () => {
                         View all
                       </button>
                     </div>
-                    <PersonalEventList events={myEvents.slice(0, 2)} />
+                    <PersonalEventList events={events} />
                   </div>
 
                   {/* Events I'm Attending */}
@@ -215,7 +228,7 @@ const UserDashboard: React.FC = () => {
                     Create New Event
                   </Link>
                 </div>
-                <PersonalEventList events={myEvents} />
+                <PersonalEventList events={events} />
               </div>
             )}
 

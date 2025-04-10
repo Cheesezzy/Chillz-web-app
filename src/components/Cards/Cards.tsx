@@ -1,3 +1,4 @@
+import EventCard from "../CreateEvent/Feeds/EventCard";
 import Free from "./Free";
 import Verified from "./Verified";
 

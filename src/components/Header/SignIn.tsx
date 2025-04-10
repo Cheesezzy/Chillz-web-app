@@ -29,6 +29,7 @@ function SignIn({
           setImageUrl(data.imageUrl); // Set the fetched image URL
         } else {
           console.log("No such document!");
+          setImageUrl(null);
         }
       } catch (error) {
         console.error("Error fetching image URL:", error);

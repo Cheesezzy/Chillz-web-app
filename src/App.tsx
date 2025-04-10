@@ -35,7 +35,7 @@ const App = () => {
         <Route path={RoutesEnum.EventFeeds} element={<EventFeeds />} />
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.CreateAnEvent} element={<CreateAnEvent />} />
-        <Route path={RoutesEnum.EventDashboard} element={<UserDashboard />} />
+        <Route path={RoutesEnum.UserDashboard} element={<UserDashboard />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </>

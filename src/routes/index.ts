@@ -8,5 +8,5 @@ export enum RoutesEnum {
   EventFeeds = "/event-feeds",
   HelpCenter = "/help-center",
   CreateAnEvent = "/create-event",
-  EventDashboard = "/dashboard",
+  UserDashboard = "/dashboard",
 }

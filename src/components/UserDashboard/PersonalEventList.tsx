@@ -47,9 +47,9 @@ const PersonalEventList: React.FC<{ events: any[] }> = ({ events }) => {
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                   {event.attendees} attendees
                 </span>
-                <span className="mt-1 text-xs text-gray-500">
+                {/* <span className="mt-1 text-xs text-gray-500">
                   You: {event.role}
-                </span>
+                </span> */}
               </div>
             </div>
           </li>

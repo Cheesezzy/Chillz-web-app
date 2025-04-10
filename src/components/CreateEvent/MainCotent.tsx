@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { RoutesEnum } from "../../routes";
 
 type EventCategory =
   | "Music Concert"
@@ -33,6 +35,7 @@ interface EventFormData {
 
 const MainContent = () => {
   const [user, loading, error] = useAuthState(auth); // Get the user from Firebase Auth
+  const navigate = useNavigate();
 
   const categories: EventCategory[] = [
     "Music Concert",
@@ -123,7 +126,7 @@ const MainContent = () => {
         imageUrl = data.secure_url;
       }
 
-      const docRef = await addDoc(collection(db, "events"), {
+      await addDoc(collection(db, "events"), {
         title: formData.title,
         description: formData.description,
         category: formData.category,
@@ -138,15 +141,11 @@ const MainContent = () => {
         createdAt: new Date().toISOString(),
       });
 
-      console.log("Document written with ID: ", docRef.id);
-
       setSubmitSuccess(true);
       setFormData(initialFormData);
 
-      // Reset success message after 3 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 3000);
+      // Navigate to UserDashboard after success
+      navigate(RoutesEnum.UserDashboard);
     } catch (error) {
       setSubmitError("Failed to create event. Please try again.");
       console.error("Error creating event:", error);

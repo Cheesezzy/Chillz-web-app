@@ -25,7 +25,7 @@ const Sidebar = () => {
         <img src={chillzlogo} className="logo" alt="Chillz logo" />
       </Link>
       <button
-        onClick={() => handleNavigation(RoutesEnum.EventDashboard)}
+        onClick={() => handleNavigation(RoutesEnum.UserDashboard)}
         className="text-xs sm:text-sm font-medium hover:text-gray-300"
       >
         Dashboard
