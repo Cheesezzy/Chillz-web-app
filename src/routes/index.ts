@@ -9,4 +9,5 @@ export enum RoutesEnum {
   HelpCenter = "/help-center",
   CreateAnEvent = "/create-event",
   UserDashboard = "/dashboard",
+  EventDetails = "/event/:id",
 }

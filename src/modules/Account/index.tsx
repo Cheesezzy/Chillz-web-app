@@ -34,7 +34,7 @@ export default function AccountLayout() {
           <ChangePassword />
         </>
       ) : (
-        <p>you are a google user</p>
+        <p>{null}</p>
       )}
       <DeleteUser />
     </div>

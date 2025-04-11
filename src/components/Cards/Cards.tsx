@@ -4,6 +4,8 @@ import { db } from "../../lib/firebase"; // Adjust the path to your Firebase con
 import EventCard from "../CreateEvent/Feeds/EventCard";
 import Free from "./Free";
 import Verified from "./Verified";
+import { Link, Route } from "react-router-dom";
+import { RoutesEnum } from "../../routes";
 
 interface Event {
   id: string;
@@ -57,19 +59,32 @@ function Cards() {
     fetchEvents();
   }, []);
   return (
-    <div>
+    <>
       <Verified />
       <Free />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-        {loading ? (
-          <p>Loading events...</p>
-        ) : events.length > 0 ? (
-          events.map((event) => <EventCard key={event.id} event={event} />)
-        ) : (
-          <p>No events found.</p>
-        )}
+      <div className="px-6">
+        <div className="flex justify-between">
+          <p className="text-2xl text-extraBold font-semibold">
+            Popular Events
+          </p>
+          <Link
+            to={RoutesEnum.EventFeeds}
+            className="text-sm text-red-600 hover:text-red-800"
+          >
+            View all
+          </Link>
+        </div>
+        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 ">
+          {loading ? (
+            <p>Loading events...</p>
+          ) : events.length > 0 ? (
+            events.map((event) => <EventCard key={event.id} event={event} />)
+          ) : (
+            <p>No events found.</p>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

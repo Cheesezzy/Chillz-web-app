@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 interface Event {
   id: string;
@@ -14,7 +15,10 @@ interface Event {
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden mb-4">
+    <Link
+      to={`/event/${event.id}`}
+      className="bg-white rounded-lg shadow-md overflow-hidden mb-4"
+    >
       <div className="h-48 overflow-hidden">
         <img
           src={event.image || "/event-img.jpeg"}
@@ -89,7 +93,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           <span>{event.location}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
