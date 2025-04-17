@@ -342,7 +342,7 @@ const MainContent = () => {
                 </div>
               </div>
 
-              <div>
+              {/* <div>
                 <label
                   htmlFor="ticketPrice"
                   className="block text-sm font-medium text-gray-700"
@@ -360,7 +360,7 @@ const MainContent = () => {
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="0.00"
                 />
-              </div>
+              </div> */}
               <div>
                 <label
                   htmlFor="maxAttendees"
