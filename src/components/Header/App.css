@@ -15,7 +15,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 1000; /* Ensure it stays on top of other elements */
-  background-color: white; /* Add a background color to avoid transparency issues */
+  background-color: #f7fff7; /* Add a background color to avoid transparency issues */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 0 20px;
   box-sizing: border-box;
@@ -23,12 +23,13 @@ nav {
 body {
   margin: 0;
   overflow-x: hidden;
+  background-color: #f4f4f9;
 }
 .nav-input {
   border: none;
   padding: 10px 30px;
   outline: none;
-  width: 320px;
+  width: 420px;
 }
 .icon-sec {
   display: flex;
@@ -55,7 +56,7 @@ body {
   padding: 5px 7px;
 }
 .search:hover {
-  border: 2px solid #ff9d9d;
+  border: 2px solid red;
 }
 .search:active {
   transform: scale(1.01);
@@ -68,7 +69,7 @@ body {
 }
 
 .link:hover {
-  color: #ff9d9d;
+  color: red;
   width: fit-content;
 }
 .link:active {
@@ -87,7 +88,7 @@ body {
 }
 
 .log:hover {
-  background-color: #ff9d9d;
+  background-color: red;
   cursor: pointer;
   padding: 0 15px;
   color: black;

@@ -8,45 +8,45 @@ import fooddrinks from "/fast-food.png";
 import gaming from "/gaming.png";
 import hangout from "/interview.png";
 import "./Categories.css";
+import { useNavigate } from "react-router-dom";
+
+const categories = [
+  { name: "Musical Concert", image: music },
+  { name: "Night Life and Party", image: night },
+  { name: "Karaoke", image: karaoke },
+  { name: "Sport", image: sport },
+  { name: "Gym", image: gym },
+  { name: "Business", image: business },
+  { name: "Food and Drinks", image: fooddrinks },
+  { name: "Gaming", image: gaming },
+  { name: "Hangout", image: hangout },
+];
 
 function Categories() {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category: string) => {
+    navigate(`/events?category=${encodeURIComponent(category)}`);
+  };
+
   return (
-    <div className="categories">
-      <div className="con">
-        <img src={music} alt="Musical Concert" width="50%" height="50%" />
-        <h6>Musical Concert</h6>
-      </div>
-      <div className="con">
-        <img src={night} alt="Night Life and Party" width="50%" height="50%" />
-        <h6>Night Life and Party</h6>
-      </div>
-      <div className="con">
-        <img src={karaoke} alt="Karaoke" width="50%" height="50%" />
-        <h6>Karaoke</h6>
-      </div>
-      <div className="con">
-        <img src={sport} alt="Sports" width="50%" height="50%" />
-        <h6>Sports</h6>
-      </div>
-      <div className="con">
-        <img src={gym} alt="Gym" width="50%" height="50%" />
-        <h6>Gym</h6>
-      </div>
-      <div className="con">
-        <img src={business} alt="Business" width="50%" height="50%" />
-        <h6>Business</h6>
-      </div>
-      <div className="con">
-        <img src={fooddrinks} alt="Food and Drinks" width="50%" height="50%" />
-        <h6>Food and Drinks</h6>
-      </div>
-      <div className="con">
-        <img src={gaming} alt="Gaming" width="50%" height="50%" />
-        <h6>Gaming</h6>
-      </div>
-      <div className="con">
-        <img src={hangout} alt="Hangout" width="50%" height="50%" />
-        <h6>Hangout</h6>
+    <div className="categories-container">
+      <div className="categories">
+        {categories.map((category) => (
+          <div
+            key={category.name}
+            className="con"
+            onClick={() => handleCategoryClick(category.name)}
+          >
+            <img
+              src={category.image}
+              alt={category.name}
+              width="50%"
+              height="50%"
+            />
+            <h6>{category.name}</h6>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Header from "../../components/Header";
 
 const HelpCenter = () => {
@@ -280,7 +280,7 @@ You can always issue replacement tickets if needed.
     <div className="bg-gray-50 min-h-screen">
       {/* Header */}
       <Header />
-      <header className="bg-customCyan text-white shadow-md mt-20">
+      <header className="bg-[#1A535C] text-white shadow-md mt-20">
         <div className="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold">Help Center</h1>
           <p className="mt-1 text-lg">
@@ -417,7 +417,7 @@ You can always issue replacement tickets if needed.
       </div>
 
       {/* Footer */}
-      <footer className="bg-customDark text-white fixed bottom-0 left-0 w-full">
+      <footer className="bg-black text-white fixed bottom-0 left-0 w-full">
         <div className="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">

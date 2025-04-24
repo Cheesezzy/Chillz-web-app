@@ -1,13 +1,13 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import chillzlogo from "/chillz.png";
 import SignIn from "../Header/SignIn";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase";
+import { LanguageToggle } from "../../Global/LanguageToggle";
 
 const Sidebar = () => {
-  const [user, loading, error] = useAuthState(auth); // Get the user from Firebase Auth
+  const [user] = useAuthState(auth); // Get the user from Firebase Auth
 
   const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-full sm:w-60 h-auto bg-customCyan text-white flex flex-col gap-3 items-center py-6">
+    <div className="w-full sm:w-60 h-auto bg-[#1A535C] text-white flex flex-col gap-3 items-center py-6">
       <Link to={RoutesEnum.Home}>
         <img src={chillzlogo} className="logo" alt="Chillz logo" />
       </Link>
@@ -42,6 +42,7 @@ const Sidebar = () => {
       >
         Help Center
       </button>
+      <LanguageToggle />
       <div className="mt-4 sm:mt-auto text-white">
         <SignIn />
       </div>

@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../lib/firebase"; // Adjust the path to your Firebase config
 import EventCard from "../CreateEvent/Feeds/EventCard";
-import Free from "./Free";
-import Verified from "./Verified";
-import { Link, Route } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 
 interface Event {
@@ -60,8 +59,6 @@ function Cards() {
   }, []);
   return (
     <>
-      <Verified />
-      <Free />
       <div className="px-6">
         <div className="flex justify-between">
           <p className="text-2xl text-extraBold font-semibold">
@@ -74,14 +71,30 @@ function Cards() {
             View all
           </Link>
         </div>
-        <div className="grid grid-cols-1  sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
           {loading ? (
             <p>Loading events...</p>
           ) : events.length > 0 ? (
-            events.map((event) => <EventCard key={event.id} event={event} />)
+            // Slice the events to show a maximum of 8
+            events
+              .slice(0, 8)
+              .map((event) => <EventCard key={event.id} event={event} />)
           ) : (
             <p>No events found.</p>
           )}
+
+          {/* Fill remaining slots with placeholders if fewer than 8 events */}
+          {!loading &&
+            events.length > 0 &&
+            events.length < 8 &&
+            Array.from({ length: 8 - events.length }).map((_, index) => (
+              <div
+                key={`placeholder-${index}`}
+                className="border border-gray-300 rounded-md shadow-sm h-48 flex items-center justify-center text-gray-400"
+              >
+                Placeholder
+              </div>
+            ))}
         </div>
       </div>
     </>

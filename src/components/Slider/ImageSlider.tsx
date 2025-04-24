@@ -69,10 +69,6 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
     setCurrentIndex(newIndex);
   };
 
-  const goToSlide = (slideIndex: number) => {
-    setCurrentIndex(slideIndex);
-  };
-
   const slideStylesWidthBackground: React.CSSProperties = {
     ...slideStyles,
     backgroundImage: `url(${slides[currentIndex].url})`,

@@ -5,14 +5,16 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer/Footer";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Carousel from "../../components/Carousel/Carousel";
+import Verified from "../../components/Cards/Verified";
 
 const Home = () => {
   return (
-    <div style={{ flex: "1" }}>
+    <div className="flex flex-col min-h-screen">
       <Header />
       <DefaultLayout>
         <Slides />
         <Categories />
+        <Verified />
         <Cards />
         <Carousel />
       </DefaultLayout>

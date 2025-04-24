@@ -25,7 +25,7 @@ const RegisterForm = () => {
       className="flex flex-col gap-4 mt-10"
       onSubmit={(e) => handleSubmit(e)}
     >
-      <Input label="First Name" name="text" value={name} onChange={setName} />
+      <Input label="Name" name="text" value={name} onChange={setName} />
       <Input
         label="Email address"
         name="email"

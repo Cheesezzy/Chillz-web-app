@@ -3,7 +3,7 @@
 }
 
 .footer {
-  background-color: #445b60;
+  background-color: #1a535c;
   color: #fff;
   width: 100%;
 }
@@ -60,7 +60,7 @@
 }
 .footer-call-to-action-button:hover {
   background-color: #fffff2;
-  color: black;
+  color: rgb(0, 0, 0);
 }
 .button:last-of-type {
   margin-right: 0;
@@ -127,7 +127,7 @@
 }
 
 .footer-social-amoeba-path {
-  fill: #191818;
+  fill: black;
 }
 
 .footer-social-link.linkedin {

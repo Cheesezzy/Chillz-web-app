@@ -1,73 +1,31 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../../lib/firebase/components/AuthProvider";
+import { useEventData } from "../../hooks/useEventData"; // Import the custom hook
+import Header from "../Header";
 import {
   Calendar,
   Clock,
   MapPin,
   Users,
-  Share2,
   Heart,
   MessageCircle,
 } from "lucide-react";
-import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../lib/firebase";
-import Header from "../Header";
+import { useState } from "react";
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  category: string;
-  image?: string;
-}
+import { UserImg } from "../UserImg";
+import Share from "../Button/ShareBtn";
 
 export default function Free() {
-  const [interested, setInterested] = useState(false);
   const { id } = useParams<{ id: string }>();
-  const [event, setEvent] = useState<Event | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+  const [showAllPosts, setShowAllPosts] = useState(false);
 
-  const eventData = {
-    organizer: "Tech Innovators Alliance",
-    attendees: 0,
-  };
-
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        setLoading(true);
-        const docRef = doc(db, "events", id!); // Fetch the event by ID
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          const data = docSnap.data();
-          setEvent({
-            id: docSnap.id,
-            title: data.title || "",
-            description: data.description || "",
-            date: data.date || "",
-            startTime: data.startTime || "",
-            endTime: data.endTime || "",
-            location: data.location || "",
-            category: data.category || "",
-            image: data.imageUrl || "/event-img.jpeg",
-          });
-        } else {
-          console.log("No such event!");
-        }
-      } catch (error) {
-        console.error("Error fetching event:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvent();
-  }, [id]);
+  const { event, interested, loading, toggleInterest, addPost } = useEventData(
+    id,
+    user?.email
+  );
+  const [newPost, setNewPost] = useState<string>("");
 
   if (loading) {
     return <p>Loading event details...</p>;
@@ -77,16 +35,20 @@ export default function Free() {
     return <p>Event not found.</p>;
   }
 
-  const handleInterestToggle = () => {
-    setInterested(!interested);
+  const handlePostSubmit = async () => {
+    if (!isAuthenticated) {
+      navigate("/login", { state: { from: `/event/${id}` } });
+      return;
+    }
+
+    if (!newPost.trim()) {
+      alert("Post cannot be empty.");
+      return;
+    }
+
+    await addPost(newPost);
+    setNewPost(""); // Clear the input field
   };
-  // if unauthenticated and clicks on i'm interested or post , redirect to login page include a time stamp
-
-  // if authenticated and clicked on i'm interested, update attendees count +1, if unclicked, -1.
-  // if clicked on i'm interested, get auth users email and attach the count to the event details id and save to firestore
-  // if unclicked on i'm interested, remove the count data from the event details id and update firestore
-
-  // same with post
 
   return (
     <>
@@ -96,7 +58,7 @@ export default function Free() {
         {/* Hero Image */}
         <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-6">
           <img
-            src={event.image}
+            src={event.imageUrl || "/default-image.jpg"}
             alt={event.title}
             className="w-full h-full object-cover"
           />
@@ -120,7 +82,16 @@ export default function Free() {
             </div>
             <div className="flex items-center">
               <MapPin className="w-5 h-5 mr-2" />
-              <span>{event.location}</span>
+              <a
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  event.location
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className=" hover:underline"
+              >
+                {event.location}
+              </a>
             </div>
           </div>
         </div>
@@ -128,7 +99,13 @@ export default function Free() {
         {/* Action Buttons */}
         <div className="flex flex-wrap gap-4 mb-8">
           <button
-            onClick={handleInterestToggle}
+            onClick={() => {
+              if (!isAuthenticated) {
+                navigate("/login", { state: { from: `/event/${id}` } });
+                return;
+              }
+              toggleInterest();
+            }}
             className={`px-6 py-3 rounded-lg font-medium flex items-center justify-center transition-colors ${
               interested
                 ? "bg-pink-100 text-pink-600 border border-pink-200"
@@ -141,10 +118,7 @@ export default function Free() {
             {interested ? "Interested" : "I'm Interested"}
           </button>
 
-          <button className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium flex items-center justify-center hover:bg-gray-200 transition-colors border border-gray-200">
-            <Share2 className="w-5 h-5 mr-2" />
-            Share
-          </button>
+          <Share event={event} />
         </div>
 
         <div className="mb-8">
@@ -155,15 +129,17 @@ export default function Free() {
 
               <div className="flex items-center text-gray-600 mb-6">
                 <Users className="w-5 h-5 mr-2" />
-                <span>{eventData.attendees} people going</span>
+                <span>{event.interestedUsers?.length || 0} people going</span>
               </div>
 
               <div className="mb-6">
                 <h3 className="font-semibold mb-2">Organized By</h3>
                 <div className="flex items-center">
-                  <div className="w-10 h-10 bg-gray-300 rounded-full mr-3"></div>
+                  <div className="w-10 h-10 overflow-hidden rounded-full mr-3">
+                    <UserImg />
+                  </div>
                   <div>
-                    <p className="font-medium">{eventData.organizer}</p>
+                    <p className="font-medium">{event.organizer}</p>
                     <p className="text-sm text-gray-500">Event Organizer</p>
                   </div>
                 </div>
@@ -173,26 +149,74 @@ export default function Free() {
         </div>
 
         {/* Discussion Section */}
-        <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
-          <h2 className="text-xl font-semibold mb-4 flex items-center">
-            <MessageCircle className="w-5 h-5 mr-2" />
-            Discussion
-          </h2>
+        {isAuthenticated && (
+          <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+            <h2 className="text-xl font-semibold mb-4 flex items-center">
+              <MessageCircle className="w-5 h-5 mr-2" />
+              Discussion
+            </h2>
 
-          <div className="mb-4">
-            <textarea
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
-              placeholder="Ask a question about this event..."
-              rows={3}
-            ></textarea>
-          </div>
+            <div className="mb-4">
+              <textarea
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+                placeholder="Ask a question about this event..."
+                rows={3}
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
+              ></textarea>
+            </div>
 
-          <div className="flex justify-end">
-            <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors">
-              Post
-            </button>
+            <div className="flex justify-end">
+              <button
+                onClick={handlePostSubmit}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+              >
+                Post
+              </button>
+            </div>
+            <div className="mt-6">
+              {event.posts.length === 0 ? (
+                <div className="text-center py-10 bg-gray-50 rounded-lg">
+                  <p className="text-gray-500">
+                    No comments yet. Start the conversation!
+                  </p>
+                </div>
+              ) : (
+                <>
+                  {event.posts
+                    .slice(0, showAllPosts ? event.posts.length : 2)
+                    .map((post, index) => (
+                      <div key={index} className="mb-4">
+                        <div className="flex-grow">
+                          <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                            <div className="flex justify-between items-start mb-2">
+                              <p className="font-medium text-gray-800">
+                                {post.user.split("@")[0].replace(/[._]/g, " ")}
+                              </p>
+                              <span className="text-xs text-gray-400">
+                                {post.timestamp}
+                              </span>
+                            </div>
+                            <p className="text-gray-600">{post.message}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  {event.posts.length > 2 && (
+                    <div className="text-center mt-4">
+                      <button
+                        onClick={() => setShowAllPosts(!showAllPosts)}
+                        className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+                      >
+                        {showAllPosts ? "Show Less" : "Show More"}
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

@@ -1,12 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import chillzlogo from "/chillz.png";
-import { DesktopHeaderProps, NavigationType } from "./types";
+import { DesktopHeaderProps } from "./types";
 import MenuIcon from "./MenuIcon";
 import search from "/search.svg";
 // import { navigation } from "./helper";
 import SignIn from "./SignIn";
 import { RoutesEnum } from "../../routes";
 import "./App.css";
+import { LanguageToggle } from "../../Global/LanguageToggle";
 
 function DesktopHeader({
   setMobileMenuOpen,
@@ -29,7 +30,7 @@ function DesktopHeader({
       <Link to={RoutesEnum.Home}>
         <img src={chillzlogo} className="logo" alt="Chillz logo" />
       </Link>
-      <div className="search">
+      <div className="search bg-white">
         <div className="icon-sec ">
           <img src={search} alt="search" className="search-img" />
           <input
@@ -38,7 +39,7 @@ function DesktopHeader({
             placeholder="Search for Events"
           />
         </div>
-        <input className="nav-input loc" type="text" placeholder="Location" />
+        {/* <input className="nav-input loc" type="text" placeholder="Location" /> */}
         <img src={search} alt="search" className="ser" />
       </div>
       <div className="block 2xl:hidden">
@@ -76,6 +77,7 @@ function DesktopHeader({
         >
           Tickets
         </button>
+        <LanguageToggle />
       </div>
       {/* login */}
       <div className="hidden 2xl:flex 2xl:justify-end 2xl:gap-4">

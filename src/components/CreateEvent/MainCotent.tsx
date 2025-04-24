@@ -4,25 +4,13 @@ import { auth, db } from "../../lib/firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
-
-type EventCategory =
-  | "Music Concert"
-  | "Night Life and Party"
-  | "Karaoke"
-  | "Sports"
-  | "Gym"
-  | "Business"
-  | "Food and Drinks"
-  | "Gaming"
-  | "Hangout"
-  | "Conference"
-  | "Art"
-  | "Charity"
-  | "Music";
+import { EventCategory } from "./types";
+import { MapPin } from "lucide-react";
 
 interface EventFormData {
   title: string;
   description: string;
+  organizer: string;
   category: EventCategory;
   date: string;
   startTime: string;
@@ -31,10 +19,12 @@ interface EventFormData {
   imageUrl: File | null;
   ticketPrice: string;
   maxAttendees: string;
+  interestedUsers: number[];
+  posts: { user: string; message: string; timestamp: string }[];
 }
 
 const MainContent = () => {
-  const [user, loading, error] = useAuthState(auth); // Get the user from Firebase Auth
+  const [user] = useAuthState(auth); // Get the user from Firebase Auth
   const navigate = useNavigate();
 
   const categories: EventCategory[] = [
@@ -56,6 +46,7 @@ const MainContent = () => {
   const initialFormData: EventFormData = {
     title: "",
     description: "",
+    organizer: "",
     category: "Hangout",
     date: "",
     startTime: "",
@@ -64,13 +55,14 @@ const MainContent = () => {
     imageUrl: null,
     ticketPrice: "",
     maxAttendees: "",
+    interestedUsers: [],
+    posts: [],
   };
 
   const [formData, setFormData] = useState<EventFormData>(initialFormData);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string>("");
-  // const [imageUpload, setImageUpload] = useState<File | null>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -130,6 +122,7 @@ const MainContent = () => {
         title: formData.title,
         description: formData.description,
         category: formData.category,
+        organizer: formData.organizer,
         date: formData.date,
         startTime: formData.startTime,
         endTime: formData.endTime,
@@ -139,6 +132,8 @@ const MainContent = () => {
         maxAttendees: formData.maxAttendees,
         createdBy: user?.uid || "anonymous",
         createdAt: new Date().toISOString(),
+        interest: 0,
+        posts: [],
       });
 
       setSubmitSuccess(true);
@@ -159,7 +154,7 @@ const MainContent = () => {
       <div className="min-h-screen py-8">
         <div className="max-w-3xl mx-auto px-4">
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <div className="bg-gradient-to-r from-customCyan to-customCyan p-6">
+            <div className="bg-gradient-to-r from-teal-900 to-teal-600 p-6">
               <h1 className="text-white text-2xl sm:text-3xl font-bold">
                 Create New Event
               </h1>
@@ -222,6 +217,23 @@ const MainContent = () => {
                     required
                     rows={4}
                     value={formData.description}
+                    onChange={handleInputChange}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                </div>
+                <div className="col-span-2">
+                  <label
+                    htmlFor="title"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Organized By <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="organizer"
+                    name="organizer"
+                    required
+                    value={formData.organizer}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   />
@@ -308,8 +320,9 @@ const MainContent = () => {
                 <div className="col-span-2">
                   <label
                     htmlFor="location"
-                    className="block text-sm font-medium text-gray-700"
+                    className="flex text-sm font-medium text-gray-700"
                   >
+                    <MapPin className="w-5 h-5 mr-2" />
                     Location <span className="text-red-400">*</span>
                   </label>
                   <input
@@ -390,7 +403,7 @@ const MainContent = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-customRed py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  className="bg-[#FF6B6B] py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
                   {isSubmitting ? "Creating..." : "Create Event"}
                 </button>
@@ -404,6 +417,3 @@ const MainContent = () => {
 };
 
 export default MainContent;
-function v4() {
-  throw new Error("Function not implemented.");
-}

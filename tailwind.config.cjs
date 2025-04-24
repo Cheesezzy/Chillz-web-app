@@ -4,9 +4,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        customRed: "#ff5757",
-        customDark: "#191818",
-        customCyan: "#445b60",
+        primary: "#FF6B6B",
+        secondary: "#FFD93D",
+        accent: "#4ECDC4",
+        background: "#F7FFF7",
+        text: "#1A535C",
       },
     },
   },

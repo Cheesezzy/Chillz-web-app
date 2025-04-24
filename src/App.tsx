@@ -1,5 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { RoutesEnum } from "./routes";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { RoutesEnum, RoutesEnumMN } from "./routes";
 import React from "react";
 const Home = React.lazy(() => import("./pages/Hero"));
 const Login = React.lazy(() => import("./pages/Login"));
@@ -15,15 +20,20 @@ const HelpCenter = React.lazy(() => import("./pages/HelpCenter"));
 const CreateAnEvent = React.lazy(() => import("./pages/Event/CreateEvent"));
 const UserDashboard = React.lazy(() => import("./pages/UserDashboard"));
 const EventDetails = React.lazy(() => import("./pages/Event/EventDetails"));
+const CategoryPage = React.lazy(() => import("./pages/Categories"));
 
 const App = () => {
   return (
     <>
       <Routes>
+        {/* English Routes */}
+        <Route path="/" element={<Navigate to={RoutesEnum.Home} replace />} />
+
         <Route path={RoutesEnum.Login} element={<Login />} />
         <Route path={RoutesEnum.Home} element={<Home />} />
         <Route path={RoutesEnum.Register} element={<Register />} />
         <Route path={RoutesEnum.ForgotPassword} element={<ForgotPassword />} />
+        <Route path={RoutesEnum.CategoryPage} element={<CategoryPage />} />
         <Route
           path={RoutesEnum.Account}
           element={
@@ -60,6 +70,49 @@ const App = () => {
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.EventDetails} element={<EventDetails />} />
 
+        {/* Mn Routes */}
+        <Route path={RoutesEnumMN.Login} element={<Login />} />
+        <Route path={RoutesEnumMN.Home} element={<Home />} />
+        <Route path={RoutesEnumMN.Register} element={<Register />} />
+        <Route
+          path={RoutesEnumMN.ForgotPassword}
+          element={<ForgotPassword />}
+        />
+        <Route
+          path={RoutesEnumMN.Account}
+          element={
+            <RequireUser>
+              <Account />
+            </RequireUser>
+          }
+        />
+        <Route
+          path={RoutesEnumMN.Tickets}
+          element={
+            <RequireUser>
+              <Tickets />
+            </RequireUser>
+          }
+        />
+        <Route
+          path={RoutesEnumMN.CreateAnEvent}
+          element={
+            <RequireUser>
+              <CreateAnEvent />
+            </RequireUser>
+          }
+        />
+        <Route
+          path={RoutesEnumMN.UserDashboard}
+          element={
+            <RequireUser>
+              <UserDashboard />
+            </RequireUser>
+          }
+        />
+        <Route path={RoutesEnumMN.EventFeeds} element={<EventFeeds />} />
+        <Route path={RoutesEnumMN.HelpCenter} element={<HelpCenter />} />
+        <Route path={RoutesEnumMN.EventDetails} element={<EventDetails />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </>

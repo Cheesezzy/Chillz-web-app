@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 
 interface Event {
@@ -10,13 +10,13 @@ interface Event {
   endTime: string;
   location: string;
   category: string;
-  image?: string;
+  image?: string | null;
 }
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
     <Link
-      to={`/event/${event.id}`}
+      to={`/en/event/${event.id}`}
       className="bg-white rounded-lg shadow-md overflow-hidden mb-4"
     >
       <div className="h-48 overflow-hidden">
@@ -31,7 +31,9 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
         <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-600 bg-red-100 mb-2">
           {event.category}
         </span>
-        <h3 className="text-lg font-semibold mb-2">{event.title}</h3>
+        <h3 className="text-lg text-gray-800 font-semibold mb-2">
+          {event.title}
+        </h3>
         <p className="text-gray-600 mb-3">{event.description}</p>
         <div className="flex items-center text-sm text-gray-500 mb-2">
           <svg

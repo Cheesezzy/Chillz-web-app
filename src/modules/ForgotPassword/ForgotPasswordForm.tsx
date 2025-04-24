@@ -8,6 +8,7 @@ const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
+  // not working yet
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-28">
       <form

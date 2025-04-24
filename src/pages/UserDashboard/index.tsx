@@ -9,6 +9,7 @@ import StatCard from "../../components/UserDashboard/StatCard";
 import PersonalEventList from "../../components/UserDashboard/PersonalEventList";
 import AttendingEventList from "../../components/UserDashboard/AttendingEventList";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { LanguageToggle } from "../../Global/LanguageToggle";
 
 interface Event {
   id: string;
@@ -16,12 +17,14 @@ interface Event {
   date: string;
   location: string;
   attendees: number;
+  organizer: string;
 }
 // Main Personal Dashboard Component
 const UserDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [user, loading] = useAuthState(auth);
   const [events, setEvents] = useState<Event[]>([]); // State to store events
+  const [eventsAttending, setEventsAttending] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -42,7 +45,8 @@ const UserDashboard: React.FC = () => {
           title: doc.data().title,
           date: doc.data().date,
           location: doc.data().location,
-          attendees: doc.data(doc.data().maxAttendees).attendees || 0, // Default to 0 if attendees is not set
+          attendees: doc.data().interestedUsers.length || 0, // Default to 0 if attendees is not set
+          organizer: doc.data().organizer,
         }));
 
         setEvents(userEvents); // Update the state with the fetched events
@@ -56,6 +60,42 @@ const UserDashboard: React.FC = () => {
     fetchEvents();
   }, [user?.uid]);
 
+  useEffect(() => {
+    if (user?.uid) {
+      fetchAttendingEvents();
+    }
+  }, [user?.uid]);
+
+  const fetchAttendingEvents = async () => {
+    if (!user?.uid) return;
+
+    try {
+      setIsLoading(true);
+
+      const eventsRef = collection(db, "events");
+      const q = query(
+        eventsRef,
+        where("interestedUsers", "array-contains", user.email)
+      );
+      const querySnapshot = await getDocs(q);
+
+      const attendingEvents = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.data().title,
+        date: doc.data().date,
+        location: doc.data().location,
+        attendees: doc.data().attendees || 0, // Default to 0 if attendees is not set
+        organizer: doc.data().organizer,
+      }));
+
+      setEventsAttending(attendingEvents);
+    } catch (error) {
+      console.error("Error fetching attending events:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (loading || isLoading) {
     return (
       <div className="loading-container">
@@ -63,33 +103,6 @@ const UserDashboard: React.FC = () => {
       </div>
     );
   }
-
-  const eventsAttending = [
-    {
-      id: 4,
-      title: "Tech Conference 2025",
-      date: "2025-04-15",
-      location: "San Francisco",
-      organizer: "Tech Events Inc.",
-      role: "Attendee",
-    },
-    {
-      id: 5,
-      title: "Department Lunch",
-      date: "2025-04-08",
-      location: "Bistro Garden",
-      organizer: "HR Team",
-      role: "Attendee",
-    },
-    {
-      id: 6,
-      title: "Quarterly Review",
-      date: "2025-04-22",
-      location: "Meeting Room 3",
-      organizer: "Management",
-      role: "Attendee",
-    },
-  ];
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -99,9 +112,7 @@ const UserDashboard: React.FC = () => {
           <Link to={RoutesEnum.Home}>
             <img src={chillzlogo} className="logo" alt="Chillz logo" />
           </Link>
-          {/* <h1 className="text-xl font-semibold text-gray-900">
-            My Event Dashboard
-          </h1> */}
+          <LanguageToggle />
           <div className="flex items-center">
             <div className="relative group">
               <SignIn />
@@ -148,7 +159,7 @@ const UserDashboard: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Welcome Section */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-3xl font-medium text-gray-900">
+          <h2 className="text-2xl font-medium text-gray-900">
             <b>Welcome back,</b>{" "}
             <span className="text-4xl  ml-2">
               <b>{user?.email}</b>
@@ -160,18 +171,18 @@ const UserDashboard: React.FC = () => {
         </div>
 
         {/* Stats Section */}
-        {/* <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-6">
           <StatCard
             title="My Events"
-            value={stats.myEvents}
+            value={events.length}
             color="bg-red-500"
           />
           <StatCard
             title="Events Attending"
-            value={stats.attending}
+            value={eventsAttending.length}
             color="bg-blue-500"
           />
-        </div> */}
+        </div>
 
         {/* Tabs */}
         <div className="bg-white shadow rounded-lg mb-6">
@@ -193,7 +204,7 @@ const UserDashboard: React.FC = () => {
                         View all
                       </button>
                     </div>
-                    <PersonalEventList events={events} />
+                    <PersonalEventList events={events.slice(0, 3)} />
                   </div>
 
                   {/* Events I'm Attending */}
@@ -209,7 +220,7 @@ const UserDashboard: React.FC = () => {
                         View all
                       </button>
                     </div>
-                    <AttendingEventList events={eventsAttending.slice(0, 2)} />
+                    <AttendingEventList events={eventsAttending.slice(0, 3)} />
                   </div>
                 </div>
               </div>
@@ -238,9 +249,12 @@ const UserDashboard: React.FC = () => {
                   <h2 className="text-lg font-medium text-gray-900">
                     Events I'm Attending
                   </h2>
-                  <button className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">
+                  <Link
+                    to={RoutesEnum.EventFeeds}
+                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
+                  >
                     Find More Events
-                  </button>
+                  </Link>
                 </div>
                 <AttendingEventList events={eventsAttending} />
               </div>

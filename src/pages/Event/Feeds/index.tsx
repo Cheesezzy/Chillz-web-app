@@ -1,62 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Header from "../../../components/Header";
-import { db } from "../../../lib/firebase";
-import { collection, getDocs } from "firebase/firestore";
-import EventCard from "../../../components/CreateEvent/Feeds/EventCard";
+import React, { useState } from "react";
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  category: string;
-  image?: string;
-}
+import EventCard from "../../../components/CreateEvent/Feeds/EventCard";
+import { Link } from "react-router-dom";
+import { RoutesEnum } from "../../../routes";
+import SignIn from "../../../components/Header/SignIn";
+import chillzlogo from "/chillz.png";
+import { useAllEventsData } from "../../../hooks/useAllEventsData";
+
 const EventsPage: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [events, setEvents] = useState<Event[]>([]);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        setLoading(true);
-
-        // Query Firestore for all events
-        const eventsRef = collection(db, "events");
-        const querySnapshot = await getDocs(eventsRef);
-
-        // Map the Firestore documents to an array of events
-        const allEvents: Event[] = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title || "",
-            description: data.description || "",
-            date: data.date || "",
-            startTime: data.startTime || "",
-            endTime: data.endTime || "",
-            location: data.location || "",
-            category: data.category || "",
-            image: data.imageUrl || undefined,
-          } as Event;
-        });
-        setEvents(allEvents); // Update the state with the fetched events
-      } catch (error) {
-        console.error("Error fetching events:", error);
-        setError("Failed to load events. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEvents();
-  }, []);
+  const { events, loading } = useAllEventsData();
 
   // Filter events based on category and search term
   const filteredEvents = events.filter((event) => {
@@ -72,9 +27,14 @@ const EventsPage: React.FC = () => {
   const categories = ["all", ...new Set(events.map((event) => event.category))];
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <Header />
-      <div className="container mx-auto px-4 py-8 mt-20">
+    <div className="bg-[#f4f4f9] min-h-screen">
+      <header className="bg-[#f7fff7] p-2 px-4 shadow-md flex items-center justify-between">
+        <Link to={RoutesEnum.Home}>
+          <img src={chillzlogo} className="logo" alt="Chillz logo" />
+        </Link>
+        <SignIn />
+      </header>
+      <div className="container mx-auto px-4 py-8">
         {/* Search and filter section */}
         <div className="bg-white rounded-lg shadow-md p-4 mb-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -146,6 +106,22 @@ const EventsPage: React.FC = () => {
           </div>
         )}
       </div>
+      <footer className="bg-black text-white w-full mt-auto">
+        <div className="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+          <div className="md:flex items-center md:justify-between">
+            <div className="mb-6 md:mb-0">
+              <p className="mt-1 text-sm text-gray-300">
+                © 2025 Chillz. All rights reserved.
+              </p>
+            </div>
+            <div className="flex flex-col space-y-2">
+              <a href="#" className="text-gray-300 hover:text-white text-sm">
+                Contact Us
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

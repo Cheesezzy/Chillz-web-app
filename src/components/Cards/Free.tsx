@@ -2,7 +2,6 @@ import eventImg from "/event-img.jpeg";
 import clock from "/clock.png";
 import map from "/location.png";
 import dates from "/calendar.png";
-import badge from "/badge.png";
 import "./Cards.css";
 const Free = () => {
   return (

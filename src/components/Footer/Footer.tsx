@@ -1,5 +1,4 @@
 import "./Footer.css";
-import chillzLogo from "/chillz.png";
 import playstore from "/play-store.png";
 import appstore from "/app-store.png";
 export default function Footer() {
@@ -147,9 +146,9 @@ export default function Footer() {
             </a>
           </div>
         </div>
-        <footer className="bg-customDark text-white relative bottom-0 left-0 w-full">
+        <footer className="bg-black text-white relative bottom-0 left-0 w-full">
           <div className="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div className="md:flex md:justify-between">
+            <div className="md:flex items-center md:justify-between">
               <div className="mb-6 md:mb-0">
                 <p className="mt-1 text-sm text-gray-300">
                   © 2025 Chillz. All rights reserved.
