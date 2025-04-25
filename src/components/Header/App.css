@@ -136,4 +136,7 @@ body {
   .auth {
     width: fit-content;
   }
+  .ser {
+    display: none;
+  }
 }

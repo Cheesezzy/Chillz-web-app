@@ -3,7 +3,6 @@ import chillzlogo from "/chillz.png";
 import { DesktopHeaderProps } from "./types";
 import MenuIcon from "./MenuIcon";
 import search from "/search.svg";
-// import { navigation } from "./helper";
 import SignIn from "./SignIn";
 import { RoutesEnum } from "../../routes";
 import "./App.css";
@@ -31,15 +30,14 @@ function DesktopHeader({
         <img src={chillzlogo} className="logo" alt="Chillz logo" />
       </Link>
       <div className="search bg-white">
-        <div className="icon-sec ">
+        <Link to={RoutesEnum.EventFeeds} className="icon-sec ">
           <img src={search} alt="search" className="search-img" />
           <input
             className="nav-input"
             type="text"
             placeholder="Search for Events"
           />
-        </div>
-        {/* <input className="nav-input loc" type="text" placeholder="Location" /> */}
+        </Link>
         <img src={search} alt="search" className="ser" />
       </div>
       <div className="block 2xl:hidden">

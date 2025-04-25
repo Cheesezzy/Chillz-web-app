@@ -9,7 +9,7 @@ export const LanguageToggle = () => {
 
   // Determine current language from URL on component mount
   useEffect(() => {
-    const pathParts = location.pathname.split("/");
+    const pathParts = location.pathname.split("/en/");
     const langPrefix = pathParts[1];
     setIsEnglish(langPrefix !== "mn");
   }, [location.pathname]);
@@ -35,7 +35,7 @@ export const LanguageToggle = () => {
   };
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className="flex items-center justify-center space-x-2">
       <div className="flex items-center">
         <img
           src={isEnglish ? "/uk-flag.png" : "/mn-flag.png"}
