@@ -1,16 +1,16 @@
 // English Routes
 export enum RoutesEnum {
-  Login = "/en/login",
-  Register = "/en/register",
+  Login = "/login",
+  Register = "/register",
   Home = "/",
-  ForgotPassword = "/en/forgot-password",
-  Account = "/en/account",
-  Tickets = "/en/tickets",
-  EventFeeds = "/en/event-feeds",
-  HelpCenter = "/en/help-center",
-  CreateAnEvent = "/en/create-event",
-  UserDashboard = "/en/dashboard",
-  EventDetails = "/en/event/:id",
+  ForgotPassword = "/forgot-password",
+  Account = "/account",
+  Tickets = "/tickets",
+  EventFeeds = "/event-feeds",
+  HelpCenter = "/help-center",
+  CreateAnEvent = "/create-event",
+  UserDashboard = "/dashboard",
+  EventDetails = "/event/:id",
   CategoryPage = "/events",
 }
 

@@ -17,6 +17,8 @@ export const registerUser = async (
   email: string,
   password: string,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>,
+  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction
 ) => {
   try {
@@ -31,9 +33,10 @@ export const registerUser = async (
     // console.log(results);
     // Send an email verification to the users email
     await sendEmailVerification(results);
-    alert(
+    setAlertMessage(
       `A verification email has been sent to your email address ${name}!. Please verify your email to login.`
     );
+    setIsAlertModalOpen(true);
   } catch (error) {
     if (error instanceof FirebaseError) {
       generateFirebaseAuthErrorMessage(error);
@@ -48,7 +51,9 @@ export const registerUser = async (
 export const loginUserWithEmailAndPassword = async (
   email: string,
   password: string,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>,
+  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     // console.log(email, password);
@@ -60,7 +65,8 @@ export const loginUserWithEmailAndPassword = async (
     );
     const results = userCredential.user;
     if (results.emailVerified === false) {
-      alert("Please verify your email to login.");
+      setAlertMessage("Please verify your email to login.");
+      setIsAlertModalOpen(true);
       return;
     }
     navigate(RoutesEnum.Home);
@@ -76,7 +82,9 @@ export const updateUserEmail = async (
   email: string,
   newEmail: string,
   password: string,
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>,
+  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   try {
     if (auth.currentUser === null) return;
@@ -91,9 +99,10 @@ export const updateUserEmail = async (
 
     // Send email verification to the new email
     await sendEmailVerification(auth.currentUser);
-    alert(
+    setAlertMessage(
       `A verification email has been sent to your new email address ${newEmail}!. Please verify your email to login.`
     );
+    setIsAlertModalOpen(true);
   } catch (error) {
     if (error instanceof FirebaseError) {
       generateFirebaseAuthErrorMessage(error);
