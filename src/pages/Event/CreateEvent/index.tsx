@@ -4,7 +4,7 @@ import Sidebar from "../../../components/CreateEvent/Sidebar";
 import MainCotent from "../../../components/CreateEvent/MainCotent";
 
 const CreateEvent = () => {
-  const [user, loading, error] = useAuthState(auth); // Get the user from Firebase Auth
+  const [loading] = useAuthState(auth); // Get the user from Firebase Auth
 
   if (loading) {
     return (

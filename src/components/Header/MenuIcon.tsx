@@ -1,6 +1,5 @@
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import React, { useEffect } from "react";
 import { MenuIconsProps } from "./types";
 
 function MenuIcon({

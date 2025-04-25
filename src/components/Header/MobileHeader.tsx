@@ -1,4 +1,4 @@
-import { MobileHeaderProps, NavigationType } from "./types";
+import { MobileHeaderProps } from "./types";
 import { Link, useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import chillzlogo from "/chillz.png";
