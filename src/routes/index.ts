@@ -2,7 +2,7 @@
 export enum RoutesEnum {
   Login = "/en/login",
   Register = "/en/register",
-  Home = "/en/home",
+  Home = "/",
   ForgotPassword = "/en/forgot-password",
   Account = "/en/account",
   Tickets = "/en/tickets",
@@ -17,7 +17,7 @@ export enum RoutesEnum {
 export enum RoutesEnumMN {
   Login = "/mn/login",
   Register = "/mn/register",
-  Home = "/mn/home",
+  Home = "/mn/",
   ForgotPassword = "/mn/forgot-password",
   Account = "/mn/account",
   Tickets = "/mn/tickets",

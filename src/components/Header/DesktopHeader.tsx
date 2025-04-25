@@ -6,7 +6,6 @@ import search from "/search.svg";
 import SignIn from "./SignIn";
 import { RoutesEnum } from "../../routes";
 import "./App.css";
-import { LanguageToggle } from "../../Global/LanguageToggle";
 
 function DesktopHeader({
   setMobileMenuOpen,
@@ -75,7 +74,7 @@ function DesktopHeader({
         >
           Tickets
         </button>
-        <LanguageToggle />
+        {/* <LanguageToggle /> */}
       </div>
       {/* login */}
       <div className="hidden 2xl:flex 2xl:justify-end 2xl:gap-4">

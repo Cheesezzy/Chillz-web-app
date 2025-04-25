@@ -8,6 +8,8 @@ import {
   InstagramIcon,
 } from "lucide-react";
 import chillzlogo from "/chillz.png";
+import { RoutesEnum } from "../../routes";
+import { Link } from "react-router-dom";
 
 // CountdownTimer component for the coming soon page
 const CountdownTimer: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
@@ -48,11 +50,9 @@ const CountdownTimer: React.FC<{ targetDate: Date }> = ({ targetDate }) => {
       {timeUnits.map((unit, index) => (
         <div key={index} className="flex flex-col items-center">
           <div className="bg-white bg-opacity-20 rounded-lg w-16 h-16 md:w-24 md:h-24 flex items-center justify-center">
-            <span className="text-2xl md:text-4xl font-bold text-white">
-              {unit.value}
-            </span>
+            <span className="text-2xl md:text-4xl font-bold">{unit.value}</span>
           </div>
-          <span className="mt-2 text-sm text-white">{unit.label}</span>
+          <span className="mt text-white">{unit.label}</span>
         </div>
       ))}
     </div>
@@ -82,14 +82,14 @@ const ComingSoon: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-800 to-red-700 text-white">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-800 to-red-700">
       {/* Header with logo */}
       <header className="py-6 px-4">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold">
+          <Link to={RoutesEnum.Home} className="text-2xl font-bold">
             <img src={chillzlogo} className="w-28" alt="Chillz-logo" />
-          </div>
-          <a href="/" className="text-white hover:text-indigo-200 transition">
+          </Link>
+          <a href="/" className="text-white hover:text-gray-800 transition">
             Back to Home
           </a>
         </div>
@@ -98,15 +98,17 @@ const ComingSoon: React.FC = () => {
       {/* Main content */}
       <main className="flex-grow flex flex-col items-center justify-center px-4 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">Coming Soon</h1>
-          <p className="text-xl md:text-2xl mb-8">
+          <h1 className="text-4xl md:text-6xl text-white font-bold mb-6">
+            Coming Soon
+          </h1>
+          <p className="text-xl text-white md:text-2xl mb-8">
             We're working hard to bring you the best event management
             experience. Stay tuned!
           </p>
 
           {/* Countdown timer */}
           <div className="mb-12">
-            <h2 className="text-xl mb-6 flex items-center justify-center">
+            <h2 className="text-xl text-white mb-6 flex items-center justify-center">
               <Clock className="mr-2" size={24} />
               Launching In
             </h2>
@@ -131,12 +133,12 @@ const ComingSoon: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-white bg-opacity-20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white"
+                  className="w-full pl-10 pr-4 py-3 rounded-lg bg-white bg-opacity-20 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white"
                 />
               </div>
               <button
                 type="submit"
-                className="bg-gray-500 hover:bg-gray-600 text-white rounded-lg px-6 py-3 flex items-center justify-center transition-colors"
+                className="bg-gray-500 hover:bg-gray-600 rounded-lg px-6 py-3 flex items-center justify-center transition-colors"
               >
                 Notify Me
                 <ArrowRight className="ml-2" size={18} />
@@ -152,29 +154,20 @@ const ComingSoon: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 px-4">
+      <footer className="py-8 text-white px-4">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="mb-4 md:mb-0">
               © 2025 EventMaster. All rights reserved.
             </p>
             <div className="flex space-x-6">
-              <a
-                href="#"
-                className="text-white hover:text-indigo-200 transition"
-              >
+              <a href="#" className=" hover:text-indigo-200 transition">
                 <TwitterIcon size={20} />
               </a>
-              <a
-                href="#"
-                className="text-white hover:text-indigo-200 transition"
-              >
+              <a href="#" className=" hover:text-indigo-200 transition">
                 <InstagramIcon size={20} />
               </a>
-              <a
-                href="#"
-                className="text-white hover:text-indigo-200 transition"
-              >
+              <a href="#" className=" hover:text-indigo-200 transition">
                 <GithubIcon size={20} />
               </a>
             </div>

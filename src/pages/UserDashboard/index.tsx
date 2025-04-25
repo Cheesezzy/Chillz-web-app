@@ -9,7 +9,6 @@ import StatCard from "../../components/UserDashboard/StatCard";
 import PersonalEventList from "../../components/UserDashboard/PersonalEventList";
 import AttendingEventList from "../../components/UserDashboard/AttendingEventList";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { LanguageToggle } from "../../Global/LanguageToggle";
 
 interface Event {
   id: string;
@@ -112,7 +111,7 @@ const UserDashboard: React.FC = () => {
           <Link to={RoutesEnum.Home}>
             <img src={chillzlogo} className="logo" alt="Chillz logo" />
           </Link>
-          <LanguageToggle />
+          {/* <LanguageToggle /> */}
           <div className="flex items-center">
             <div className="relative group">
               <SignIn />

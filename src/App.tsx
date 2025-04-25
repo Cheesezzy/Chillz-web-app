@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { RoutesEnum, RoutesEnumMN } from "./routes";
 import React from "react";
 const Home = React.lazy(() => import("./pages/Hero"));
@@ -27,7 +22,6 @@ const App = () => {
     <>
       <Routes>
         {/* English Routes */}
-        <Route path="/" element={<Navigate to={RoutesEnum.Home} replace />} />
 
         <Route path={RoutesEnum.Login} element={<Login />} />
         <Route path={RoutesEnum.Home} element={<Home />} />

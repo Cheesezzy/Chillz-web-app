@@ -5,7 +5,6 @@ import chillzlogo from "/chillz.png";
 import SignIn from "./SignIn";
 import search from "/search.svg";
 import "./App.css";
-import { LanguageToggle } from "../../Global/LanguageToggle";
 
 function MobileHeader({
   mobileMenuOpen,
@@ -77,7 +76,7 @@ function MobileHeader({
                   Tickets
                 </button>
               </div>
-              <LanguageToggle />
+              {/* <LanguageToggle /> */}
               <div className="space-y-2 py-6 rev">
                 <SignIn setMobileMenuOpen={setMobileMenuOpen} />
               </div>

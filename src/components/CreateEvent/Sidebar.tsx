@@ -4,7 +4,6 @@ import chillzlogo from "/chillz.png";
 import SignIn from "../Header/SignIn";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase";
-import { LanguageToggle } from "../../Global/LanguageToggle";
 
 const Sidebar = () => {
   const [user] = useAuthState(auth); // Get the user from Firebase Auth
@@ -42,7 +41,7 @@ const Sidebar = () => {
       >
         Help Center
       </button>
-      <LanguageToggle />
+      {/* <LanguageToggle /> */}
       <div className="mt-4 sm:mt-auto text-white">
         <SignIn />
       </div>

@@ -9,7 +9,7 @@ export const LanguageToggle = () => {
 
   // Determine current language from URL on component mount
   useEffect(() => {
-    const pathParts = location.pathname.split("/en/");
+    const pathParts = location.pathname.split("/");
     const langPrefix = pathParts[1];
     setIsEnglish(langPrefix !== "mn");
   }, [location.pathname]);
@@ -21,7 +21,7 @@ export const LanguageToggle = () => {
     // Extract current path without language prefix
     const pathParts = location.pathname.split("/");
     pathParts.splice(1, 1); // Remove language part
-    const pathWithoutLang = pathParts.join("/") || "/";
+    const pathWithoutLang = pathParts.join("/") || "/en/";
 
     // Set new language prefix
     const newLangPrefix = isEnglish ? "mn" : "en";
