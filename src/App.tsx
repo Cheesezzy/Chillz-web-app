@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { RoutesEnum, RoutesEnumMN } from "./routes";
+import { RoutesEnum } from "./routes";
 import React from "react";
 const Home = React.lazy(() => import("./pages/Hero"));
 const Login = React.lazy(() => import("./pages/Login"));
@@ -64,49 +64,6 @@ const App = () => {
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.EventDetails} element={<EventDetails />} />
 
-        {/* Mn Routes */}
-        <Route path={RoutesEnumMN.Login} element={<Login />} />
-        <Route path={RoutesEnumMN.Home} element={<Home />} />
-        <Route path={RoutesEnumMN.Register} element={<Register />} />
-        <Route
-          path={RoutesEnumMN.ForgotPassword}
-          element={<ForgotPassword />}
-        />
-        <Route
-          path={RoutesEnumMN.Account}
-          element={
-            <RequireUser>
-              <Account />
-            </RequireUser>
-          }
-        />
-        <Route
-          path={RoutesEnumMN.Tickets}
-          element={
-            <RequireUser>
-              <Tickets />
-            </RequireUser>
-          }
-        />
-        <Route
-          path={RoutesEnumMN.CreateAnEvent}
-          element={
-            <RequireUser>
-              <CreateAnEvent />
-            </RequireUser>
-          }
-        />
-        <Route
-          path={RoutesEnumMN.UserDashboard}
-          element={
-            <RequireUser>
-              <UserDashboard />
-            </RequireUser>
-          }
-        />
-        <Route path={RoutesEnumMN.EventFeeds} element={<EventFeeds />} />
-        <Route path={RoutesEnumMN.HelpCenter} element={<HelpCenter />} />
-        <Route path={RoutesEnumMN.EventDetails} element={<EventDetails />} />
         <Route path="*" element={<div>Not Found</div>} />
       </Routes>
     </>
