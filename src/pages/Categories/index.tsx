@@ -37,47 +37,49 @@ function CategoryPage() {
           </Link>
           <SignIn />
         </header>
-        <img
-          src="/image-2.jpg"
-          alt="image"
-          style={{ width: "100%", height: "300px", margin: "0 auto" }}
-        />
 
         <DefaultLayout>
-          <div className="flex bg-white p-2 border border-gray-300 rounded-md mt-4">
-            <img src={search} alt="search" className="p-2" />
-            <input
-              type="text"
-              placeholder="Search for events by title, description, or location"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full text-gray-700 focus:outline-none"
-            />
+          <img
+            src="/image-2.jpg"
+            alt="image"
+            style={{ width: "100%", height: "300px", margin: "0 auto" }}
+          />
+          <div className="px-8">
+            <div className="flex bg-white p-2 border border-gray-300 items-center rounded-md mt-4">
+              <img src={search} alt="search" className="p-2" />
+              <input
+                type="text"
+                placeholder="Search for events by title, description, or location"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full text-gray-700 focus:outline-none"
+              />
+            </div>
+
+            <h1 className="text-2xl font-bold mb-2 mt-6">
+              Events for {category || "All Categories"}
+            </h1>
+
+            {/* Event List */}
+            {loading ? (
+              <div className="loading-container">
+                <div className="spinner"></div> {/* Spinning animation */}
+                <p>Loading...</p>
+              </div>
+            ) : error ? (
+              <p>Error loading events. Please try again later.</p>
+            ) : filteredEvents.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredEvents.map((event) => (
+                  <EventCard key={event.id} event={event} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-xl text-gray-600">
+                No events found for this category or search term.
+              </p>
+            )}
           </div>
-
-          <h1 className="text-2xl font-bold mb-2 mt-4">
-            Events for {category || "All Categories"}
-          </h1>
-
-          {/* Event List */}
-          {loading ? (
-            <div className="loading-container">
-              <div className="spinner"></div> {/* Spinning animation */}
-              <p>Loading...</p>
-            </div>
-          ) : error ? (
-            <p>Error loading events. Please try again later.</p>
-          ) : filteredEvents.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredEvents.map((event) => (
-                <EventCard key={event.id} event={event} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-xl text-gray-600">
-              No events found for this category or search term.
-            </p>
-          )}
         </DefaultLayout>
 
         {/* Footer */}

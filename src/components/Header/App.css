@@ -29,7 +29,8 @@ body {
   border: none;
   padding: 10px 30px;
   outline: none;
-  width: 420px;
+  width: 500px;
+  max-width: 100%;
 }
 .icon-sec {
   display: flex;
@@ -104,6 +105,11 @@ body {
 }
 .display {
   display: none;
+}
+@media (max-width: 700px) {
+  .nav-input {
+    width: 360px;
+  }
 }
 
 @media (max-width: 560px) {
