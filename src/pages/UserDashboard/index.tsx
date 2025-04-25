@@ -15,6 +15,9 @@ interface Event {
   title: string;
   date: string;
   location: string;
+  description: string;
+  startTime: string;
+  endTime: string;
   attendees: number;
   organizer: string;
 }
@@ -43,7 +46,10 @@ const UserDashboard: React.FC = () => {
           id: doc.id, // Firestore document ID
           title: doc.data().title,
           date: doc.data().date,
+          description: doc.data().description,
           location: doc.data().location,
+          startTime: doc.data().startTime,
+          endTime: doc.data().endTime,
           attendees: doc.data().interestedUsers.length || 0, // Default to 0 if attendees is not set
           organizer: doc.data().organizer,
         }));
@@ -83,6 +89,9 @@ const UserDashboard: React.FC = () => {
         title: doc.data().title,
         date: doc.data().date,
         location: doc.data().location,
+        description: doc.data().description,
+        startTime: doc.data().startTime,
+        endTime: doc.data().endTime,
         attendees: doc.data().attendees || 0, // Default to 0 if attendees is not set
         organizer: doc.data().organizer,
       }));

@@ -1,15 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../../lib/firebase";
-// import { deleteUserFromFirestore } from "../../../lib/firebase/DeleteAuth";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import { deleteUserFromFirestore } from "../../../lib/firebase/Authentication/DeleteUser";
+import AlertModal from "../../../Modals/AlertModal";
 
 const ConfirmDeleteUser: React.FC = () => {
   const navigate = useNavigate();
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [alertMessage, setAlertMessage] = React.useState<string | null>(null);
+  const [isAlertModalOpen, setIsAlertModalOpen] = React.useState(false);
 
   const isEmailUser = auth?.currentUser?.providerData.some(
     (provider) => provider.providerId === "password"
@@ -27,7 +29,14 @@ const ConfirmDeleteUser: React.FC = () => {
           text="Confirm delete"
           type="button"
           handleClick={() =>
-            deleteUserFromFirestore(navigate, false, true, setIsLoading)
+            deleteUserFromFirestore(
+              navigate,
+              false,
+              true,
+              setIsLoading,
+              setAlertMessage,
+              setIsAlertModalOpen
+            )
           }
         />
       </div>
@@ -53,10 +62,18 @@ const ConfirmDeleteUser: React.FC = () => {
               true,
               false,
               setIsLoading,
+              setAlertMessage,
+              setIsAlertModalOpen,
               password
             )
           }
         />
+        {isAlertModalOpen && alertMessage && (
+          <AlertModal
+            message={alertMessage}
+            onClose={() => setIsAlertModalOpen(false)} // Close the modal
+          />
+        )}
       </div>
     );
   }

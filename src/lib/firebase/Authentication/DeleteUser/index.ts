@@ -16,6 +16,8 @@ export const deleteUserFromFirestore = async (
   isEmailUser: boolean,
   isGoogleUser: boolean,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
+  setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>, // Add this
+  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>, // Add this
   password?: string
 ) => {
   const user = auth?.currentUser;
@@ -34,7 +36,8 @@ export const deleteUserFromFirestore = async (
     // handle email user
     if (isEmailUser) {
       if (!password || password === "") {
-        alert("Please enter your password");
+        setAlertMessage("Please enter your password"); // Set the alert message
+        setIsAlertModalOpen(true); // Open the modal
         return;
       }
       const userEmail = user.email as string;

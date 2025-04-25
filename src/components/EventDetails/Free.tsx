@@ -14,13 +14,14 @@ import { useState } from "react";
 
 import { UserImg } from "../UserImg";
 import Share from "../Button/ShareBtn";
+import AlertModal from "../../Modals/AlertModal";
 
 export default function Free() {
   const { id } = useParams<{ id: string }>();
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const [showAllPosts, setShowAllPosts] = useState(false);
-
+  const [alertMessage, setAlertMessage] = useState<string | null>(null); // State for alert message
   const { event, interested, loading, toggleInterest, addPost } = useEventData(
     id,
     user?.email
@@ -42,12 +43,16 @@ export default function Free() {
     }
 
     if (!newPost.trim()) {
-      alert("Post cannot be empty.");
+      setAlertMessage("Post cannot be empty.");
       return;
     }
 
     await addPost(newPost);
     setNewPost(""); // Clear the input field
+  };
+
+  const handleAlertClose = () => {
+    setAlertMessage(null); // Close the alert modal
   };
 
   return (
@@ -218,6 +223,9 @@ export default function Free() {
           </div>
         )}
       </div>
+      {alertMessage && (
+        <AlertModal message={alertMessage} onClose={handleAlertClose} />
+      )}
     </>
   );
 }
