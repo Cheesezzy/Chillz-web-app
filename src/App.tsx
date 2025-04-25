@@ -22,7 +22,6 @@ const App = () => {
     <>
       <Routes>
         {/* English Routes */}
-
         <Route path={RoutesEnum.Login} element={<Login />} />
         <Route path={RoutesEnum.Home} element={<Home />} />
         <Route path={RoutesEnum.Register} element={<Register />} />

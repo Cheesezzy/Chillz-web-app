@@ -16,7 +16,7 @@ interface Event {
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
     <Link
-      to={`/en/event/${event.id}`}
+      to={`/event/${event.id}`}
       className="bg-white rounded-lg shadow-md overflow-hidden mb-4"
     >
       <div className="h-48 overflow-hidden">
