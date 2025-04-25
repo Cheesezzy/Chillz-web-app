@@ -1,11 +1,4 @@
 {
-    "redirects": [
-        {
-            "source": "http://chillz.mn/(.*)",
-            "destination": "https://chillz.mn/$1",
-            "permanent": true
-        }
-    ],
     "rewrites": [
         {
             "source": "/(.*)",
