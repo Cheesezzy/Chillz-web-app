@@ -24,6 +24,19 @@ interface Event {
   interestedUsers: string[]; // Array of user IDs or emails
   posts: { user: string; message: string; timestamp: string }[];
   interest: number; // Field to track the number of interested users
+  organizationProfileId: string;
+}
+interface OrganizationProfile {
+  id: string;
+  organizationName: string;
+  description: string;
+  email: string;
+  phone: string;
+  website: string;
+  facebook: string;
+  twitter: string;
+  instagram: string;
+  logo: string | null;
 }
 
 export const useEventData = (
@@ -33,6 +46,9 @@ export const useEventData = (
   const [event, setEvent] = useState<Event | null>(null);
   const [interested, setInterested] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [organization, setOrganization] = useState<OrganizationProfile | null>(
+    null
+  );
 
   useEffect(() => {
     if (!id) {
@@ -66,6 +82,7 @@ export const useEventData = (
             interestedUsers: eventData.interestedUsers || [],
             posts: eventData.posts || [],
             interest: eventData.interest || 0,
+            organizationProfileId: eventData.organizationProfileId || "",
           };
 
           setEvent(eventObj);
@@ -75,6 +92,33 @@ export const useEventData = (
             setInterested(true);
           } else {
             setInterested(false);
+          }
+          // Fetch the organization profile if organizationProfileId exists
+          if (eventData.organizationProfileId) {
+            const orgDocRef = doc(
+              db,
+              "organizationProfile",
+              eventData.organizationProfileId
+            );
+            const orgDocSnap = await getDoc(orgDocRef);
+
+            if (orgDocSnap.exists()) {
+              const orgData = orgDocSnap.data();
+              const organizationObj: OrganizationProfile = {
+                id: orgDocSnap.id,
+                organizationName: orgData.organizationName || "",
+                description: orgData.description || "",
+                email: orgData.email || "",
+                phone: orgData.phone || "",
+                website: orgData.website || "",
+                facebook: orgData.facebook || "",
+                twitter: orgData.twitter || "",
+                instagram: orgData.instagram || "",
+                logo: orgData.logo || null,
+              };
+
+              setOrganization(organizationObj);
+            }
           }
         } else {
           console.warn(`Event with ID ${id} does not exist.`);
@@ -156,5 +200,5 @@ export const useEventData = (
     }
   };
 
-  return { event, interested, loading, toggleInterest, addPost };
+  return { event, organization, interested, loading, toggleInterest, addPost };
 };

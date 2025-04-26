@@ -1,3 +1,5 @@
+import OrganizationName from "../OrganizationName";
+
 const AttendingEventList: React.FC<{ events: any[] }> = ({ events }) => {
   return (
     <div className="overflow-hidden">
@@ -42,9 +44,13 @@ const AttendingEventList: React.FC<{ events: any[] }> = ({ events }) => {
                   })}{" "}
                   • {event.location}
                 </p>
-                <p className="text-xs text-gray-500">
-                  Organized by: {event.organizer}
-                </p>
+                <div className="text-xs flex items-center gap-2 text-gray-500">
+                  <p> Organized by:</p>
+                  <OrganizationName
+                    eventId={event.id}
+                    userEmail={event.email}
+                  />
+                </div>
               </div>
               <div className="flex-shrink-0">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">

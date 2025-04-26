@@ -20,13 +20,13 @@ const HelpCenter = () => {
 
 To create your first event, follow these simple steps:
 
-1. Log in to your account and navigate to your dashboard
+1. Log in to your account
 2. Click the "Create Event" button in the top-right corner
 3. Fill in the required event details (name, date, location, description)
 4. Upload a cover image for your event (optional but recommended)
 5. Set ticket types and pricing
 6. Configure event visibility settings
-7. Click "Publish" to make your event live
+7. Click "Create Event" to make your event live
 
 Your event will now be visible to attendees according to your visibility settings.
           `,
@@ -39,7 +39,7 @@ Your event will now be visible to attendees according to your visibility setting
 
 A complete organizer profile helps build trust with attendees. Here's how to set it up:
 
-1. Go to your account settings
+1. Go to your account settings by clicking on your email at the top-right corner
 2. Click on "Organizer Profile"
 3. Add your organization name, logo, and contact information
 4. Write a brief description about your organization

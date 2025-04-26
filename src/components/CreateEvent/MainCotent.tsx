@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../lib/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import { EventCategory } from "./types";
@@ -10,7 +10,6 @@ import { MapPin } from "lucide-react";
 interface EventFormData {
   title: string;
   description: string;
-  organizer: string;
   category: EventCategory;
   date: string;
   startTime: string;
@@ -46,7 +45,6 @@ const MainContent = () => {
   const initialFormData: EventFormData = {
     title: "",
     description: "",
-    organizer: "",
     category: "Hangout",
     date: "",
     startTime: "",
@@ -84,6 +82,24 @@ const MainContent = () => {
       }));
     }
   };
+  const fetchOrganizationProfileForUser = async (userId: string) => {
+    try {
+      const profilesQuery = query(
+        collection(db, "organizationProfile"),
+        where("userId", "==", userId) // Filter by userId
+      );
+
+      const querySnapshot = await getDocs(profilesQuery);
+      if (!querySnapshot.empty) {
+        return querySnapshot.docs[0].id; // Return the organizationProfileId
+      }
+
+      return null; // No organization profile found
+    } catch (error) {
+      console.error("Error fetching organization profile:", error);
+      return null;
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -117,12 +133,19 @@ const MainContent = () => {
         const data = await response.json();
         imageUrl = data.secure_url;
       }
+      // Fetch the user's organization profile
+      const organizationProfileId = await fetchOrganizationProfileForUser(
+        user?.uid || ""
+      );
+
+      if (!organizationProfileId) {
+        throw new Error("No organization profile found for the user.");
+      }
 
       await addDoc(collection(db, "events"), {
         title: formData.title,
         description: formData.description,
         category: formData.category,
-        organizer: formData.organizer,
         date: formData.date,
         startTime: formData.startTime,
         endTime: formData.endTime,
@@ -131,6 +154,7 @@ const MainContent = () => {
         imageUrl,
         maxAttendees: formData.maxAttendees,
         createdBy: user?.uid || "anonymous",
+        organizationProfileId,
         createdAt: new Date().toISOString(),
         interest: 0,
         posts: [],
@@ -217,23 +241,6 @@ const MainContent = () => {
                     required
                     rows={4}
                     value={formData.description}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                  />
-                </div>
-                <div className="col-span-2">
-                  <label
-                    htmlFor="title"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Organized By <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="organizer"
-                    name="organizer"
-                    required
-                    value={formData.organizer}
                     onChange={handleInputChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   />

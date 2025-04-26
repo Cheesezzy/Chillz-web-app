@@ -19,9 +19,8 @@ interface Event {
   startTime: string;
   endTime: string;
   attendees: number;
-  organizer: string;
 }
-// Main Personal Dashboard Component
+
 const UserDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [user, loading] = useAuthState(auth);
@@ -42,17 +41,19 @@ const UserDashboard: React.FC = () => {
         const querySnapshot = await getDocs(q);
 
         // Map the Firestore documents to an array of events
-        const userEvents: Event[] = querySnapshot.docs.map((doc) => ({
-          id: doc.id, // Firestore document ID
-          title: doc.data().title,
-          date: doc.data().date,
-          description: doc.data().description,
-          location: doc.data().location,
-          startTime: doc.data().startTime,
-          endTime: doc.data().endTime,
-          attendees: doc.data().interestedUsers.length || 0, // Default to 0 if attendees is not set
-          organizer: doc.data().organizer,
-        }));
+        const userEvents: Event[] = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id, // Firestore document ID
+            title: data.title || "Untitled Event",
+            date: data.date || "No date provided",
+            description: data.description || "No description available",
+            location: data.location || "No location specified",
+            startTime: data.startTime || "N/A",
+            endTime: data.endTime || "N/A",
+            attendees: data.interestedUsers?.length || 0, // Default to 0 if interestedUsers is undefined
+          };
+        });
 
         setEvents(userEvents); // Update the state with the fetched events
       } catch (error) {
@@ -84,17 +85,19 @@ const UserDashboard: React.FC = () => {
       );
       const querySnapshot = await getDocs(q);
 
-      const attendingEvents = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.data().title,
-        date: doc.data().date,
-        location: doc.data().location,
-        description: doc.data().description,
-        startTime: doc.data().startTime,
-        endTime: doc.data().endTime,
-        attendees: doc.data().attendees || 0, // Default to 0 if attendees is not set
-        organizer: doc.data().organizer,
-      }));
+      const attendingEvents = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          title: data.title || "Untitled Event",
+          date: data.date || "No date provided",
+          location: data.location || "No location specified",
+          description: data.description || "No description available",
+          startTime: data.startTime || "N/A",
+          endTime: data.endTime || "N/A",
+          attendees: data.interestedUsers?.length || 0, // Default to 0 if interestedUsers is undefined
+        };
+      });
 
       setEventsAttending(attendingEvents);
     } catch (error) {
@@ -120,7 +123,6 @@ const UserDashboard: React.FC = () => {
           <Link to={RoutesEnum.Home}>
             <img src={chillzlogo} className="logo" alt="Chillz logo" />
           </Link>
-          {/* <LanguageToggle /> */}
           <div className="flex items-center">
             <div className="relative group">
               <SignIn />

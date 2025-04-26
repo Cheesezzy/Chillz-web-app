@@ -118,7 +118,9 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
   return (
     <div className="flex justify-center p-8">
       <div className="bg-white p-8 rounded-xl shadow-md text-center max-w-md w-full">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">Profile Page</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+          Update your profile picture
+        </h2>
 
         <div className="mb-4">
           <img

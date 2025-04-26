@@ -12,6 +12,7 @@ export enum RoutesEnum {
   UserDashboard = "/dashboard",
   EventDetails = "/event/:id",
   CategoryPage = "/events",
+  OrganizerProfile = "/organizer-profile/",
 }
 
 export enum RoutesEnumMN {

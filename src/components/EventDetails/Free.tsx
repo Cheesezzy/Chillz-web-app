@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-import { UserImg } from "../UserImg";
 import Share from "../Button/ShareBtn";
 import AlertModal from "../../Modals/AlertModal";
 
@@ -22,10 +21,8 @@ export default function Free() {
   const navigate = useNavigate();
   const [showAllPosts, setShowAllPosts] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null); // State for alert message
-  const { event, interested, loading, toggleInterest, addPost } = useEventData(
-    id,
-    user?.email
-  );
+  const { event, organization, interested, loading, toggleInterest, addPost } =
+    useEventData(id, user?.email);
   const [newPost, setNewPost] = useState<string>("");
 
   if (loading) {
@@ -137,17 +134,33 @@ export default function Free() {
                 <span>{event.interestedUsers?.length || 0} people going</span>
               </div>
 
-              <div className="mb-6">
+              {/* Organized By */}
+              <div className="mb-6 hover:cursor-pointer">
                 <h3 className="font-semibold mb-2">Organized By</h3>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 overflow-hidden rounded-full mr-3">
-                    <UserImg />
+                {organization ? (
+                  <div className="flex items-center">
+                    {organization.logo && (
+                      <img
+                        src={organization.logo || "/user.png"}
+                        alt={organization.organizationName}
+                        className="w-15 h-15 rounded-full mr-3"
+                      />
+                    )}
+                    <div>
+                      <p className="text-sm text-gray-500">Event Organizer</p>
+                      <p className="font-medium">
+                        {organization.organizationName}
+                      </p>
+                      {/* <p className="text-sm text-gray-500">
+                        {organization.description}
+                      </p> */}
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium">{event.organizer}</p>
-                    <p className="text-sm text-gray-500">Event Organizer</p>
-                  </div>
-                </div>
+                ) : (
+                  <p className="text-gray-500">
+                    No organization profiles found.
+                  </p>
+                )}
               </div>
             </div>
           </div>
