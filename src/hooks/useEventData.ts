@@ -9,6 +9,7 @@ import {
 import { db } from "../lib/firebase";
 
 interface Event {
+  email: string;
   id: string;
   title: string;
   description: string;
@@ -68,6 +69,7 @@ export const useEventData = (
           const eventData = eventDocSnap.data();
           const eventObj = {
             id: eventDocSnap.id,
+            email: eventData.email || "", // Ensure email is included
             title: eventData.title || "",
             description: eventData.description || "",
             organizer: eventData.organizer || "",

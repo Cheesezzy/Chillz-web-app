@@ -14,6 +14,7 @@ import { useState } from "react";
 
 import Share from "../Button/ShareBtn";
 import AlertModal from "../../Modals/AlertModal";
+import OrganizationName from "../OrganizationName";
 
 export default function Free() {
   const { id } = useParams<{ id: string }>();
@@ -138,22 +139,20 @@ export default function Free() {
               <div className="mb-6 hover:cursor-pointer">
                 <h3 className="font-semibold mb-2">Organized By</h3>
                 {organization ? (
-                  <div className="flex items-center">
+                  <div className="flex items-center ">
                     {organization.logo && (
                       <img
                         src={organization.logo || "/user.png"}
                         alt={organization.organizationName}
-                        className="w-15 h-15 rounded-full mr-3"
+                        className="w-16 h-16 rounded-full mb-4 mr-2"
                       />
                     )}
-                    <div>
+                    <div className="text-xs flex flex-col items-centertext-gray-500">
                       <p className="text-sm text-gray-500">Event Organizer</p>
-                      <p className="font-medium">
-                        {organization.organizationName}
-                      </p>
-                      {/* <p className="text-sm text-gray-500">
-                        {organization.description}
-                      </p> */}
+                      <OrganizationName
+                        eventId={event.id}
+                        userEmail={event.email}
+                      />
                     </div>
                   </div>
                 ) : (

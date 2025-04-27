@@ -2,7 +2,7 @@ import OrganizationName from "../OrganizationName";
 
 const AttendingEventList: React.FC<{ events: any[] }> = ({ events }) => {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden ">
       <ul className="divide-y divide-gray-200">
         {events.map((event) => (
           <li key={event.id} className="py-4">
@@ -52,11 +52,11 @@ const AttendingEventList: React.FC<{ events: any[] }> = ({ events }) => {
                   />
                 </div>
               </div>
-              <div className="flex-shrink-0">
+              {/* <div className="flex-shrink-0">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                   {event.role}
                 </span>
-              </div>
+              </div> */}
             </div>
           </li>
         ))}
