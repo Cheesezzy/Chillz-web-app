@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Define interface for destination
 interface Destination {
@@ -12,55 +11,21 @@ const Carousel: React.FC = () => {
   // Destinations data
   const destinations: Destination[][] = [
     [
-      { id: 1, name: "Miami", image: "https://picsum.photos/seed/4/800/600" },
-      { id: 2, name: "Boston", image: "https://picsum.photos/seed/5/800/600" },
+      {
+        id: 1,
+        name: "Genghis Khan Statue Complex",
+        image: "/rec-place/chinggis-khan.jpg",
+      },
+      { id: 2, name: "Gobi Desert", image: "/rec-place/Gobi-desert.jpg" },
       {
         id: 3,
-        name: "Las Vegas",
-        image: "https://picsum.photos/seed/1/800/600",
+        name: "Khuvsgul Lake",
+        image: "/rec-place/Hovsgol-lake.jpg",
       },
       {
         id: 4,
-        name: "Charlotte",
-        image: "https://picsum.photos/seed/2/800/600",
-      },
-      {
-        id: 5,
-        name: "New York",
-        image: "https://picsum.photos/seed/3/800/600",
-      },
-      {
-        id: 6,
-        name: "San Francisco",
-        image: "https://picsum.photos/seed/4/800/600",
-      },
-    ],
-    [
-      {
-        id: 7,
-        name: "Orlando",
-        image: "https://picsum.photos/seed/5/800/600",
-      },
-      {
-        id: 8,
-        name: "Seattle",
-        image: "https://picsum.photos/seed/4/800/600",
-      },
-      { id: 9, name: "Denver", image: "https://picsum.photos/seed/2/800/600" },
-      {
-        id: 10,
-        name: "Atlanta",
-        image: "https://picsum.photos/seed/2/800/600",
-      },
-      {
-        id: 11,
-        name: "Chicago",
-        image: "https://picsum.photos/seed/2/800/600",
-      },
-      {
-        id: 12,
-        name: "Houston",
-        image: "https://picsum.photos/seed/5/800/600",
+        name: "Terelj National Park",
+        image: "/rec-place/Terelj.jpg",
       },
     ],
   ];
@@ -105,8 +70,8 @@ const Carousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full max-w-7xl mx-auto px-4 py-8">
-      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center mb-20">
+    <div className="relative w-full max-w-7xl mx-auto px-4 py-8 mt-12">
+      <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center mb-8">
         Recomended Places To Visit
       </h2>
 
@@ -116,9 +81,9 @@ const Carousel: React.FC = () => {
           onClick={handlePrev}
           className="absolute left-0 z-10 bg-white/75 rounded-full p-2 shadow-md hover:bg-white/90 transition -translate-x-1/2"
         >
-          <div className="rounded-full bg-white p-1">
+          {/* <div className="rounded-full bg-white p-1">
             <ChevronLeft size={24} className="text-gray-700" />
-          </div>
+          </div> */}
         </button>
 
         {/* Next Arrow */}
@@ -126,9 +91,9 @@ const Carousel: React.FC = () => {
           onClick={handleNext}
           className="absolute right-0 z-10 bg-white/75 rounded-full p-2 shadow-md hover:bg-white/90 transition translate-x-1/2"
         >
-          <div className="rounded-full bg-white p-1">
+          {/* <div className="rounded-full bg-white p-1">
             <ChevronRight size={24} className="text-gray-700" />
-          </div>
+          </div> */}
         </button>
 
         {/* Destinations Grid */}
@@ -159,7 +124,9 @@ const Carousel: React.FC = () => {
                     />
                     <div className="p-3 md:p-4 text-center">
                       <span className="text-base md:text-lg font-semibold">
-                        {destination.name}
+                        <a href="https://www.amicusmongolia.com/places-to-visit-in-mongolia.html">
+                          {destination.name}
+                        </a>
                       </span>
                     </div>
                   </div>

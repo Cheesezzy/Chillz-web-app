@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 interface Slide {
   url: string;
-  text: string; // Add a text property for each slide
+  text: string;
 }
 
 interface ImageSliderProps {
@@ -16,7 +16,7 @@ const slideStyles: React.CSSProperties = {
   backgroundPosition: "center",
   transition: "background-image 1s ease-in-out",
   marginTop: "20px",
-  position: "relative", // Make the slide position relative for text overlay
+  position: "relative",
 };
 
 const textOverlayStyles: React.CSSProperties = {
@@ -24,7 +24,7 @@ const textOverlayStyles: React.CSSProperties = {
   bottom: "20px",
   left: "20px",
   color: "#fff",
-  backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for better readability
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
   padding: "10px 20px",
   borderRadius: "5px",
   fontSize: "18px",
@@ -61,15 +61,25 @@ const sliderStyles: React.CSSProperties = {
 const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Reset currentIndex if slides array changes
   useEffect(() => {
+    if (slides.length > 0) {
+      setCurrentIndex(0);
+    }
+  }, [slides]);
+
+  // Automatically change slides every 3 seconds
+  useEffect(() => {
+    if (slides.length === 0) return; // Prevent interval if no slides
+
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) =>
         prevIndex === slides.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); // Change slide every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [slides]);
 
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
@@ -82,6 +92,17 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+
+  // Handle empty slides array
+  if (slides.length === 0) {
+    return (
+      <div style={sliderStyles}>
+        <p style={{ textAlign: "center", marginTop: "20px" }}>
+          No slides available.
+        </p>
+      </div>
+    );
+  }
 
   const slideStylesWithBackground: React.CSSProperties = {
     ...slideStyles,

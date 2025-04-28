@@ -27,6 +27,23 @@ function CategoryPage() {
     return matchesCategory && matchesSearch;
   });
 
+  const categoryCovers: { [key: string]: string } = {
+    Business: "/category/business.jpg",
+    Food_and_Drinks: "/category/food-drinks.jpg",
+    Gaming: "/category/gaming.jpg",
+    Gym: "/category/gym.jpeg",
+    Hangout: "/category/hangout.jpeg",
+    Karaoke: "/category/karaoke.png",
+    Musical_Concert: "/category/music.png",
+    Sport: "/category/sport.jpg",
+    Night_Life_and_Party: "/category/night.png",
+  };
+
+  const normalizedCategory = category ? category.replace(/ /g, "_") : null;
+  const selectedCover = normalizedCategory
+    ? categoryCovers[normalizedCategory]
+    : null;
+
   return (
     <>
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-800 to-white-500 ">
@@ -40,13 +57,19 @@ function CategoryPage() {
 
         <DefaultLayout>
           <img
-            src="/image-2.jpg"
-            alt="image"
-            style={{ width: "100%", height: "300px", margin: "0 auto" }}
+            src={selectedCover || ""} // Use selectedCover if available, otherwise fallback to a default image
+            alt={category || "Default Cover"} // Use the category name or a default alt text
+            style={{
+              width: "100%",
+              height: "300px",
+              margin: "0 auto",
+              objectFit: "cover", // Ensure the image fits nicely
+            }}
           />
           <div className="px-8">
             <div className="flex bg-white p-2 border border-gray-300 items-center rounded-md mt-4">
               <img src={search} alt="search" className="p-2" />
+
               <input
                 type="text"
                 placeholder="Search for events by title, description, or location"
