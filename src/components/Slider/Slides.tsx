@@ -1,30 +1,21 @@
+import React from "react";
 import ImageSlider from "./ImageSlider";
 
-interface Slide {
-  url: string;
-  title: string;
-}
-
 const Slides: React.FC = () => {
-  const slides: Slide[] = [
-    { url: "/cover/1.png", title: "chillz" },
-    { url: "/cover/2.png", title: "chillz" },
-    { url: "/cover/3.png", title: "chillz" },
-    { url: "/cover/1.png", title: "chillz" },
-    { url: "/cover/2.png", title: "chillz" },
+  const slides = [
+    {
+      url: "/cover/1.png",
+      text: "Welcome, Explore a World of Events",
+    },
+    { url: "/cover/2.png", text: "Discover Amazing Events" },
+    { url: "/cover/3.png", text: "Join the Community" },
+    { url: "/cover/1.png", text: "Create Your Own Events" },
+    { url: "/cover/2.png", text: "Experience Local Events around you" },
   ];
-
-  const containerStyles: React.CSSProperties = {
-    width: "100%",
-    height: "300px",
-    margin: "0 auto",
-  };
 
   return (
     <div>
-      <div style={containerStyles}>
-        <ImageSlider slides={slides} />
-      </div>
+      <ImageSlider slides={slides} />
     </div>
   );
 };

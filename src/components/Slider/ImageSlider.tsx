@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 interface Slide {
   url: string;
+  text: string; // Add a text property for each slide
 }
 
 interface ImageSliderProps {
@@ -15,6 +16,19 @@ const slideStyles: React.CSSProperties = {
   backgroundPosition: "center",
   transition: "background-image 1s ease-in-out",
   marginTop: "20px",
+  position: "relative", // Make the slide position relative for text overlay
+};
+
+const textOverlayStyles: React.CSSProperties = {
+  position: "absolute",
+  bottom: "20px",
+  left: "20px",
+  color: "#fff",
+  backgroundColor: "rgba(0, 0, 0, 0.5)", // Semi-transparent background for better readability
+  padding: "10px 20px",
+  borderRadius: "5px",
+  fontSize: "18px",
+  fontWeight: "bold",
 };
 
 const rightArrowStyles: React.CSSProperties = {
@@ -69,7 +83,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
     setCurrentIndex(newIndex);
   };
 
-  const slideStylesWidthBackground: React.CSSProperties = {
+  const slideStylesWithBackground: React.CSSProperties = {
     ...slideStyles,
     backgroundImage: `url(${slides[currentIndex].url})`,
   };
@@ -84,7 +98,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
           ❱
         </div>
       </div>
-      <div style={slideStylesWidthBackground}></div>
+      <div style={slideStylesWithBackground}>
+        {/* Text overlay */}
+        <div style={textOverlayStyles}>{slides[currentIndex].text}</div>
+      </div>
     </div>
   );
 };
