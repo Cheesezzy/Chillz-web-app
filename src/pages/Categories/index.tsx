@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useAllEventsData } from "../../hooks/useAllEventsData";
-import { RoutesEnum } from "../../routes";
-import chillzlogo from "/chillz.png";
 import search from "/search.svg";
 import DefaultLayout from "../../components/layout/DefaultLayout";
-import SignIn from "../../components/Header/SignIn";
 import EventCard from "../../components/CreateEvent/Feeds/EventCard";
 
 function CategoryPage() {
@@ -28,15 +25,15 @@ function CategoryPage() {
   });
 
   const categoryCovers: { [key: string]: string } = {
-    Business: "/category/business.jpg",
-    Food_and_Drinks: "/category/food-drinks.jpg",
+    Business: "/category/business.png",
+    Food_and_Drinks: "/category/food-drinks.png",
     Gaming: "/category/gaming.jpg",
-    Gym: "/category/gym.jpeg",
-    Hangout: "/category/hangout.jpeg",
+    Gym: "/category/gym.png",
+    Hangout: "/category/hangout.png",
     Karaoke: "/category/karaoke.png",
-    Musical_Concert: "/category/music.png",
-    Sport: "/category/sport.jpg",
-    Night_Life_and_Party: "/category/night.png",
+    Musical_Concert: "/category/music-concert.png",
+    Sport: "/category/sport.png",
+    Night_Life_and_Party: "/category/party.png",
   };
 
   const normalizedCategory = category ? category.replace(/ /g, "_") : null;
@@ -46,26 +43,26 @@ function CategoryPage() {
 
   return (
     <>
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-800 to-white-500 ">
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-[#F7FFF7] to-[#F4F4F9] ">
         {/* Header with Search Input */}
-        <header className=" p-2 px-4 shadow-md flex items-center justify-between">
+        {/* <header className=" p-2 px-4 shadow-md flex items-center justify-between">
           <Link to={RoutesEnum.Home}>
             <img src={chillzlogo} className="logo" alt="Chillz logo" />
           </Link>
           <SignIn />
-        </header>
+        </header> */}
 
+        <img
+          src={selectedCover || ""} // Use selectedCover if available, otherwise fallback to a default image
+          alt={category || "Default Cover"} // Use the category name or a default alt text
+          style={{
+            width: "100%",
+            height: "400px",
+            margin: "0 auto",
+            objectFit: "cover", // Ensure the image fits nicely
+          }}
+        />
         <DefaultLayout>
-          <img
-            src={selectedCover || ""} // Use selectedCover if available, otherwise fallback to a default image
-            alt={category || "Default Cover"} // Use the category name or a default alt text
-            style={{
-              width: "100%",
-              height: "300px",
-              margin: "0 auto",
-              objectFit: "cover", // Ensure the image fits nicely
-            }}
-          />
           <div className="px-8">
             <div className="flex bg-white p-2 border border-gray-300 items-center rounded-md mt-4">
               <img src={search} alt="search" className="p-2" />

@@ -9,14 +9,22 @@ interface ImageSliderProps {
   slides: Slide[];
 }
 
-const slideStyles: React.CSSProperties = {
+const sliderStyles: React.CSSProperties = {
+  position: "relative",
   width: "100%",
   height: "400px",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  transition: "background-image 1s ease-in-out",
+  overflow: "hidden",
   marginTop: "20px",
-  position: "relative",
+};
+
+const slideImageStyles: React.CSSProperties = {
+  width: "100%",
+  height: "100%",
+  objectFit: "cover",
+  position: "absolute",
+  top: 0,
+  left: 0,
+  transition: "opacity 1s ease-in-out",
 };
 
 const textOverlayStyles: React.CSSProperties = {
@@ -29,71 +37,47 @@ const textOverlayStyles: React.CSSProperties = {
   borderRadius: "5px",
   fontSize: "18px",
   fontWeight: "bold",
+  zIndex: 2,
 };
 
-const rightArrowStyles: React.CSSProperties = {
+const arrowStyles: React.CSSProperties = {
   position: "absolute",
   top: "50%",
-  transform: "translate(0, -50%)",
-  right: "32px",
+  transform: "translateY(-50%)",
   fontSize: "45px",
   color: "#fff",
-  zIndex: 1,
+  zIndex: 3,
   cursor: "pointer",
 };
 
-const leftArrowStyles: React.CSSProperties = {
-  position: "absolute",
-  top: "50%",
-  transform: "translate(0, -50%)",
-  left: "32px",
-  fontSize: "45px",
-  color: "#fff",
-  zIndex: 1,
-  cursor: "pointer",
-};
-
-const sliderStyles: React.CSSProperties = {
-  position: "relative",
-  height: "100%",
-};
+const leftArrowStyles = { ...arrowStyles, left: "32px" };
+const rightArrowStyles = { ...arrowStyles, right: "32px" };
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Reset currentIndex if slides array changes
   useEffect(() => {
     if (slides.length > 0) {
       setCurrentIndex(0);
     }
   }, [slides]);
 
-  // Automatically change slides every 3 seconds
   useEffect(() => {
-    if (slides.length === 0) return; // Prevent interval if no slides
-
+    if (slides.length === 0) return;
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-      );
+      setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 3000);
-
     return () => clearInterval(interval);
   }, [slides]);
 
   const goToPrevious = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? slides.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
   };
 
   const goToNext = () => {
-    const isLastSlide = currentIndex === slides.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
   };
 
-  // Handle empty slides array
   if (slides.length === 0) {
     return (
       <div style={sliderStyles}>
@@ -104,25 +88,29 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
     );
   }
 
-  const slideStylesWithBackground: React.CSSProperties = {
-    ...slideStyles,
-    backgroundImage: `url(${slides[currentIndex].url})`,
-  };
-
   return (
     <div style={sliderStyles}>
-      <div>
-        <div onClick={goToPrevious} style={leftArrowStyles}>
-          ❰
-        </div>
-        <div onClick={goToNext} style={rightArrowStyles}>
-          ❱
-        </div>
+      <div onClick={goToPrevious} style={leftArrowStyles}>
+        ❰
       </div>
-      <div style={slideStylesWithBackground}>
-        {/* Text overlay */}
-        <div style={textOverlayStyles}>{slides[currentIndex].text}</div>
+      <div onClick={goToNext} style={rightArrowStyles}>
+        ❱
       </div>
+
+      {slides.map((slide, index) => (
+        <img
+          key={index}
+          src={slide.url}
+          alt={slide.text}
+          style={{
+            ...slideImageStyles,
+            opacity: index === currentIndex ? 1 : 0,
+            zIndex: index === currentIndex ? 1 : 0,
+          }}
+        />
+      ))}
+
+      <div style={textOverlayStyles}>{slides[currentIndex].text}</div>
     </div>
   );
 };

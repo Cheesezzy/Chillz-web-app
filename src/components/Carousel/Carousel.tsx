@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 // Define interface for destination
@@ -24,6 +25,21 @@ const Carousel: React.FC = () => {
       },
       {
         id: 4,
+        name: "Terelj National Park",
+        image: "/rec-place/Terelj.jpg",
+      },
+    ],
+    [{ id: 6, name: "Gobi Desert", image: "/rec-place/Gobi-desert.jpg" }],
+    [
+      {
+        id: 7,
+        name: "Khuvsgul Lake",
+        image: "/rec-place/Hovsgol-lake.jpg",
+      },
+    ],
+    [
+      {
+        id: 8,
         name: "Terelj National Park",
         image: "/rec-place/Terelj.jpg",
       },
@@ -77,24 +93,29 @@ const Carousel: React.FC = () => {
 
       <div className="relative flex items-center">
         {/* Previous Arrow */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-0 z-10 bg-white/75 rounded-full p-2 shadow-md hover:bg-white/90 transition -translate-x-1/2"
-        >
-          {/* <div className="rounded-full bg-white p-1">
-            <ChevronLeft size={24} className="text-gray-700" />
-          </div> */}
-        </button>
+
+        {visibleColumns < 4 && (
+          <button
+            onClick={handlePrev}
+            className="absolute left-0 z-10 bg-white/75 rounded-full p-2 shadow-md hover:bg-white/90 transition -translate-x-1/2"
+          >
+            <div className="rounded-full bg-white p-1">
+              <ChevronLeft size={24} className="text-gray-700" />
+            </div>
+          </button>
+        )}
 
         {/* Next Arrow */}
-        <button
-          onClick={handleNext}
-          className="absolute right-0 z-10 bg-white/75 rounded-full p-2 shadow-md hover:bg-white/90 transition translate-x-1/2"
-        >
-          {/* <div className="rounded-full bg-white p-1">
-            <ChevronRight size={24} className="text-gray-700" />
-          </div> */}
-        </button>
+        {visibleColumns < 4 && (
+          <button
+            onClick={handleNext}
+            className="absolute right-0 z-10 bg-white/75 rounded-full p-2 shadow-md hover:bg-white/90 transition translate-x-1/2"
+          >
+            <div className="rounded-full bg-white p-1">
+              <ChevronRight size={24} className="text-gray-700" />
+            </div>
+          </button>
+        )}
 
         {/* Destinations Grid */}
         <div className="w-full overflow-hidden">
