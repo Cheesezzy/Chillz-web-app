@@ -44,7 +44,7 @@ const AttendingEventList: React.FC<{ events: any[] }> = ({ events }) => {
                   })}{" "}
                   • {event.location}
                 </p>
-                <div className="text-xs flex items-center gap-2 text-gray-500">
+                <div className="text-xs flex items-center justify-between gap-2 text-gray-500">
                   <p> Organized by:</p>
                   <OrganizationName
                     eventId={event.id}

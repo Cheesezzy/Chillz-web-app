@@ -2,18 +2,31 @@ import React, { useState } from "react";
 import SuccessModal from "../SuccessModal";
 import FailureModal from "../FailureModal";
 
+interface EventData {
+  id?: string;
+  title: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  description: string;
+  location: string;
+  imageUrl: string | File | null;
+  organizer: string;
+}
+
 const EditEventModal: React.FC<{
-  event: any;
+  event: EventData;
   onClose: () => void;
-  onSave: (updatedEvent: any) => void;
+  onSave: (updatedEvent: EventData) => void;
 }> = ({ event, onClose, onSave }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<EventData>({
     title: event.title || "",
     date: event.date || "",
     startTime: event.startTime || "",
     endTime: event.endTime || "",
     description: event.description || "",
     location: event.location || "",
+    imageUrl: event.imageUrl || null,
     organizer: event.organizer || "",
   });
 
@@ -25,10 +38,19 @@ const EditEventModal: React.FC<{
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev: any) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData((prevData) => ({
+        ...prevData,
+        imageUrl: e.target.files?.[0] || null, // Save the selected file if available
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (
@@ -42,19 +64,41 @@ const EditEventModal: React.FC<{
       return;
     }
 
-    const sanitizedData = {
-      ...formData,
-      id: event.id || "",
-      title: formData.title || "",
-      date: formData.date || "",
-      startTime: formData.startTime || "",
-      endTime: formData.endTime || "",
-      description: formData.description || "",
-      location: formData.location || "",
-      organizer: formData.organizer || "",
-    };
-
     try {
+      let imageUrl = "";
+
+      if (formData.imageUrl && formData.imageUrl instanceof File) {
+        const formDataToUpload = new FormData();
+        formDataToUpload.append("file", formData.imageUrl);
+        formDataToUpload.append(
+          "upload_preset",
+          import.meta.env.VITE_UPLOAD_PRESET
+        );
+
+        const response = await fetch(
+          `https://api.cloudinary.com/v1_1/${
+            import.meta.env.VITE_CLOUD_NAME
+          }/upload`,
+          {
+            method: "POST",
+            body: formDataToUpload,
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to upload image");
+        }
+
+        const data = await response.json();
+        imageUrl = data.secure_url;
+      }
+
+      const sanitizedData = {
+        ...formData,
+        id: event.id || "",
+        imageUrl: imageUrl || formData.imageUrl,
+      };
+
       onSave(sanitizedData);
       setIsSuccessModalOpen(true);
     } catch (error) {
@@ -104,7 +148,7 @@ const EditEventModal: React.FC<{
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">
-                Starttime
+                Start Time
               </label>
               <input
                 type="time"
@@ -116,7 +160,7 @@ const EditEventModal: React.FC<{
             </div>
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700">
-                Endtime
+                End Time
               </label>
               <input
                 type="time"
@@ -146,6 +190,18 @@ const EditEventModal: React.FC<{
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
+                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Cover Image
+              </label>
+              <input
+                type="file"
+                name="imageUrl"
+                accept="image/*"
+                onChange={handleFileChange}
                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
               />
             </div>

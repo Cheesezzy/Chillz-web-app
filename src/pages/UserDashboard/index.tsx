@@ -169,14 +169,14 @@ const UserDashboard: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Welcome Section */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
-          <h2 className="text-2xl font-medium text-gray-900">
+          <h2 className="text-xl font-medium text-gray-900">
             <b>Welcome back,</b>{" "}
-            <span className="text-4xl  ml-2">
+            <span className="text-2xl  ml-2">
               <b>{user?.email}</b>
             </span>
           </h2>
           <p className="mt-1 text-sm text-gray-500">
-            Here's what's happening with your events and tasks.
+            Here's what's happening with your events.
           </p>
         </div>
 

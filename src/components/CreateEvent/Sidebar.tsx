@@ -25,19 +25,19 @@ const Sidebar = () => {
       </Link>
       <button
         onClick={() => handleNavigation(RoutesEnum.UserDashboard)}
-        className="text-xs sm:text-sm font-medium hover:text-gray-300"
+        className="text-xl font-medium hover:text-gray-300 sm:text-sm font-medium hover:text-gray-300"
       >
         Dashboard
       </button>
       <button
         onClick={() => handleNavigation(RoutesEnum.EventFeeds)}
-        className="text-xs sm:text-sm font-medium hover:text-gray-300"
+        className="text-xl font-medium hover:text-gray-300  sm:text-sm font-medium hover:text-gray-300"
       >
         Event Feeds
       </button>
       <button
         onClick={() => handleNavigation(RoutesEnum.HelpCenter)}
-        className="text-xs sm:text-sm font-medium hover:text-gray-300"
+        className="text-xl font-medium hover:text-gray-300  sm:text-sm font-medium hover:text-gray-300"
       >
         Help Center
       </button>

@@ -21,7 +21,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
     >
       <div className="h-48 overflow-hidden">
         <img
-          src={event.image || "/event-img.jpeg"}
+          src={event.image || "/no-image.png"}
           alt={event.title || "Event Image"}
           className="w-full h-full object-cover"
         />

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import editIcon from "/edit.png";
-import { doc, updateDoc } from "firebase/firestore";
+import trash from "/trash.png";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import EditEventModal from "../../Modals/EditEventModal";
 
 const PersonalEventList: React.FC<{ events: any[] }> = ({ events }) => {
   const [selectedEvent, setSelectedEvent] = useState<any | null>(null);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [eventToDelete, setEventToDelete] = useState<any | null>(null);
 
   const handleEditClick = (event: any) => {
     setSelectedEvent(event);
@@ -23,6 +26,31 @@ const PersonalEventList: React.FC<{ events: any[] }> = ({ events }) => {
       console.error("Error updating event:", error);
     }
   };
+
+  const handleDeleteClick = (event: any) => {
+    setEventToDelete(event);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!eventToDelete) return;
+
+    try {
+      const eventDocRef = doc(db, "events", eventToDelete.id); // Adjust collection name
+      await deleteDoc(eventDocRef);
+      setIsDeleteModalOpen(false);
+      setEventToDelete(null);
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setIsDeleteModalOpen(false);
+    setEventToDelete(null);
+  };
+
   return (
     <div className="overflow-hidden">
       <ul className="divide-y divide-gray-200">
@@ -62,7 +90,7 @@ const PersonalEventList: React.FC<{ events: any[] }> = ({ events }) => {
                   {event.description}
                 </p>
                 <p className="text-sm text-gray-500 truncate">
-                  {event.startTime} - {event.endTime}• {event.location}
+                  {event.startTime} - {event.endTime} • {event.location}
                 </p>
               </div>
               <div className="flex-shrink-0 flex flex-col items-end">
@@ -70,12 +98,20 @@ const PersonalEventList: React.FC<{ events: any[] }> = ({ events }) => {
                   {event.attendees} attendees
                 </span>
                 <span className="mt-1 text-xs text-gray-500">You:</span>
-                <span
-                  className="hover:cursor-pointer"
-                  onClick={() => handleEditClick(event)}
-                >
-                  <img src={editIcon} alt="edit-icon" className="w-4 h-4" />
-                </span>
+                <div className="flex gap-2">
+                  <span
+                    className="hover:cursor-pointer"
+                    onClick={() => handleEditClick(event)}
+                  >
+                    <img src={editIcon} alt="edit-icon" className="w-4 h-4" />
+                  </span>
+                  <span
+                    className="hover:cursor-pointer"
+                    onClick={() => handleDeleteClick(event)}
+                  >
+                    <img src={trash} alt="delete-icon" className="w-4 h-4" />
+                  </span>
+                </div>
               </div>
             </div>
           </li>
@@ -92,6 +128,34 @@ const PersonalEventList: React.FC<{ events: any[] }> = ({ events }) => {
           onClose={() => setIsEditModalOpen(false)}
           onSave={handleUpdateEvent}
         />
+      )}
+      {isDeleteModalOpen && eventToDelete && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-lg font-medium text-gray-900 mb-4">
+              Confirm Deletion
+            </h2>
+            <p className="text-sm text-gray-700 mb-4">
+              Are you sure you want to delete the event{" "}
+              <span className="font-semibold">{eventToDelete.title}</span>? This
+              action cannot be undone.
+            </p>
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={handleCancelDelete}
+                className="px-4 py-2 bg-gray-300 rounded-md hover:cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmDelete}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-500 hover:cursor-pointer"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );

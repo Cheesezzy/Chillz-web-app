@@ -65,7 +65,7 @@ export default function Free() {
         {/* Hero Image */}
         <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-6">
           <img
-            src={event.imageUrl || "/event-img.jpeg"}
+            src={event.imageUrl || "/no-image.png"}
             alt={event.title}
             className="w-full h-full object-cover"
           />
