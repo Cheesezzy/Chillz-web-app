@@ -20,7 +20,8 @@ const ConfirmDeleteUser: React.FC = () => {
     (provider) => provider.providerId === "google.com"
   );
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return <div className="font-bold text-red-500">Loading...</div>;
 
   if (isGoogleUser) {
     return (

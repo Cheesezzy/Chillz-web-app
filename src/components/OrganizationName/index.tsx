@@ -12,7 +12,7 @@ const OrganizationName = ({
   const [showDetails, setShowDetails] = useState(false);
 
   if (loading) {
-    return <p className="text-sm text-gray-500">Loading...</p>;
+    return <p className="text-sm text-red-500 font-bold">Loading...</p>;
   }
 
   if (!organization) {

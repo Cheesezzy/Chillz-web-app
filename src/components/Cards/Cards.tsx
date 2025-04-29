@@ -73,7 +73,7 @@ function Cards() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
           {loading ? (
-            <p>Loading events...</p>
+            <div className="loading-container spinner"></div>
           ) : events.length > 0 ? (
             // Slice the events to show a maximum of 8
             events

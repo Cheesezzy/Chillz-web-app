@@ -29,7 +29,7 @@ const RegisterForm = () => {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p className="text-red-500 font-bold">Loading...</p>;
   }
 
   return (

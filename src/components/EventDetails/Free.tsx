@@ -27,7 +27,11 @@ export default function Free() {
   const [newPost, setNewPost] = useState<string>("");
 
   if (loading) {
-    return <p>Loading event details...</p>;
+    return (
+      <div className="loading-container font-bold text-xl text-red-600">
+        Loading Event Details...
+      </div>
+    );
   }
 
   if (!event) {
@@ -61,7 +65,7 @@ export default function Free() {
         {/* Hero Image */}
         <div className="relative w-full h-64 md:h-80 rounded-lg overflow-hidden mb-6">
           <img
-            src={event.imageUrl || "/default-image.jpg"}
+            src={event.imageUrl || "/event-img.jpeg"}
             alt={event.title}
             className="w-full h-full object-cover"
           />
