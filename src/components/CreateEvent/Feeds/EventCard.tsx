@@ -1,3 +1,4 @@
+import { MessageCircle, Users } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -10,10 +11,20 @@ interface Event {
   endTime: string;
   location: string;
   category: string;
+  interestedUsers: string[];
+  posts: { user: string; message: string; timestamp: string }[]; // Updated type
   image?: string | null;
 }
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
+  const truncateText = (text: string, wordLimit: number) => {
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + " ...";
+    }
+    return text;
+  };
+
   return (
     <Link
       to={`/event/${event.id}`}
@@ -28,13 +39,26 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
       </div>
 
       <div className="p-4">
-        <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-600 bg-red-100 mb-2">
-          {event.category}
-        </span>
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-600 bg-red-100 mb-4">
+            {event.category}
+          </span>
+          <div className="flex items-center text-gray-600 mb-6">
+            <Users className="w-4 h-4 mr-1" />
+            <span className="text-sm mr-4">
+              {event.interestedUsers?.length || ""}
+            </span>
+
+            <MessageCircle className="w-4 h-4 mr-1" />
+            <span>{event.posts?.length || ""}</span>
+          </div>
+        </div>
         <h3 className="text-lg text-gray-800 font-semibold mb-2">
           {event.title}
         </h3>
-        <p className="text-gray-600 mb-3">{event.description}</p>
+        <p className="text-gray-600 mb-3">
+          {truncateText(event.description, 4)}
+        </p>
         <div className="flex items-center text-sm text-gray-500 mb-2">
           <svg
             className="w-4 h-4 mr-1"

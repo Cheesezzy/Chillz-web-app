@@ -15,6 +15,8 @@ interface Event {
   endTime: string;
   location: string;
   category: string;
+  interestedUsers: string[];
+  posts: { user: string; message: string; timestamp: string }[]; // Updated type
   image?: string;
 }
 
@@ -43,6 +45,8 @@ function Cards() {
             endTime: data.endTime || "",
             location: data.location || "",
             category: data.category || "",
+            interestedUsers: data.interestedUsers || [],
+            posts: data.posts || [],
             image: data.imageUrl || "/event-img.jpeg", // Fallback image
           };
         });
