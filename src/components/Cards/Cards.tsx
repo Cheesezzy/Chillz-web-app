@@ -90,9 +90,9 @@ function Cards() {
             Array.from({ length: 8 - events.length }).map((_, index) => (
               <div
                 key={`placeholder-${index}`}
-                className="border border-gray-300 rounded-md shadow-sm h-48 flex items-center justify-center text-gray-400"
+                className="border border-gray-300 rounded-md shadow-sm h-107 flex items-center justify-center text-gray-400"
               >
-                Placeholder
+                Events Cards
               </div>
             ))}
         </div>

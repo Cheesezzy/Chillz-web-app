@@ -4,9 +4,10 @@ import map from "/location.png";
 import dates from "/calendar.png";
 import badge from "/badge.png";
 import "./Cards.css";
+import { Link } from "react-router-dom";
 const Verified = () => {
   return (
-    <div>
+    <Link to="/coming-soon">
       <div className="card_wrapper">
         <div className="head_text">
           <h2>Upcoming Events</h2>
@@ -29,7 +30,7 @@ const Verified = () => {
                 {" "}
                 <p className="calender">
                   <img src={dates} alt="calender" width={10} height={10} />
-                  <i className="text-sm">16th - Apr - 2025</i>
+                  <i className="text-sm">16th - Apr - 2026</i>
                 </p>
               </a>
 
@@ -40,22 +41,24 @@ const Verified = () => {
                 </p>
               </a>
             </div>
-            <h2>
-              <a href="#">Elegant Light Box Paper Cut Dioramas in UK</a>
-            </h2>
-            <div className="flex items-center justify-between">
-              <a className="ticket_btn" href="#">
-                Get Ticket
-              </a>
-              <span className="flex items-center gap-1">
-                <img src={badge} alt="badge" width={20} height={20} />
-                <p className="text-xs font-semibold">Verified</p>
-              </span>
+            <div className="flex flex-col gap-2 px-4 py-2">
+              <h2>
+                <a href="#">Elegant Light Box Paper Cut Dioramas</a>
+              </h2>
+              <div className="flex items-center justify-between">
+                <a className="ticket_btn" href="#">
+                  Get Ticket
+                </a>
+                <span className="flex items-center gap-1">
+                  <img src={badge} alt="badge" width={20} height={20} />
+                  <p className="text-xs font-semibold">Verified</p>
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

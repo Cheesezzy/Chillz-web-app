@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../lib/firebase/components/AuthProvider";
-import { useEventData } from "../../hooks/useEventData"; // Import the custom hook
+import { useEventData } from "../../hooks/useEventData";
 import Header from "../Header";
 import {
   Calendar,
@@ -11,7 +11,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useState } from "react";
-
+import free from "/free.png";
 import Share from "../Button/ShareBtn";
 import AlertModal from "../../Modals/AlertModal";
 import OrganizationName from "../OrganizationName";
@@ -21,7 +21,7 @@ export default function Free() {
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
   const [showAllPosts, setShowAllPosts] = useState(false);
-  const [alertMessage, setAlertMessage] = useState<string | null>(null); // State for alert message
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
   const { event, organization, interested, loading, toggleInterest, addPost } =
     useEventData(id, user?.email);
   const [newPost, setNewPost] = useState<string>("");
@@ -126,6 +126,9 @@ export default function Free() {
           </button>
 
           <Share event={event} />
+          <div className="flex items-center w-14 h-12">
+            <img src={free} alt="free" />
+          </div>
         </div>
 
         <div className="mb-8">

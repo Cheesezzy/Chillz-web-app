@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { RoutesEnum } from "./routes";
 import React from "react";
+import ComingSoon from "./components/EventDetails/ComingSoon";
 const Home = React.lazy(() => import("./pages/Hero"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Register = React.lazy(() => import("./pages/Register"));
@@ -59,7 +60,7 @@ const App = () => {
             </RequireUser>
           }
         />
-
+        <Route path="/coming-soon" element={<ComingSoon />} />
         <Route path={RoutesEnum.EventFeeds} element={<EventFeeds />} />
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.EventDetails} element={<EventDetails />} />
