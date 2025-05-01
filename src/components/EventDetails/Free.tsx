@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../lib/firebase/components/AuthProvider";
 import { useEventData } from "../../hooks/useEventData";
 import Header from "../Header";
+import SkeletonLoader from "../SkeletonLoader";
 import {
   Calendar,
   Clock,
@@ -28,8 +29,33 @@ export default function Free() {
 
   if (loading) {
     return (
-      <div className="loading-container font-bold text-xl text-red-600">
-        Loading Event Details...
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 gap-8">
+            {/* Left Column */}
+            <div className="lg:col-span-2 space-y-6">
+              <SkeletonLoader type="card" className="h-96" />
+              <div className="space-y-4">
+                <SkeletonLoader type="text" />
+                <SkeletonLoader type="text" />
+                <SkeletonLoader type="text" />
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="space-y-6">
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <SkeletonLoader type="text" />
+                <div className="mt-4">
+                  <SkeletonLoader type="avatar" className="mx-auto" />
+                </div>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-sm">
+                <SkeletonLoader type="text" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
