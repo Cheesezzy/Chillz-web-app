@@ -21,7 +21,7 @@ const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
           Are you a member?{" "}
           <Link
             to={RoutesEnum.Login}
-            className={`cursor-pointer font-semibold text-customRed hover:text-red-300`}
+            className={`cursor-pointer font-semibold text-red-600 hover:text-red-300`}
           >
             {" "}
             Sign In

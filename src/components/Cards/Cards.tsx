@@ -5,6 +5,7 @@ import EventCard from "../CreateEvent/Feeds/EventCard";
 
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
+import LoadingSpinner from "../LoadingSpinner";
 
 interface Event {
   id: string;
@@ -77,7 +78,7 @@ function Cards() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
           {loading ? (
-            <div className="loading-container spinner"></div>
+            <div className="flex justify-center items-center h-full"><LoadingSpinner/></div>
           ) : events.length > 0 ? (
             // Slice the events to show a maximum of 8
             events

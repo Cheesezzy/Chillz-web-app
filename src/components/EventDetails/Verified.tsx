@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../lib/firebase";
 import Header from "../Header";
+import LoadingSpinner from "../LoadingSpinner";
 interface Event {
   id: string;
   title: string;
@@ -94,7 +95,7 @@ export default function Verified() {
   }, [id]);
 
   if (loading) {
-    return <p>Loading event details...</p>;
+    return <LoadingSpinner/>;
   }
 
   if (!event) {

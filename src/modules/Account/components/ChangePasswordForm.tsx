@@ -3,6 +3,7 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import { useNavigate } from "react-router-dom";
 import { updateUserPassword } from "../../../lib/firebase/Authentication/PasswordAuth";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const ChangePasswordForm = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const ChangePasswordForm = () => {
   const [newPassword, setNewPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   return (
     <div className="mt-4 text-sm text-gray-500 gap-4 flex flex-col">
       Please enter your password to delete your account:

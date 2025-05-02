@@ -25,7 +25,7 @@ function SignIn({
   };
 
   if (loading) {
-    return <div className="loading-container">Loading...</div>;
+    return <div className="text-red-600">Loading...</div>;
   }
 
   if (!user || user === null) {

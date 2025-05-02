@@ -4,6 +4,7 @@ import { useAllEventsData } from "../../hooks/useAllEventsData";
 import search from "/search.svg";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import EventCard from "../../components/CreateEvent/Feeds/EventCard";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 function CategoryPage() {
   const location = useLocation();
@@ -82,10 +83,7 @@ function CategoryPage() {
 
             {/* Event List */}
             {loading ? (
-              <div className="loading-container">
-                <div className="spinner"></div> {/* Spinning animation */}
-                <p>Loading...</p>
-              </div>
+              <LoadingSpinner/>
             ) : error ? (
               <p>Error loading events. Please try again later.</p>
             ) : filteredEvents.length > 0 ? (

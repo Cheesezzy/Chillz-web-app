@@ -6,6 +6,7 @@ import { RoutesEnum } from "../../../routes";
 import SignIn from "../../../components/Header/SignIn";
 import chillzlogo from "/chillz.png";
 import { useAllEventsData } from "../../../hooks/useAllEventsData";
+import LoadingSpinner from "../../../components/LoadingSpinner";
 
 const EventsPage: React.FC = () => {
   const [filter, setFilter] = useState<string>("all");
@@ -79,10 +80,7 @@ const EventsPage: React.FC = () => {
 
         {/* Events listing */}
         {loading ? (
-          <div className="loading-container">
-            <div className="spinner"></div> {/* Spinning animation */}
-            <p>Loading...</p>
-          </div>
+          <LoadingSpinner/>
         ) : filteredEvents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2">
             {filteredEvents.map((event) => (

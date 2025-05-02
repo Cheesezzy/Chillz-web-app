@@ -7,7 +7,7 @@ interface LoadingSpinnerProps {
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ 
   size = 'md', 
-  color = 'text-red-600' 
+  color = 'text-[#ff5757]' 
 }) => {
   const sizeClasses = {
     sm: 'w-6 h-6',
@@ -16,7 +16,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="fixed inset-0 flex items-center justify-center bg-white bg-opacity-75 z-50">
       <div className={`${sizeClasses[size]} ${color} animate-spin`}>
         <svg
           className="w-full h-full"

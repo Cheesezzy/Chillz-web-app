@@ -4,17 +4,14 @@ import UpdateForm from "./components/ChangeEmail";
 import ChangePassword from "./components/ChangePassword";
 import DeleteUser from "./components/DeleteUser";
 import UserProfile from "./components/UserProfile";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 export default function AccountLayout() {
   const [user, loading] = useAuthState(auth);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <div className="loading-container">
-          <div className="spinner"></div>
-        </div>
-      </div>
+      <LoadingSpinner/>
     );
   }
   if (!user || user === null) return <div>Not Found</div>;

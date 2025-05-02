@@ -7,6 +7,7 @@ import OrganizerSetupForm from "./modules/Account/components/OrganizerSetupForm"
 import { useAuth } from "./lib/firebase/components/AuthProvider";
 import { db } from "./lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import LoadingSpinner from "./components/LoadingSpinner";
 const Home = React.lazy(() => import("./pages/Hero"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Register = React.lazy(() => import("./pages/Register"));
@@ -51,7 +52,7 @@ const OrganizationSetupRoute = ({ children }: { children: React.ReactNode }) => 
   }, [user]);
 
   if (isChecking) {
-    return <div>Loading...</div>; // You can replace this with your loading component
+    return <div><LoadingSpinner/></div>; // You can replace this with your loading component
   }
 
   // If user has an organization profile, redirect to create event
@@ -93,7 +94,7 @@ const CreateEventRoute = ({ children }: { children: React.ReactNode }) => {
   }, [user]);
 
   if (isChecking) {
-    return <div>Loading...</div>; 
+    return <div><LoadingSpinner/></div>; 
   }
 
   // If user doesn't have an organization profile, redirect to setup

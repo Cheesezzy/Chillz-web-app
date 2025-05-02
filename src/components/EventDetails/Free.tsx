@@ -190,7 +190,7 @@ export default function Free() {
                   </div>
                 ) : (
                   <p className="text-gray-500">
-                    No organization profiles found.
+                    Sign in to see the event organizer
                   </p>
                 )}
               </div>
