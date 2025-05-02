@@ -6,6 +6,7 @@ import Footer from "../../components/Footer/Footer";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Carousel from "../../components/Carousel/Carousel";
 import Verified from "../../components/Cards/Verified";
+import WeatherReport from "../../components/Weather/WeatherReport";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
         <Categories />
         <Verified />
         <Cards />
+        <WeatherReport/>
         <Carousel />
       </DefaultLayout>
       <Footer />
