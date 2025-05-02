@@ -13,42 +13,41 @@ const Verified = () => {
           <h2>Upcoming Events</h2>
         </div>
         <div className="card_item">
-          <div className="card_img">
-            <a href="#">
+          <div className="card_img px-1">
+            
               <img src={eventImg} alt="Images" />
-            </a>
+            
           </div>
           <div className="card_text">
             <div className="card_icon">
-              <a href="#">
+              
                 <p className="map">
                   <img src={map} alt="map" width={10} height={10} />
                   <i className="text-sm">IAC Building</i>
                 </p>
-              </a>
-              <a href="#">
-                {" "}
+              
+              
                 <p className="calender">
                   <img src={dates} alt="calender" width={10} height={10} />
                   <i className="text-sm">16th - Apr - 2026</i>
                 </p>
-              </a>
+        
 
-              <a href="#">
+              
                 <p className="clock">
                   <img src={clock} alt="clock" width={10} height={10} />
                   <i className="text-sm">8:00am - 5:00pm</i>
                 </p>
-              </a>
+            
             </div>
             <div className="flex flex-col gap-2 px-4 py-2">
               <h2>
-                <a href="#">Elegant Light Box Paper Cut Dioramas</a>
+                Elegant Light Box Paper Cut Dioramas
               </h2>
               <div className="flex items-center justify-between">
-                <a className="ticket_btn" href="#">
+                <button className="ticket_btn">
                   Get Ticket
-                </a>
+                </button>
                 <span className="flex items-center gap-1">
                   <img src={badge} alt="badge" width={20} height={20} />
                   <p className="text-xs font-semibold">Verified</p>

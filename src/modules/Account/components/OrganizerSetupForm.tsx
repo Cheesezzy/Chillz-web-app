@@ -13,9 +13,9 @@ import {
 } from "lucide-react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../../lib/firebase";
-import { useNavigate } from "react-router-dom";
 import { addDoc, collection } from "firebase/firestore";
-import { RoutesEnum } from "../../../routes";
+import { motion, AnimatePresence } from 'framer-motion';
+import SuccessModal from '../../../components/Onboarding/SuccessModal';
 
 interface OrganizerProfile {
   organizationName: string;
@@ -28,15 +28,10 @@ interface OrganizerProfile {
   instagram: string;
   logo: string | null;
 }
-interface OrganizerSetupFormProps {
-  onSetupComplete: () => void; // Callback to notify parent
-}
 
-const OrganizerSetupForm: React.FC<OrganizerSetupFormProps> = ({
-  onSetupComplete,
-}) => {
+
+const OrganizerSetupForm = () => {
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
 
   const [organizerProfile, setOrganizerProfile] = useState<OrganizerProfile>({
     organizationName: "",
@@ -53,6 +48,8 @@ const OrganizerSetupForm: React.FC<OrganizerSetupFormProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -124,8 +121,7 @@ const OrganizerSetupForm: React.FC<OrganizerSetupFormProps> = ({
 
       setIsSuccess(true);
       setOrganizerProfile(organizerProfile);
-      onSetupComplete();
-      navigate(RoutesEnum.Account);
+      setShowSuccessModal(true);
     } catch (error) {
       setIsSuccess(false);
       console.error("Error submitting form:", error);
@@ -133,8 +129,13 @@ const OrganizerSetupForm: React.FC<OrganizerSetupFormProps> = ({
       setIsSubmitting(false);
     }
   };
+  const handleCloseModal = () => {
+    setShowSuccessModal(false);
+  };
 
   return (
+    <>
+  
     <div className="min-h-screen bg-gray-50 mt-6">
       <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-6">
@@ -408,31 +409,44 @@ const OrganizerSetupForm: React.FC<OrganizerSetupFormProps> = ({
             </div>
 
             <div className="border-t border-gray-200 pt-6 flex justify-end">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 disabled={isSubmitting}
                 className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
               >
                 {isSubmitting ? (
-                  <>Processing...</>
+                  <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="w-6 h-6 border-2 border-white border-t-transparent rounded-full mx-auto"
+                />
                 ) : (
                   <>
                     <Save size={18} className="mr-2" />
                     Save Changes
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
-
-            {isSuccess && (
-              <div className="mt-4 p-4 bg-green-50 text-green-700 rounded-md">
-                Your organizer profile has been updated successfully!
-              </div>
-            )}
           </form>
         </div>
       </div>
+      
+      
     </div>
+    {isSuccess && (
+              <AnimatePresence>
+        {showSuccessModal && (
+          <SuccessModal 
+            onClose={handleCloseModal} 
+            hasOrganization={true}
+          />
+        )}
+      </AnimatePresence>
+            )}
+            </>
   );
 };
 

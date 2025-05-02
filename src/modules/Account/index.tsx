@@ -4,7 +4,6 @@ import UpdateForm from "./components/ChangeEmail";
 import ChangePassword from "./components/ChangePassword";
 import DeleteUser from "./components/DeleteUser";
 import UserProfile from "./components/UserProfile";
-import OrganizerSetup from "./components/OrganizerSetup";
 
 export default function AccountLayout() {
   const [user, loading] = useAuthState(auth);
@@ -25,7 +24,7 @@ export default function AccountLayout() {
   return (
     <div className="mt-16 gap-8 flex flex-col h-screen">
       <UserProfile user={user} />
-      <OrganizerSetup user={user} />
+      {/* <OrganizerSetup user={user} /> */}
 
       {/* Update Form for email users only */}
       {!isGoogleUser ? (

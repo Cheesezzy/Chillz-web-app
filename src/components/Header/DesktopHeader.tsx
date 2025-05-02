@@ -6,19 +6,58 @@ import search from "/search.svg";
 import SignIn from "./SignIn";
 import { RoutesEnum } from "../../routes";
 import "./App.css";
+import { useEffect, useState } from 'react';
+import { db } from '../../lib/firebase';
+import { collection, query, where, getDocs } from 'firebase/firestore';
+import { useAuth } from '../../lib/firebase/components/AuthProvider';
 
 function DesktopHeader({
   setMobileMenuOpen,
   mobileMenuOpen,
-  isUserSignedIn,
+  isUserSignedIn
 }: DesktopHeaderProps & { mobileMenuOpen: boolean; isUserSignedIn: boolean }) {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const [hasOrganization, setHasOrganization] = useState<boolean | null>(null);
+  const [isChecking, setIsChecking] = useState(false);
 
-  const handleNavigation = (href: string) => {
-    if (isUserSignedIn) {
-      navigate(href);
-    } else {
+  useEffect(() => {
+    const checkOrganizationProfile = async () => {
+      if (user?.uid) {
+        setIsChecking(true);
+        try {
+          const orgQuery = query(
+            collection(db, 'organizationProfile'),
+            where('userId', '==', user.uid)
+          );
+          const querySnapshot = await getDocs(orgQuery);
+          setHasOrganization(!querySnapshot.empty);
+        } catch (error) {
+          console.error('Error checking organization profile:', error);
+          setHasOrganization(false);
+        } finally {
+          setIsChecking(false);
+        }
+      }
+    };
+    checkOrganizationProfile();
+  }, [user]);
+
+  const handleNavigation = (route: string) => {
+    if (!isUserSignedIn) {
       navigate(RoutesEnum.Login);
+      return;
+    }
+
+    if (route === RoutesEnum.CreateAnEvent) {
+      if (isChecking) return; // Wait for check to complete
+      if (!hasOrganization) {
+        navigate(RoutesEnum.Onboarding);
+      } else {
+        navigate(RoutesEnum.CreateAnEvent);
+      }
+    } else {
+      navigate(route);
     }
   };
 
@@ -64,9 +103,10 @@ function DesktopHeader({
 
         <button
           onClick={() => handleNavigation(RoutesEnum.CreateAnEvent)}
-          className="text-sm font-semibold leading-6 link"
+          className={`text-sm font-semibold leading-6 link ${isChecking ? 'opacity-50 cursor-wait' : ''}`}
+          disabled={isChecking}
         >
-          Create an Event
+          {isChecking ? 'Checking...' : 'Create an Event'}
         </button>
         <button
           onClick={() => handleNavigation(RoutesEnum.Tickets)}

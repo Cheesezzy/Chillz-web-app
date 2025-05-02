@@ -35,13 +35,11 @@ textarea:focus {
 
 .card_img {
   position: relative;
-}
-
-.card_img a {
   display: block;
 }
 
-.card_img a img {
+
+.card_img img {
   width: 100%;
   border-radius: 10px;
 }

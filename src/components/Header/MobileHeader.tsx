@@ -65,7 +65,7 @@ function MobileHeader({
                 </Link>
                 <button
                   className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  onClick={() => handleNavigation(RoutesEnum.CreateAnEvent)}
+                  onClick={() => handleNavigation(RoutesEnum.Onboarding)}
                 >
                   Create an Event
                 </button>
