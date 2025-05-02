@@ -23,6 +23,12 @@
   animation: spin 1s linear infinite; /* Spinning animation */
 }
 
+input {
+
+  border: 1px solid #cbcbcb;
+
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg); /* Start at 0 degrees */

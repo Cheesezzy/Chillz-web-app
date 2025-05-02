@@ -5,9 +5,10 @@ type InputProps = {
   name: string;
   value: string;
   onChange: React.Dispatch<React.SetStateAction<string>>;
+  placeholder?: string;
 };
 
-const Input: React.FC<InputProps> = ({ name, label, value, onChange }) => {
+const Input: React.FC<InputProps> = ({ name, label, value, onChange, placeholder }) => {
   return (
     <div>
       <label
@@ -22,6 +23,7 @@ const Input: React.FC<InputProps> = ({ name, label, value, onChange }) => {
         required
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
         className="mt-2 block w-full rounded-md border-0 p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400"
       />
     </div>
