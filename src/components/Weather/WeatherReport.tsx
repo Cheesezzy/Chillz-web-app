@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Cloud, Sun, CloudRain, CloudSnow, Wind, ArrowLeft, ArrowRight } from 'lucide-react';
-import debounce from 'lodash/debounce';
+
+// Import API key from environment variables
 
 interface WeatherData {
   province: string;
@@ -48,17 +49,12 @@ const WeatherReport: React.FC = () => {
   const [weatherData, setWeatherData] = useState<WeatherData[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProvince, setSelectedProvince] = useState(0);
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const filteredProvinces = provinces.filter(province =>
-    province.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   const fetchWeatherData = useCallback(async (index: number) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `https://api.weatherapi.com/v1/forecast.json?key=ab1215f131d44f87a0e65213250205&q=${provinces[index].id}&days=5&aqi=no&alerts=no`
+        `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHER_API}&q=${provinces[index].id}&days=5&aqi=no&alerts=no`
       );
       const data = await response.json();
       
@@ -110,17 +106,9 @@ const WeatherReport: React.FC = () => {
     }
   };
 
-  const getUVIndexColor = (index: number) => {
-    if (index <= 2) return 'text-green-500';
-    if (index <= 5) return 'text-yellow-500';
-    if (index <= 7) return 'text-orange-500';
-    if (index <= 10) return 'text-red-500';
-    return 'text-purple-500';
-  };
-
-  const handleSearch = debounce((value: string) => {
-    setSearchQuery(value);
-  }, 300);
+if(loading){
+  return <div ></div>
+}
 
   return (
     <div className="max-w-2xl mx-auto p-6 rounded-2xl shadow-xl mt-10" style={{ background: 'transparent' }}>
@@ -165,7 +153,7 @@ const WeatherReport: React.FC = () => {
         <span className="text-6xl font-light">{weatherData[selectedProvince]?.temperature}°C</span>
       </div>
       <div className="flex justify-between mt-6">
-        {weatherData[selectedProvince]?.forecast.slice(0, 5).map((day, idx) => (
+        {weatherData[selectedProvince]?.forecast.slice(0, 5).map((day) => (
           <div key={day.date} className="flex flex-col items-center">
             <span>{new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}</span>
             <div className="my-1">{getWeatherIcon(day.condition)}</div>
