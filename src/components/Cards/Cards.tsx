@@ -88,7 +88,7 @@ function Cards() {
             <p>No events found.</p>
           )}
 
-          {/* Fill remaining slots with placeholders if fewer than 8 events */}
+          {/* Fill remaining slots with placeholders if fewer than 8 events
           {!loading &&
             events.length > 0 &&
             events.length < 8 &&
@@ -99,7 +99,7 @@ function Cards() {
               >
                 Events Cards
               </div>
-            ))}
+            ))} */}
         </div>
       </div>
     </>
