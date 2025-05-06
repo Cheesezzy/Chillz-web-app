@@ -167,9 +167,9 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           </p>
         )}
 
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <h3 className="text-xl font-semibold text-gray-800">{user.email}</h3>
-        </div>
+        </div> */}
       </div>
     </div>
   );
