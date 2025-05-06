@@ -17,8 +17,6 @@ export const registerUser = async (
   email: string,
   password: string,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>,
-  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
   navigate: NavigateFunction
 ) => {
   try {
@@ -31,12 +29,10 @@ export const registerUser = async (
     );
     const results = userCredential.user;
     // console.log(results);
-    // Send an email verification to the users email
     await sendEmailVerification(results);
-    setAlertMessage(
-      `A verification email has been sent to your email address ${name}!. Please verify your email to login.`
-    );
-    setIsAlertModalOpen(true);
+      alert(
+        `Hello, ${name}! A verification email has been sent to ${email}!. Please verify email to login.`
+      );
   } catch (error) {
     if (error instanceof FirebaseError) {
       generateFirebaseAuthErrorMessage(error);

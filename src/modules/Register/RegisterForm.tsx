@@ -4,7 +4,7 @@ import Input from "../../components/Input";
 import { registerUser } from "../../lib/firebase/Authentication/EmailAuth";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import AlertModal from "../../Modals/AlertModal";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -12,8 +12,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [alertMessage, setAlertMessage] = React.useState<string | null>(null);
-  const [isAlertModalOpen, setIsAlertModalOpen] = React.useState(false);
+
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,15 +20,13 @@ const RegisterForm = () => {
       name,
       email,
       password,
-      setIsAlertModalOpen,
-      setAlertMessage,
       setIsLoading,
       navigate
     );
   };
 
   if (isLoading) {
-    return <p className="text-red-500 font-bold">Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   return (
@@ -54,12 +51,6 @@ const RegisterForm = () => {
 
         <Button text="Register" type="submit" />
       </form>
-      {isAlertModalOpen && alertMessage && (
-        <AlertModal
-          message={alertMessage}
-          onClose={() => setIsAlertModalOpen(false)} // Close the modal
-        />
-      )}
     </>
   );
 };

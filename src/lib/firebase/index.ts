@@ -1,9 +1,9 @@
 import { getApp, getApps, initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration
+// Firebase configuration using Vite environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -13,13 +13,13 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const firestoreApp = getApps().length
-  ? getApp()
-  : initializeApp(firebaseConfig);
+// Initialize Firebase app (singleton pattern)
+const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+
+// Firebase services
+const auth = getAuth(app);
 const googleAuthProvider = new GoogleAuthProvider();
-const auth = getAuth(firestoreApp);
-const db = getFirestore(firestoreApp);
-const storage = getStorage(firestoreApp);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
 export { auth, googleAuthProvider, db, storage };

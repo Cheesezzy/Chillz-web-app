@@ -23,11 +23,7 @@
   animation: spin 1s linear infinite; /* Spinning animation */
 }
 
-input {
 
-  border: 1px solid #cbcbcb;
-
-}
 
 @keyframes spin {
   0% {

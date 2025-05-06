@@ -135,7 +135,7 @@ body {
   }
 }
 
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .loc {
     display: none;
   }
@@ -145,4 +145,4 @@ body {
   .ser {
     display: none;
   }
-}
+} */

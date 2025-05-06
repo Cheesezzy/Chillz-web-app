@@ -5,7 +5,7 @@ const AlertModal: React.FC<{
   onClose: () => void;
 }> = ({ message, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-[#F4F4F9] bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-[#F4F4F9] bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-lg font-medium text-red-600 mb-4">Alert</h2>
         <p className="text-sm text-gray-700 mb-6">{message}</p>

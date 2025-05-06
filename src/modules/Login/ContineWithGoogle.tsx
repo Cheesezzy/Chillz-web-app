@@ -16,7 +16,7 @@ const ContinueWithGoogle = () => {
             <div className="w-full border-t border-gray-200"></div>
           </div>
           <div className="relative flex justify-center text-sm font-medium leading-6">
-            <span className="px-2 bg-white text-gray-900">
+            <span className="px-2 text-gray-900">
               Or continue with
             </span>
           </div>
