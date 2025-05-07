@@ -1,7 +1,9 @@
 import "./Footer.css";
 import playstore from "/play-store.png";
 import appstore from "/app-store.png";
+import { useTranslation } from "react-i18next";
 export default function Footer() {
+  const { t } = useTranslation();
   return (
     <div className="pg-footer mt-8">
       <footer className="footer">
@@ -11,11 +13,11 @@ export default function Footer() {
           </a> */}
           <div className="footer-content-column">
             <div className="footer-menu">
-              <h2 className="footer-menu-name"> Download App</h2>
+              <h2 className="footer-menu-name"> {t('downloadApp')}</h2>
               <ul id="menu-get-started" className="footer-menu-list">
                 <li className="menu-item menu-item-type-post_type menu-item-object-product">
                   <a href="#" className="footer-call-to-action-button">
-                    App Store
+                    {t('appStore')}
                     <img
                       src={appstore}
                       alt="appstore-icon"
@@ -26,7 +28,7 @@ export default function Footer() {
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-product">
                   <a href="#" className="footer-call-to-action-button">
-                    Play Store
+                    {t('playStore')}
                     <img
                       src={playstore}
                       alt="playstore-icon"
@@ -40,39 +42,39 @@ export default function Footer() {
           </div>
           <div className="footer-content-column">
             <div className="footer-menu">
-              <h2 className="footer-menu-name"> Company</h2>
+              <h2 className="footer-menu-name"> {t('company')}</h2>
               <ul id="menu-company" className="footer-menu-list">
                 <li className="menu-item menu-item-type-taxonomy menu-item-object-category">
-                  <a href="#">News</a>
+                  <a href="#">{t('news')}</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Careers</a>
+                  <a href="#">{t('careers')}</a>
                 </li>
               </ul>
             </div>
           </div>
           <div className="footer-content-column">
             <div className="footer-menu">
-              <h2 className="footer-menu-name"> Quick Links</h2>
+              <h2 className="footer-menu-name"> {t('quickLinks')}</h2>
               <ul id="menu-quick-links" className="footer-menu-list">
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Blog</a>
+                  <a href="#">{t('blog')}</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type_archive menu-item-object-customer">
-                  <a href="#">Customers</a>
+                  <a href="#">{t('customers')}</a>
                 </li>
                 <li className="menu-item menu-item-type-post_type menu-item-object-page">
-                  <a href="#">Reviews</a>
+                  <a href="#">{t('reviews')}</a>
                 </li>
               </ul>
             </div>
           </div>
           <div className="footer-content-column">
             <div className="footer-call-to-action">
-              <h2 className="footer-call-to-action-title"> Let's Chat</h2>
+              <h2 className="footer-call-to-action-title"> {t('letsChat')}</h2>
               <p className="footer-call-to-action-description">
                 {" "}
-                Have a support question?
+                {t('haveASupportQuestion')}
               </p>
               <a
                 className="footer-call-to-action-button button"
@@ -80,7 +82,7 @@ export default function Footer() {
                 target="_self"
               >
                 {" "}
-                Get in Touch{" "}
+                {t('getInTouch')}
               </a>
             </div>
           </div>
@@ -151,18 +153,18 @@ export default function Footer() {
             <div className="md:flex items-center md:justify-between">
               <div className="mb-6 md:mb-0">
                 <p className="mt-1 text-sm text-gray-300">
-                  © 2025 Chillz. All rights reserved.
+                  © 2025 Chillz. {t('allRightsReserved')}
                 </p>
               </div>
               <div className="flex flex-col space-y-2">
                 <a href="#" className="text-gray-300 hover:text-white text-sm">
-                  Terms of Service
+                  {t('termsOfService')}
                 </a>
                 <a href="#" className="text-gray-300 hover:text-white text-sm">
-                  Privacy Policy
+                  {t('privacyPolicy')}
                 </a>
                 <a href="#" className="text-gray-300 hover:text-white text-sm">
-                  Contact Us
+                  {t('contactUs')}
                 </a>
               </div>
             </div>

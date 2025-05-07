@@ -6,8 +6,10 @@ import { useState } from "react";
 import { RoutesEnum } from "../../routes";
 import React from "react";
 import AlertModal from "../../Modals/AlertModal";
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,24 +33,26 @@ const LoginForm = () => {
         onSubmit={(e) => handleSubmit(e)}
       >
         <Input
-          label="Email address"
+          label={t('email')}
           name="email"
           value={email}
           onChange={setEmail}
+          placeholder={t('placeholder.email')}
         />
         <Input
-          label="Password"
+          label={t('password')}
           name="password"
           value={password}
           onChange={setPassword}
+          placeholder={t('placeholder.password')}
         />
         <Link
           to={RoutesEnum.ForgotPassword}
-          className="flex justify-end text-sm leading-6 font-semibold text-customRed hover:text-red-300"
+          className="flex justify-end text-sm leading-6 font-semibold text-red-500 hover:text-red-300"
         >
-          Forgot Password
+          {t('forgotPassword')}
         </Link>
-        <Button type="submit" text="Sign In" />
+        <Button type="submit" text={t('signIn')} />
       </form>
       {isAlertModalOpen && alertMessage && (
         <AlertModal

@@ -24,7 +24,7 @@ const Input: React.FC<InputProps> = ({ name, label, value, onChange, placeholder
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="mt-2 block w-full rounded-md border-0 p-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400"
+        className=" block w-full border-gray-300 rounded-md border-1 p-2 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400"
       />
     </div>
   );

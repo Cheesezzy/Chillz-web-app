@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 
 interface Slide {
   url: string;
@@ -54,6 +55,7 @@ const leftArrowStyles = { ...arrowStyles, left: "32px" };
 const rightArrowStyles = { ...arrowStyles, right: "32px" };
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
+  const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -110,7 +112,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ slides }) => {
         />
       ))}
 
-      <div style={textOverlayStyles}>{slides[currentIndex].text}</div>
+      <div style={textOverlayStyles}>{t(slides[currentIndex].text)}</div>  
     </div>
   );
 };

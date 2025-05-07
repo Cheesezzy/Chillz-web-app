@@ -9,21 +9,25 @@ import gaming from "/gaming.png";
 import hangout from "/interview.png";
 import "./Categories.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-const categories = [
-  { name: "Musical Concert", image: music },
-  { name: "Night Life and Party", image: night },
-  { name: "Karaoke", image: karaoke },
-  { name: "Sport", image: sport },
-  { name: "Gym", image: gym },
-  { name: "Business", image: business },
-  { name: "Food and Drinks", image: fooddrinks },
-  { name: "Gaming", image: gaming },
-  { name: "Hangout", image: hangout },
-];
+
 
 function Categories() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const categories = [
+    { name: t('musicalConcert'), image: music },
+    { name: t('nightLifeAndParty'), image: night },
+    { name: t('karaoke'), image: karaoke },
+    { name: t('sport'), image: sport },
+    { name: t('gym'), image: gym },
+    { name: t('business'), image: business },
+    { name: t('foodAndDrinks'), image: fooddrinks },
+    { name: t('gaming'), image: gaming },
+    { name: t('hangout'), image: hangout },
+  ];
 
   const handleCategoryClick = (category: string) => {
     navigate(`/events?category=${encodeURIComponent(category)}`);
@@ -44,7 +48,7 @@ function Categories() {
               width="50%"
               height="50%"
             />
-            <h6>{category.name}</h6>
+            <h6>{t(category.name)}</h6>
           </div>
         ))}
       </div>

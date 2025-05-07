@@ -21,11 +21,12 @@ const HelpCenter = () => {
 To create your first event, follow these simple steps:
 
 1. Log in to your account
-2. Click the "Create Event" button in the top-right corner
-3. Fill in the required event details (name, date, location, description)
-4. Upload a cover image for your event (optional but recommended)
-5. Set ticket types and pricing
-6. Configure event visibility settings
+2. Click the "Create Event" button at the top-right corner
+3. Fill in your organization details (name,description, logo, contact info......)
+4. After setting up your Organization Profile, navigate to the "Create Event" page
+5. Fill in the required event details (name, date, location, description)
+6. Upload a cover image for your event (optional but recommended)
+7. Set ticket types and pricing (#Comming Soon)
 7. Click "Create Event" to make your event live
 
 Your event will now be visible to attendees according to your visibility settings.
@@ -37,10 +38,10 @@ Your event will now be visible to attendees according to your visibility setting
           content: `
 # Setting up your organizer profile
 
-A complete organizer profile helps build trust with attendees. Here's how to set it up:
+A complete organizer profile helps build trust with attendees. If you haven't set one up yet, Here's how to set it up:
 
-1. Go to your account settings by clicking on your email at the top-right corner
-2. Click on "Organizer Profile"
+1. Click the "Create Event" button at the top-right corner
+2. Answer a brief series of On-boarding questions
 3. Add your organization name, logo, and contact information
 4. Write a brief description about your organization
 5. Add links to your website and social media accounts
@@ -57,11 +58,11 @@ Your profile will now be visible on all your event pages.
 
 Your dashboard is your control center. Here's what you'll find:
 
-- **Event Feeds**: See all your past, active, and draft events
-- **Tickets**: Track ticket sales, page views, and attendee demographics
-- **Attendees**: Manage your attendee lists and communication
-- **Finance**: Monitor revenue, payouts, and transaction history
-- **Settings**: Configure your account and organizer profile
+- **Your Personal Events**: See all your past, active, and draft events
+- **Tickets**: Track ticket sales, page views, and attendee demographics (#Comming Soon)
+- **Interested Events**: See events you're interested in
+- **Finance**: Monitor revenue, payouts, and transaction history (#Comming Soon)  
+- **Account Settings**: Configure your account and organizer profile
 
 Use the sidebar menu to navigate between these sections.
           `,

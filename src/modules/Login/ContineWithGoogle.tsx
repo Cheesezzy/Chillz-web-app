@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { signInUserWithGoogle } from "../../lib/firebase/Authentication/GoogleAuth";
 import google from "/google.png";
+import { useTranslation } from 'react-i18next';
 
 const ContinueWithGoogle = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <>
       {/* Continue with */}
@@ -17,7 +19,7 @@ const ContinueWithGoogle = () => {
           </div>
           <div className="relative flex justify-center text-sm font-medium leading-6">
             <span className="px-2 text-gray-900">
-              Or continue with
+              {t('continueWith')}
             </span>
           </div>
         </div>
@@ -29,7 +31,7 @@ const ContinueWithGoogle = () => {
       >
         <a className="flex w-full items-center justify-center gap-3 rounded-md bg-[#020202] px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 bg-black focus-visible:outline-offset-2 focus-visible:outline-customRed hover:bg-gray-600">
           <img src={google} alt="google" width={30} height={30} />
-          <span className="text-sm font-semibold leading-6">Google</span>
+          <span className="text-sm font-semibold leading-6">{t('google')}</span>
         </a>
       </div>
     </>

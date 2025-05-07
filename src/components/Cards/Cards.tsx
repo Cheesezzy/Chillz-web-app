@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../lib/firebase"; // Adjust the path to your Firebase config
 import EventCard from "../CreateEvent/Feeds/EventCard";
-
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import LoadingSpinner from "../LoadingSpinner";
-
+import { useTranslation } from "react-i18next";
 interface Event {
   id: string;
   title: string;
@@ -22,6 +21,7 @@ interface Event {
 }
 
 function Cards() {
+  const { t } = useTranslation();
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -67,13 +67,13 @@ function Cards() {
       <div className="px-6">
         <div className="flex justify-between">
           <p className="text-2xl text-extraBold font-semibold">
-            Popular Events
+            {t('popularEvents')}
           </p>
           <Link
             to={RoutesEnum.EventFeeds}
             className="text-sm text-red-600 hover:text-red-800"
           >
-            View all
+            {t('viewAll')}
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
@@ -85,7 +85,7 @@ function Cards() {
               .slice(0, 8)
               .map((event) => <EventCard key={event.id} event={event} />)
           ) : (
-            <p>No events found.</p>
+            <p>{t('noEventsFound')}</p>
           )}
 
           {/* Fill remaining slots with placeholders if fewer than 8 events

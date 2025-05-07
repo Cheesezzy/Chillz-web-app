@@ -5,6 +5,8 @@ import chillzlogo from "/chillz.png";
 import SignIn from "./SignIn";
 import search from "/search.svg";
 import "./App.css";
+import { LanguageToggle } from "../../Global/LanguageToggle";
+import { useTranslation } from 'react-i18next';
 
 function MobileHeader({
   mobileMenuOpen,
@@ -12,7 +14,7 @@ function MobileHeader({
   isUserSignedIn,
 }: MobileHeaderProps) {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();   
   const handleNavigation = (href: string) => {
     if (isUserSignedIn) {
       setMobileMenuOpen(false);
@@ -55,28 +57,28 @@ function MobileHeader({
                   to={RoutesEnum.EventFeeds}
                   className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Event Feeds
+                  {t('eventFeeds')}
                 </Link>
                 <Link
                   to={RoutesEnum.HelpCenter}
                   className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
-                  Help Center
+                  {t('helpCenter')}
                 </Link>
                 <button
                   className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={() => handleNavigation(RoutesEnum.Onboarding)}
                 >
-                  Create an Event
+                  {t('createAnEvent')}
                 </button>
                 <button
                   className="-mx-3 mt-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   onClick={() => handleNavigation(RoutesEnum.Tickets)}
                 >
-                  Tickets
+                  {t('tickets')}
                 </button>
               </div>
-              {/* <LanguageToggle /> */}
+              <LanguageToggle />
               <div className="space-y-2 py-6 rev">
                 <SignIn setMobileMenuOpen={setMobileMenuOpen} />
               </div>

@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 // Define interface for destination
 interface Destination {
@@ -9,6 +10,7 @@ interface Destination {
 }
 
 const Carousel: React.FC = () => {
+  const { t } = useTranslation();
   // Destinations data
   const destinations: Destination[][] = [
     [
@@ -88,7 +90,7 @@ const Carousel: React.FC = () => {
   return (
     <div className="relative w-full max-w-7xl mx-auto px-4 py-8 mt-12">
       <h2 className="text-2xl md:text-3xl font-bold mb-6 text-center mb-8">
-        Recomended Places To Visit
+        {t('recommendedPlacesToVisit')}
       </h2>
 
       <div className="relative flex items-center">

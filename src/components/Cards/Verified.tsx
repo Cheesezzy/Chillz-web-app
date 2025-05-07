@@ -5,12 +5,15 @@ import dates from "/calendar.png";
 import badge from "/badge.png";
 import "./Cards.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 const Verified = () => {
+  const { t } = useTranslation();
   return (
     <Link to="/coming-soon">
       <div className="card_wrapper">
         <div className="head_text">
-          <h2>Upcoming Events</h2>
+          <h2>{t('upcomingEvents')}</h2>
         </div>
         <div className="card_item">
           <div className="card_img px-1">
@@ -46,11 +49,11 @@ const Verified = () => {
               </h2>
               <div className="flex items-center justify-between">
                 <button className="ticket_btn">
-                  Get Ticket
+                  {t('getTicket')}
                 </button>
                 <span className="flex items-center gap-1">
                   <img src={badge} alt="badge" width={20} height={20} />
-                  <p className="text-xs font-semibold">Verified</p>
+                  <p className="text-xs font-semibold">{t('verified')}</p>
                 </span>
               </div>
             </div>

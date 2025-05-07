@@ -10,12 +10,15 @@ import { useEffect, useState } from 'react';
 import { db } from '../../lib/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useAuth } from '../../lib/firebase/components/AuthProvider';
+import { LanguageToggle } from "../../Global/LanguageToggle";
+import { useTranslation } from 'react-i18next';
 
 function DesktopHeader({
   setMobileMenuOpen,
   mobileMenuOpen,
   isUserSignedIn
 }: DesktopHeaderProps & { mobileMenuOpen: boolean; isUserSignedIn: boolean }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useAuth();
   const [hasOrganization, setHasOrganization] = useState<boolean | null>(null);
@@ -73,7 +76,7 @@ function DesktopHeader({
           <input
             className="nav-input"
             type="text"
-            placeholder="Search for Events"
+            placeholder={t('search')}
           />
         </Link>
         <img src={search} alt="search" className="ser" />
@@ -91,14 +94,14 @@ function DesktopHeader({
           to={RoutesEnum.EventFeeds}
           className="text-sm font-semibold leading-6 link"
         >
-          Event Feeds
+          {t('eventFeeds')}
         </Link>
         <Link
           to={RoutesEnum.HelpCenter}
           onClick={() => handleNavigation(RoutesEnum.HelpCenter)}
           className="text-sm font-semibold leading-6 link"
         >
-          Help Center
+          {t('helpCenter')}
         </Link>
 
         <button
@@ -106,15 +109,15 @@ function DesktopHeader({
           className={`text-sm font-semibold leading-6 link ${isChecking ? 'opacity-50 cursor-wait' : ''}`}
           disabled={isChecking}
         >
-          {isChecking ? 'Checking...' : 'Create an Event'}
+          {isChecking ? t('checking') : t('createAnEvent')}
         </button>
         <button
           onClick={() => handleNavigation(RoutesEnum.Tickets)}
           className="text-sm font-semibold leading-6 link"
         >
-          Tickets
+          {t('tickets')}
         </button>
-        {/* <LanguageToggle /> */}
+        <LanguageToggle />
       </div>
       {/* login */}
       <div className="hidden 2xl:flex 2xl:justify-end 2xl:gap-4">

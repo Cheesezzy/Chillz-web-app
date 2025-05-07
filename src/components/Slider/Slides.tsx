@@ -1,16 +1,18 @@
 import React from "react";
 import ImageSlider from "./ImageSlider";
+import { useTranslation } from 'react-i18next';   
 
 const Slides: React.FC = () => {
+  const { t } = useTranslation();
   const slides = [
     {
       url: "/cover/1.png",
-      text: "Welcome, Explore a World of Events",
+      text: t('welcome'),
     },
-    { url: "/cover/2.png", text: "Discover Amazing Events" },
-    { url: "/cover/3.png", text: "Join the Community" },
-    { url: "/cover/1.png", text: "Create Your Own Events" },
-    { url: "/cover/2.png", text: "Experience Local Events around you" },
+    { url: "/cover/2.png", text: t('discover') },
+    { url: "/cover/3.png", text: t('join') },
+    { url: "/cover/1.png", text: t('create') },
+    { url: "/cover/2.png", text: t('experience') },
   ];
 
   return (

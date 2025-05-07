@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Cloud, Sun, CloudRain, CloudSnow, Wind, ArrowLeft, ArrowRight } from 'lucide-react';
 
-// Import API key from environment variables
 
 interface WeatherData {
   province: string;

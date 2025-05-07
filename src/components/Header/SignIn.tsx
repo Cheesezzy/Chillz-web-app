@@ -5,6 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase"; // Import Firestore
 import "./App.css";
 import { UserImg } from "../UserImg";
+import { useTranslation } from 'react-i18next';
 
 function SignIn({
   setMobileMenuOpen,
@@ -13,6 +14,7 @@ function SignIn({
 }) {
   const [user, loading] = useAuthState(auth);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleNavigation = (href: string) => {
     if (user) {
@@ -35,7 +37,7 @@ function SignIn({
         className="text-sm font-semibold leading-6 log"
         onClick={() => setMobileMenuOpen && setMobileMenuOpen(false)} // Close the menu
       >
-        Log in <span aria-hidden="true">&rarr;</span>
+        {t('logIn')} <span aria-hidden="true">&rarr;</span>
       </Link>
     );
   }
@@ -56,7 +58,7 @@ function SignIn({
         onClick={() => signOutUser(navigate)} // Sign out the user and navigate
         className="text-sm font-semibold leading-6 cursor-pointer text-red-600 log"
       >
-        Sign Out
+        {t('signOut')}
       </p>
     </div>
   );

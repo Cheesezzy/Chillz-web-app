@@ -1,34 +1,16 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const LanguageToggle = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [isEnglish, setIsEnglish] = useState(true);
+  const { i18n } = useTranslation();
+  const [isEnglish, setIsEnglish] = useState(i18n.language === 'en');
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Determine current language from URL on component mount
-  useEffect(() => {
-    const pathParts = location.pathname.split("/");
-    const langPrefix = pathParts[1];
-    setIsEnglish(langPrefix !== "mn");
-  }, [location.pathname]);
-
   const switchLanguage = () => {
-    // Start animation
     setIsAnimating(true);
-
-    // Extract current path without language prefix
-    const pathParts = location.pathname.split("/");
-    pathParts.splice(1, 1); // Remove language part
-    const pathWithoutLang = pathParts.join("/") || "/en/";
-
-    // Set new language prefix
-    const newLangPrefix = isEnglish ? "mn" : "en";
-
-    // Wait for animation to complete before navigating
+    const newLang = isEnglish ? 'mn' : 'en';
     setTimeout(() => {
-      navigate(`/${newLangPrefix}${pathWithoutLang}`);
+      i18n.changeLanguage(newLang);
       setIsEnglish(!isEnglish);
       setIsAnimating(false);
     }, 300);
@@ -42,13 +24,6 @@ export const LanguageToggle = () => {
           alt={isEnglish ? "English flag" : "Mongolian flag"}
           className="w-6 h-4 mr-1"
         />
-        <span
-          className={`text-sm font-medium ${
-            isEnglish ? "text-red" : "text-gray-500"
-          }`}
-        >
-          {/* {isEnglish ? "EN" : "MN"} */}
-        </span>
       </div>
       <button
         onClick={switchLanguage}
@@ -84,13 +59,6 @@ export const LanguageToggle = () => {
           </span>
         </div>
       </button>
-      {/* <span
-        className={`text-sm font-medium ${
-          !isEnglish ? "text-red" : "text-gray-500"
-        }`}
-      >
-        MN
-      </span> */}
     </div>
   );
 };

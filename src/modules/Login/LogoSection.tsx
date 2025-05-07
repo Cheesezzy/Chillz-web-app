@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
 import logo from "/chillz.png";
+import { useTranslation } from 'react-i18next';
 
 type LogoSectionProps = {
   isRegisterPage?: boolean;
 };
 
 const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
+  const { t } = useTranslation();
   if (isRegisterPage) {
     return (
       <>
@@ -15,16 +17,16 @@ const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
           <img className="h-16 w-auto" src={logo} alt="Chillz logo" />
         </Link>
         <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Register for an account
+          {t('register')}
         </h2>
         <p className="mt-2 text-sm leading-6 text-gray-500">
-          Are you a member?{" "}
+          {t('areYouMember')}
           <Link
             to={RoutesEnum.Login}
             className={`cursor-pointer font-semibold text-red-600 hover:text-red-300`}
           >
             {" "}
-            Sign In
+            {t('signIn')}
           </Link>
         </p>
       </>
@@ -38,16 +40,16 @@ const LogoSection: React.FC<LogoSectionProps> = ({ isRegisterPage }) => {
         <img className="h-16 w-auto" src={logo} alt="BallersBoutique" />
       </Link>
       <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
-        Sign in to your account
+        {t('signIn')}
       </h2>
       <p className="mt-2 text-sm leading-6 text-gray-500">
-        Not a member?{" "}
+        {t('notMember')}
         <Link
           to={RoutesEnum.Register}
           className={`cursor-pointer font-semibold text-red-600 hover:text-red-300`}
         >
           {" "}
-          Register Now
+          {t('register')}
         </Link>
       </p>
     </>

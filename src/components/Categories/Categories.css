@@ -36,8 +36,8 @@
 /* Heading styles */
 .con h6 {
   margin-top: 10px;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 /* Media Queries for responsive layouts */
@@ -68,7 +68,7 @@
   }
 
   .con h6 {
-    font-size: 16px;
+    font-size: 12px;
   }
 }
 
