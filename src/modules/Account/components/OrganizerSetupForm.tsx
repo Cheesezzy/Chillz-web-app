@@ -16,6 +16,7 @@ import { auth, db } from "../../../lib/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { motion, AnimatePresence } from 'framer-motion';
 import SuccessModal from '../../../components/Onboarding/SuccessModal';
+import { useTranslation } from 'react-i18next';
 
 interface OrganizerProfile {
   organizationName: string;
@@ -32,7 +33,7 @@ interface OrganizerProfile {
 
 const OrganizerSetupForm = () => {
   const [user] = useAuthState(auth);
-
+  const { t } = useTranslation();
   const [organizerProfile, setOrganizerProfile] = useState<OrganizerProfile>({
     organizationName: "",
     description: "",
@@ -142,15 +143,15 @@ const OrganizerSetupForm = () => {
           <div className="flex items-center mb-6 text-gray-600 bg-blue-50 p-4 rounded-lg">
             <Info size={20} className="mr-2 text-blue-500" />
             <p>
-              Complete your organizer Profile by filling out the form below.
-              This information will be visible to event attendees.
+              {t('completeYourOrganizerProfileByFillingOutTheFormBelow')}
+              {t('thisInformationWillBeVisibleToEventAttendees')}
             </p>
           </div>
 
           <form onSubmit={handleSubmit}>
             <div className="mb-8">
               <h2 className="text-lg font-medium text-gray-800 mb-4">
-                Basic Information
+                {t('basicInformation')}
               </h2>
               <div className="space-y-4">
                 {/* Organization Name */}
@@ -159,7 +160,7 @@ const OrganizerSetupForm = () => {
                     htmlFor="organizationName"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Organization Name*
+                    {t('organizationName')}*
                   </label>
                   <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -184,7 +185,7 @@ const OrganizerSetupForm = () => {
                     htmlFor="logo"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Organization Logo
+                    {t('organizationLogo')}
                   </label>
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 w-24 h-24 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center overflow-hidden bg-gray-50">
@@ -204,7 +205,7 @@ const OrganizerSetupForm = () => {
                         className="cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none"
                       >
                         <Upload size={16} className="mr-2" />
-                        Choose File
+                        {t('chooseFile')}
                         <input
                           id="logoInput"
                           type="file"
@@ -214,7 +215,7 @@ const OrganizerSetupForm = () => {
                         />
                       </label>
                       <p className="mt-2 text-xs text-gray-500">
-                        Recommended: 400x400px, PNG or JPG, max 2MB
+                        {t('recommended')}
                       </p>
                     </div>
                   </div>
@@ -226,7 +227,7 @@ const OrganizerSetupForm = () => {
                     htmlFor="description"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Organization Description*
+                    {t('organizationDescription')}*
                   </label>
                   <textarea
                     id="description"
@@ -236,11 +237,11 @@ const OrganizerSetupForm = () => {
                     required
                     rows={4}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    placeholder="Write a brief description about your organization"
+                    placeholder={t('writeABriefDescriptionAboutYourOrganization')}
                   />
                   <p className="mt-1 text-xs text-gray-500">
-                    Describe your organization, its mission, and what kind of
-                    events you host.
+                    {t('describeYourOrganizationItsMissionAndWhatKindOf')}
+                    {t('eventsYouHost')}
                   </p>
                 </div>
               </div>
@@ -248,7 +249,7 @@ const OrganizerSetupForm = () => {
 
             <div className="mb-8">
               <h2 className="text-lg font-medium text-gray-800 mb-4">
-                Contact Information
+                {t('contactInformation')}
               </h2>
               <div className="space-y-4">
                 {/* Email */}
@@ -257,7 +258,7 @@ const OrganizerSetupForm = () => {
                     htmlFor="email"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Email Address*
+                    {t('emailAddress')}*
                   </label>
                   <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -282,7 +283,7 @@ const OrganizerSetupForm = () => {
                     htmlFor="phone"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Phone Number
+                    {t('phoneNumber')}
                   </label>
                   <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -304,7 +305,7 @@ const OrganizerSetupForm = () => {
 
             <div className="mb-8">
               <h2 className="text-lg font-medium text-gray-800 mb-4">
-                Web Presence
+                {t('webPresence')}
               </h2>
               <div className="space-y-4">
                 {/* Website */}
@@ -313,7 +314,7 @@ const OrganizerSetupForm = () => {
                     htmlFor="website"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    Website
+                    {t('website')}
                   </label>
                   <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -339,7 +340,7 @@ const OrganizerSetupForm = () => {
                       htmlFor="facebook"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Facebook
+                      {t('facebook')}
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -363,7 +364,7 @@ const OrganizerSetupForm = () => {
                       htmlFor="twitter"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Twitter
+                      {t('twitter')}
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -387,7 +388,7 @@ const OrganizerSetupForm = () => {
                       htmlFor="instagram"
                       className="block text-sm font-medium text-gray-700 mb-1"
                     >
-                      Instagram
+                      {t('instagram')}
                     </label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
@@ -425,7 +426,7 @@ const OrganizerSetupForm = () => {
                 ) : (
                   <>
                     <Save size={18} className="mr-2" />
-                    Save Changes
+                    {t('saveChanges')}
                   </>
                 )}
               </motion.button>

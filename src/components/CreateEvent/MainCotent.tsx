@@ -4,13 +4,14 @@ import { auth, db } from "../../lib/firebase";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
-import { EventCategory } from "./types";
+import { EventCategory, categoryGroups } from "./types";
 import { MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface EventFormData {
   title: string;
   description: string;
-  category: EventCategory;
+  category: string;
   date: string;
   startTime: string;
   endTime: string;
@@ -25,27 +26,13 @@ interface EventFormData {
 const MainContent = () => {
   const [user] = useAuthState(auth); // Get the user from Firebase Auth
   const navigate = useNavigate();
-
-  const categories: EventCategory[] = [
-    "Music Concert",
-    "Night Life and Party",
-    "Karaoke",
-    "Sports",
-    "Gym",
-    "Business",
-    "Food and Drinks",
-    "Gaming",
-    "Hangout",
-    "Conference",
-    "Art",
-    "Charity",
-    "Music",
-  ];
+  const { t } = useTranslation();
+  const [selectedMainCategory, setSelectedMainCategory] = useState<EventCategory>("entertainment");
 
   const initialFormData: EventFormData = {
     title: "",
     description: "",
-    category: "Hangout",
+    category: "musicalConcert",
     date: "",
     startTime: "",
     endTime: "",
@@ -215,7 +202,7 @@ const MainContent = () => {
                     htmlFor="title"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Event Title <span className="text-red-400">*</span>
+                    {t("eventTitle")} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -233,7 +220,7 @@ const MainContent = () => {
                     htmlFor="description"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Event Description <span className="text-red-400">*</span>
+                    {t("eventDescription")} <span className="text-red-400">*</span>
                   </label>
                   <textarea
                     id="description"
@@ -245,13 +232,37 @@ const MainContent = () => {
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   />
                 </div>
+<div className="flex flex-row gap-2 items-center">
 
-                <div>
+<div className="col-span-2">
+                  <label
+                    htmlFor="mainCategory"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    {t("mainCategory")} <span className="text-red-400">*</span>
+                  </label>
+                  <select
+                    id="mainCategory"
+                    name="mainCategory"
+                    required
+                    value={selectedMainCategory}
+                    onChange={(e) => setSelectedMainCategory(e.target.value as EventCategory)}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    {Object.keys(categoryGroups).map((category) => (
+                      <option key={category} value={category}>
+                        {t(category)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="col-span-2">
                   <label
                     htmlFor="category"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Event Category <span className="text-red-400">*</span>
+                    {t("subCategory")} <span className="text-red-400">*</span>
                   </label>
                   <select
                     id="category"
@@ -261,19 +272,21 @@ const MainContent = () => {
                     onChange={handleInputChange}
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   >
-                    {categories.map((category) => (
+                    {categoryGroups[selectedMainCategory].map((category) => (
                       <option key={category} value={category}>
-                        {category}
+                        {t(category)}
                       </option>
                     ))}
                   </select>
                 </div>
+</div>
+
                 <div>
                   <label
                     htmlFor="date"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Event Date <span className="text-red-400">*</span>
+                    {t("eventDate")} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="date"
@@ -291,7 +304,7 @@ const MainContent = () => {
                     htmlFor="startTime"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Start Time <span className="text-red-400">*</span>
+                    {t("startTime")} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="time"
@@ -310,7 +323,7 @@ const MainContent = () => {
                     htmlFor="endTime"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    End Time <span className="text-red-400">*</span>
+                    {t("endTime")} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="time"
@@ -330,7 +343,7 @@ const MainContent = () => {
                     className="flex text-sm font-medium text-gray-700"
                   >
                     <MapPin className="w-5 h-5 mr-2" />
-                    Location <span className="text-red-400">*</span>
+                    {t("location")} <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -349,7 +362,7 @@ const MainContent = () => {
                     htmlFor="imageUrl"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    Cover Image
+                    {t("coverImage")}
                   </label>
                   <input
                     type="file"
@@ -386,7 +399,7 @@ const MainContent = () => {
                   htmlFor="maxAttendees"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Maximum Attendees
+                  {t("maximumAttendees")}
                 </label>
                 <input
                   type="number"
@@ -405,14 +418,14 @@ const MainContent = () => {
                   className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 mr-3"
                   onClick={() => setFormData(initialFormData)}
                 >
-                  Reset
+                  {t("reset")}
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   className="bg-[#FF6B6B] py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                 >
-                  {isSubmitting ? "Creating..." : "Create Event"}
+                  {isSubmitting ? t("creating") : t("createEvent")}
                 </button>
               </div>
             </form>

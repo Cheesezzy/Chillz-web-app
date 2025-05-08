@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next';
 interface OnboardingStep {
   id: number;
   question: string;
@@ -9,38 +9,39 @@ interface OnboardingStep {
   type: 'single' | 'multiple';
 }
 
-const onboardingSteps: OnboardingStep[] = [
-  {
-    id: 1,
-    question: "What type of events are you interested in?",
-    options: ["Music Concerts", "Sports", "Art & Culture", "Food & Drink", "Business", "Gaming","Others"],
-    type: "multiple"
-  },
-  {
-    id: 2,
-    question: "How often do you plan to create events?",
-    options: ["Occasionally", "Monthly", "Weekly", "Multiple times per week"],
-    type: "single"
-  },
-  {
-    id: 3,
-    question: "What's your primary goal for creating events?",
-    options: ["Community Building", "Business Growth", "Personal Branding", "Social Impact"],
-    type: "single"
-  },
-  {
-    id: 4,
-    question: "Set up your Organizer Profile",
-    options: [],
-    type: "single"
-  }
-];
-
 const OnboardingFlow: React.FC = () => {
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string[]>>({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const onboardingSteps: OnboardingStep[] = [
+    {
+      id: 1,
+      question: t('whatTypeOfEventsAreYouInterestedIn'),
+      options: ["Music Concerts", "Sports", "Art & Culture", "Food & Drink", "Business", "Gaming","Others"],
+      type: "multiple"
+    },
+    {
+      id: 2,
+      question: t('howOftenDoYouPlanToCreateEvents'),
+      options: ["Occasionally", "Monthly", "Weekly", "Multiple times per week"],
+      type: "single"
+    },
+    {
+      id: 3,
+      question: t('whatIsYourPrimaryGoalForCreatingEvents'),
+      options: ["Community Building", "Business Growth", "Personal Branding", "Social Impact"],
+      type: "single"
+    },
+    {
+      id: 4,
+      question: t('setUpYourOrganizerProfile'),
+      options: [],
+      type: "single"
+    }
+  ];
 
   const handleOptionSelect = (option: string) => {
     const currentAnswers = answers[currentStep] || [];
@@ -157,10 +158,10 @@ const OnboardingFlow: React.FC = () => {
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         className="w-6 h-6 border-2 border-white border-t-transparent rounded-full"
                       />
-                      <span>Getting Started...</span>
+                      <span>{t('gettingStarted')}</span>
                     </motion.div>
                   ) : (
-                    "Get Started"
+                    t('getStarted')
                   )}
                 </motion.button>
               </motion.div>

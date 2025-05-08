@@ -12,6 +12,7 @@ import {
   WhatsappIcon,
   LinkedinIcon,
 } from "react-share";
+import { useTranslation } from "react-i18next";
 
 interface Event {
   id: string;
@@ -21,6 +22,7 @@ interface Event {
 
 export default function Share({ event }: { event: Event }) {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   const toggleShareModal = () => {
     setIsShareModalOpen(!isShareModalOpen);
@@ -39,14 +41,14 @@ export default function Share({ event }: { event: Event }) {
         className="px-6 py-3 bg-gray-100 text-gray-700 rounded-lg font-medium flex items-center justify-center hover:bg-gray-200 transition-colors border border-gray-200"
       >
         <Share2 className="w-5 h-5 mr-2" />
-        Share
+        {t("share")}
       </button>
 
       {/* Share Modal */}
       {isShareModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 w-96">
-            <h2 className="text-lg font-semibold mb-4">Share this event</h2>
+            <h2 className="text-lg font-semibold mb-4">{t("shareThisEvent")}</h2>
             <div className="flex justify-around mb-4">
               {/* Facebook Share */}
               <FacebookShareButton
@@ -89,7 +91,7 @@ export default function Share({ event }: { event: Event }) {
               onClick={toggleShareModal}
               className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
             >
-              Close
+              {t("close")}
             </button>
           </div>
         </div>

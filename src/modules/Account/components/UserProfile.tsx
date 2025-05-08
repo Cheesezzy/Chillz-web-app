@@ -1,12 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import { db } from "../../../lib/firebase"; // Adjust the path to your Firebase setup
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 interface UserProfileProps {
   user: any; // Replace `any` with the appropriate Firebase User type if needed
 }
 
-const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
+const UserProfile: React.FC<UserProfileProps> = ({ user }) => { 
+  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string>();
   const [uploadStatus, setUploadStatus] = useState<string>("");
@@ -119,7 +121,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
     <div className="flex justify-center p-8">
       <div className="bg-white p-8 rounded-xl shadow-md text-center max-w-md w-full">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
-          Update your profile picture
+          {t("updateProfilePicture")}
         </h2>
 
         <div className="mb-4">
@@ -143,7 +145,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
             onClick={() => fileInputRef.current?.click()}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
           >
-            Choose Image
+            {t("chooseImage")}
           </button>
 
           <button
@@ -151,7 +153,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
             disabled={isLoading || !selectedFile}
             className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
           >
-            {isLoading ? "Uploading..." : "Upload Profile Picture"}
+            {isLoading ? t("uploading") : t("uploadProfilePicture")}
           </button>
         </div>
 

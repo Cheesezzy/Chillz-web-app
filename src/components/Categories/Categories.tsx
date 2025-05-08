@@ -1,36 +1,38 @@
-import music from "/music.png";
-import night from "/party.png";
-import karaoke from "/karaoke.png";
-import sport from "/sport.png";
-import gym from "/weight.png";
-import business from "/cooperation.png";
-import fooddrinks from "/fast-food.png";
-import gaming from "/gaming.png";
-import hangout from "/interview.png";
-import "./Categories.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import "./Categories.css";
 
-
+// Import category images
+const categoryImages = {
+  entertainment: "/music.png",
+  sports: "/sport.png",
+  business: "/cooperation.png",
+  food: "/fast-food.png",
+  education: "/gaming.png",
+  social: "/party.png",
+  cultural: "/art.png",
+  techInnovation: "/tech.png",
+  other: "/interview.png"
+};
 
 function Categories() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const categories = [
-    { name: t('musicalConcert'), image: music },
-    { name: t('nightLifeAndParty'), image: night },
-    { name: t('karaoke'), image: karaoke },
-    { name: t('sport'), image: sport },
-    { name: t('gym'), image: gym },
-    { name: t('business'), image: business },
-    { name: t('foodAndDrinks'), image: fooddrinks },
-    { name: t('gaming'), image: gaming },
-    { name: t('hangout'), image: hangout },
+    { key: 'entertainment', image: categoryImages.entertainment },
+    { key: 'sports', image: categoryImages.sports },
+    { key: 'business', image: categoryImages.business },
+    { key: 'food', image: categoryImages.food },
+    { key: 'education', image: categoryImages.education },
+    { key: 'social', image: categoryImages.social },
+    { key: 'cultural', image: categoryImages.cultural },
+    { key: 'techInnovation', image: categoryImages.techInnovation },
+    { key: 'other', image: categoryImages.other }
   ];
 
-  const handleCategoryClick = (category: string) => {
-    navigate(`/events?category=${encodeURIComponent(category)}`);
+  const handleCategoryClick = (categoryKey: string) => {
+    navigate(`/events?category=${encodeURIComponent(categoryKey)}`);
   };
 
   return (
@@ -38,17 +40,17 @@ function Categories() {
       <div className="categories">
         {categories.map((category) => (
           <div
-            key={category.name}
+            key={category.key}
             className="con"
-            onClick={() => handleCategoryClick(category.name)}
+            onClick={() => handleCategoryClick(category.key)}
           >
             <img
               src={category.image}
-              alt={category.name}
+              alt={t(category.key)}
               width="50%"
               height="50%"
             />
-            <h6>{t(category.name)}</h6>
+            <h6>{t(category.key)}</h6>
           </div>
         ))}
       </div>

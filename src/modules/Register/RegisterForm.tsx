@@ -23,7 +23,8 @@ const RegisterForm = () => {
       email,
       password,
       setIsLoading,
-      navigate
+      navigate,
+      t
     );
   };
 

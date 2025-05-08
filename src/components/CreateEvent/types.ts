@@ -1,14 +1,70 @@
 export type EventCategory =
-  | "Music Concert"
-  | "Night Life and Party"
-  | "Karaoke"
-  | "Sports"
-  | "Gym"
-  | "Business"
-  | "Food and Drinks"
-  | "Gaming"
-  | "Hangout"
-  | "Conference"
-  | "Art"
-  | "Charity"
-  | "Music";
+  | "entertainment"
+  | "sports"
+  | "business"
+  | "food"
+  | "education"
+  | "social"
+  | "cultural"
+  | "techInnovation"
+  | "other";
+
+export const categoryGroups: Record<EventCategory, string[]> = {
+  entertainment: [
+    "musicalConcert",
+    "karaoke",
+    "comedyShow",
+    "filmScreening",
+    "theaterPerformance",
+    "liveMusic",
+    "artExhibition",
+    "filmFestival"
+  ],
+  sports: [
+    "sports",
+    "gym",
+    "danceClass",
+    "yogaSession",
+    "fitnessClass"  
+  ],
+  business: [
+    "conference",
+    "networkingEvent",
+    "techMeetup",
+    "careerFair"
+  ],
+  food: [
+    "cookingClass",
+    "foodFestival",
+    "restaurant"
+  ],
+  education: [
+    "workshop",
+    "educationalSeminar",
+    "bookClub"
+  ],
+  social: [
+    "nightLifeAndParty",
+    "gaming",
+    "hangout",
+    "birthdayCelebration",
+    "culturalFestival",
+    "fundraiser",
+  ],
+  cultural: [
+    "culturalFestival",
+    "fashionShow",
+    "art",
+    "photography"
+  ],
+  techInnovation: [
+    "hackathon",
+    "developerSummit",
+    "StartupDemo"
+  ],
+  other: [
+    "charityEvent",
+    "religiousEvent",
+    "virtualEvent"
+  ]
+};

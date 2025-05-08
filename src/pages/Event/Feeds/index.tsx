@@ -7,11 +7,12 @@ import SignIn from "../../../components/Header/SignIn";
 import chillzlogo from "/chillz.png";
 import { useAllEventsData } from "../../../hooks/useAllEventsData";
 import LoadingSpinner from "../../../components/LoadingSpinner";
+import { useTranslation } from "react-i18next";
 
 const EventsPage: React.FC = () => {
   const [filter, setFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
-
+  const { t } = useTranslation();
   const { events, loading } = useAllEventsData();
 
   // Filter events based on category and search term
@@ -44,12 +45,12 @@ const EventsPage: React.FC = () => {
                 htmlFor="search"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Search Events
+                {t('searchEvents')}
               </label>
               <input
                 type="text"
                 id="search"
-                placeholder="Search by title or description..."
+                placeholder={t('searchEventsPlaceholder')}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -60,7 +61,7 @@ const EventsPage: React.FC = () => {
                 htmlFor="category-filter"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                Filter by Category
+                {t('filterByCategory')}
               </label>
               <select
                 id="category-filter"
@@ -70,7 +71,7 @@ const EventsPage: React.FC = () => {
               >
                 {categories.map((category) => (
                   <option key={category} value={category}>
-                    {category === "all" ? "All Categories" : category}
+                    {category === "all" ? t('allCategories') : category}
                   </option>
                 ))}
               </select>
@@ -90,7 +91,7 @@ const EventsPage: React.FC = () => {
         ) : (
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <p className="text-xl text-gray-600">
-              No events found matching your criteria.
+              {t('noEventsFoundMatchingYourCriteria')}
             </p>
             <button
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
@@ -99,7 +100,7 @@ const EventsPage: React.FC = () => {
                 setSearchTerm("");
               }}
             >
-              Clear Filters
+              {t('clearFilters')}
             </button>
           </div>
         )}
@@ -109,12 +110,12 @@ const EventsPage: React.FC = () => {
           <div className="md:flex items-center md:justify-between">
             <div className="mb-6 md:mb-0">
               <p className="mt-1 text-sm text-gray-300">
-                © 2025 Chillz. All rights reserved.
+                © 2025 Chillz. {t('allRightsReserved')}
               </p>
             </div>
             <div className="flex flex-col space-y-2">
               <a href="#" className="text-gray-300 hover:text-white text-sm">
-                Contact Us
+                {t('contactUs')}
               </a>
             </div>
           </div>

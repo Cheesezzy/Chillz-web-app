@@ -16,8 +16,10 @@ import free from "/free.png";
 import Share from "../Button/ShareBtn";
 import AlertModal from "../../Modals/AlertModal";
 import OrganizationName from "../OrganizationName";
+import { useTranslation } from "react-i18next";
 
 export default function Free() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { isAuthenticated, user } = useAuth();
   const navigate = useNavigate();
@@ -148,7 +150,7 @@ export default function Free() {
             <Heart
               className={`w-5 h-5 mr-2 ${interested ? "fill-pink-500" : ""}`}
             />
-            {interested ? "Interested" : "I'm Interested"}
+            {interested ? t("interested") : t("imInterested")}
           </button>
 
           <Share event={event} />
@@ -160,17 +162,17 @@ export default function Free() {
         <div className="mb-8">
           <div className="py-6">
             <div id="about">
-              <h2 className="text-xl font-semibold mb-4">About This Event</h2>
+              <h2 className="text-xl font-semibold mb-4">{t("aboutThisEvent")}</h2>
               <p className="text-gray-700 mb-6">{event.description}</p>
 
               <div className="flex items-center text-gray-600 mb-6">
                 <Users className="w-5 h-5 mr-2" />
-                <span>{event.interestedUsers?.length || 0} people going</span>
+                <span>{event.interestedUsers?.length || 0} {t("peopleGoing")}</span>
               </div>
 
               {/* Organized By */}
               <div className="mb-6 hover:cursor-pointer">
-                <h3 className="font-semibold mb-2">Organized By</h3>
+                <h3 className="font-semibold mb-2">{t("organizedBy")}</h3>
                 {organization ? (
                   <div className="flex items-center ">
                     {organization.logo && (
@@ -181,7 +183,7 @@ export default function Free() {
                       />
                     )}
                     <div className="text-xs flex flex-col items-centertext-gray-500">
-                      <p className="text-sm text-gray-500">Event Organizer</p>
+                      <p className="text-sm text-gray-500">{t("eventOrganizer")}</p>
                       <OrganizationName
                         eventId={event.id}
                         userEmail={event.email}
@@ -190,7 +192,7 @@ export default function Free() {
                   </div>
                 ) : (
                   <p className="text-gray-500">
-                    Sign in to see the event organizer
+                    {t("signInToSeeTheEventOrganizer")}
                   </p>
                 )}
               </div>
@@ -203,13 +205,13 @@ export default function Free() {
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
             <h2 className="text-xl font-semibold mb-4 flex items-center">
               <MessageCircle className="w-5 h-5 mr-2" />
-              Discussion
+              {t("discussion")}
             </h2>
 
             <div className="mb-4">
               <textarea
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
-                placeholder="Ask a question about this event..."
+                placeholder={t("askAQuestionAboutThisEvent")}
                 rows={3}
                 value={newPost}
                 onChange={(e) => setNewPost(e.target.value)}
@@ -221,14 +223,14 @@ export default function Free() {
                 onClick={handlePostSubmit}
                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
               >
-                Post
+                {t("post")}
               </button>
             </div>
             <div className="mt-6">
               {event.posts.length === 0 ? (
                 <div className="text-center py-10 bg-gray-50 rounded-lg">
                   <p className="text-gray-500">
-                    No comments yet. Start the conversation!
+                    {t("noCommentsYet")}
                   </p>
                 </div>
               ) : (
@@ -258,7 +260,7 @@ export default function Free() {
                         onClick={() => setShowAllPosts(!showAllPosts)}
                         className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
                       >
-                        {showAllPosts ? "Show Less" : "Show More"}
+                        {showAllPosts ? t("showLess") : t("showMore")}
                       </button>
                     </div>
                   )}

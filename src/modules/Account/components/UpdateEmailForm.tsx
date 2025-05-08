@@ -5,12 +5,13 @@ import { User } from "firebase/auth";
 import { updateUserEmail } from "../../../lib/firebase/Authentication/EmailAuth";
 import React from "react";
 import AlertModal from "../../../Modals/AlertModal";
-
+import { useTranslation } from "react-i18next";
 type UpdateEmailFormProps = {
   user: User;
 };
 
 const UpdateEmailForm: React.FC<UpdateEmailFormProps> = ({ user }) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState(user?.email as string);
   const [newEmail, setNewEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +26,7 @@ const UpdateEmailForm: React.FC<UpdateEmailFormProps> = ({ user }) => {
         {/* Email */}
         <div>
           <Input
-            label="Current Email address"
+            label={t("currentEmailAddress")}
             name="email"
             value={email}
             onChange={setEmail}
@@ -33,7 +34,7 @@ const UpdateEmailForm: React.FC<UpdateEmailFormProps> = ({ user }) => {
         </div>
         <div>
           <Input
-            label="New Email address"
+            label={t("newEmailAddress")}
             name="email"
             value={newEmail}
             onChange={setNewEmail}
@@ -42,7 +43,7 @@ const UpdateEmailForm: React.FC<UpdateEmailFormProps> = ({ user }) => {
         {/* Password */}
         <div>
           <Input
-            label="Password"
+            label={t("password")}
             name="password"
             value={password}
             onChange={setPassword}
@@ -50,7 +51,7 @@ const UpdateEmailForm: React.FC<UpdateEmailFormProps> = ({ user }) => {
         </div>
         <div>
           <Button
-            text="Update Email"
+            text={t("updateEmail")}
             type="button"
             handleClick={() => {
               updateUserEmail(
@@ -59,7 +60,8 @@ const UpdateEmailForm: React.FC<UpdateEmailFormProps> = ({ user }) => {
                 password,
                 setIsLoading,
                 setAlertMessage,
-                setIsAlertModalOpen
+                setIsAlertModalOpen,
+                t
               );
             }}
           />

@@ -9,6 +9,7 @@ import StatCard from "../../components/UserDashboard/StatCard";
 import PersonalEventList from "../../components/UserDashboard/PersonalEventList";
 import AttendingEventList from "../../components/UserDashboard/AttendingEventList";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 interface Event {
   id: string;
@@ -22,6 +23,7 @@ interface Event {
 }
 
 const UserDashboard: React.FC = () => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("overview");
   const [user, loading] = useAuthState(auth);
   const [events, setEvents] = useState<Event[]>([]); // State to store events
@@ -140,7 +142,7 @@ const UserDashboard: React.FC = () => {
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
-            Overview
+            {t("overview")}
           </button>
           <button
             onClick={() => setActiveTab("myEvents")}
@@ -150,7 +152,7 @@ const UserDashboard: React.FC = () => {
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
-            My Events
+            {t("myEvents")}
           </button>
           <button
             onClick={() => setActiveTab("attending")}
@@ -160,7 +162,7 @@ const UserDashboard: React.FC = () => {
                 : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
-            Attending
+            {t("attending")}
           </button>
         </div>
       </div>
@@ -170,25 +172,25 @@ const UserDashboard: React.FC = () => {
         {/* Welcome Section */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <h2 className="text-xl font-medium text-gray-900">
-            <b>Welcome back,</b>{" "}
+            <b>{t("welcomeBack")},</b>{" "}
             <span className="text-2xl  ml-2">
               <b>{user?.email}</b>
             </span>
           </h2>
           <p className="mt-1 text-sm text-gray-500">
-            Here's what's happening with your events.
+            {t("whatsHappeningWithYourEvents")}
           </p>
         </div>
 
         {/* Stats Section */}
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 mb-6">
           <StatCard
-            title="My Events"
+            title={t("myEvents")}
             value={events.length}
             color="bg-red-500"
           />
           <StatCard
-            title="Events Attending"
+            title={t("eventsAttending")}
             value={eventsAttending.length}
             color="bg-blue-500"
           />
@@ -205,7 +207,7 @@ const UserDashboard: React.FC = () => {
                   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <div className="flex justify-between items-center mb-4">
                       <h3 className="text-base font-medium text-gray-900">
-                        My Upcoming Events
+                        {t("myUpcomingEvents")}
                       </h3>
                       <button
                         className="text-sm text-red-600 hover:text-red-800"
@@ -221,7 +223,7 @@ const UserDashboard: React.FC = () => {
                   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                     <div className="flex justify-between items-center mb-4">
                       <h3 className="text-base font-medium text-gray-900">
-                        Events I'm Attending
+                        {t("eventsI'mAttending")}
                       </h3>
                       <button
                         className="text-sm text-red-600 hover:text-red-800"
@@ -240,7 +242,7 @@ const UserDashboard: React.FC = () => {
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg font-medium text-gray-900">
-                    Events I'm Organizing
+                    {t("eventsI'mOrganizing")}
                   </h2>
                   <Link
                     to={RoutesEnum.CreateAnEvent}
@@ -257,13 +259,13 @@ const UserDashboard: React.FC = () => {
               <div>
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-lg font-medium text-gray-900">
-                    Events I'm Attending
+                    {t("eventsI'mAttending")}
                   </h2>
                   <Link
                     to={RoutesEnum.EventFeeds}
                     className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
                   >
-                    Find More Events
+                    {t("findMoreEvents")}
                   </Link>
                 </div>
                 <AttendingEventList events={eventsAttending} />

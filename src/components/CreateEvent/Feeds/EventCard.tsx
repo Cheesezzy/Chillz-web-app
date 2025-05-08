@@ -1,6 +1,7 @@
 import { MessageCircle, Users } from "lucide-react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface Event {
   id: string;
@@ -17,6 +18,7 @@ interface Event {
 }
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
+  const { t } = useTranslation();
   const truncateText = (text: string, wordLimit: number) => {
     const words = text.split(" ");
     if (words.length > wordLimit) {
@@ -41,7 +43,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
       <div className="p-4">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold inline-block py-1 px-2 rounded-full text-red-600 bg-red-100 mb-4">
-            {event.category}
+            {t(event.category)}
           </span>
           <div className="flex items-center text-gray-600 mb-6">
             <Users className="w-4 h-4 mr-1" />

@@ -11,13 +11,15 @@ import { RoutesEnum } from "../../../../routes";
 import { NavigateFunction } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { generateFirebaseAuthErrorMessage } from "../ErrorHandler";
+import { TFunction } from "i18next";
 
 export const registerUser = async (
   name: string,
   email: string,
   password: string,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  t: TFunction
 ) => {
   try {
     setLoading(true);
@@ -28,11 +30,14 @@ export const registerUser = async (
       password
     );
     const results = userCredential.user;
-    // console.log(results);
     await sendEmailVerification(results);
-      alert(
-        `Hello, ${name}! A verification email has been sent to ${email}!. Please verify email to login.`
-      );
+    alert(
+      t('hello') + ' ' +
+      name + ' ' +
+      t('aVerificationEmailHasBeenSentToYourEmailAddress') + ' ' +
+      email + ' ' +
+      t('pleaseVerifyYourEmailToLogin')
+    );
   } catch (error) {
     if (error instanceof FirebaseError) {
       generateFirebaseAuthErrorMessage(error);
@@ -49,10 +54,10 @@ export const loginUserWithEmailAndPassword = async (
   password: string,
   navigate: NavigateFunction,
   setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>,
-  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  t: TFunction
 ) => {
   try {
-    // console.log(email, password);
     // Login user
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -61,7 +66,7 @@ export const loginUserWithEmailAndPassword = async (
     );
     const results = userCredential.user;
     if (results.emailVerified === false) {
-      setAlertMessage("Please verify your email to login.");
+      setAlertMessage(t('pleaseVerifyYourEmailToLogin'));
       setIsAlertModalOpen(true);
       return;
     }
@@ -80,7 +85,8 @@ export const updateUserEmail = async (
   password: string,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setAlertMessage: React.Dispatch<React.SetStateAction<string | null>>,
-  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+  setIsAlertModalOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  t: TFunction
 ) => {
   try {
     if (auth.currentUser === null) return;
@@ -96,7 +102,9 @@ export const updateUserEmail = async (
     // Send email verification to the new email
     await sendEmailVerification(auth.currentUser);
     setAlertMessage(
-      `A verification email has been sent to your new email address ${newEmail}!. Please verify your email to login.`
+      t('aVerificationEmailHasBeenSentToYourNewEmailAddress') + ' ' +
+        newEmail + ' ' +
+        t('pleaseVerifyYourEmailToLogin')
     );
     setIsAlertModalOpen(true);
   } catch (error) {
