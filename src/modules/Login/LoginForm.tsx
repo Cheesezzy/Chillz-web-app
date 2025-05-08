@@ -23,7 +23,8 @@ const LoginForm = () => {
       password,
       navigate,
       setAlertMessage,
-      setIsAlertModalOpen
+      setIsAlertModalOpen,
+      t
     );
   };
   return (
