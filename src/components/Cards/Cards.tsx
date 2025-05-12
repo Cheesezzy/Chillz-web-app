@@ -82,24 +82,11 @@ function Cards() {
           ) : events.length > 0 ? (
             // Slice the events to show a maximum of 8
             events
-              .slice(0, 8)
+              .slice(0, 4)
               .map((event) => <EventCard key={event.id} event={event} />)
           ) : (
             <p>{t('noEventsFound')}</p>
           )}
-
-          {/* Fill remaining slots with placeholders if fewer than 8 events
-          {!loading &&
-            events.length > 0 &&
-            events.length < 8 &&
-            Array.from({ length: 8 - events.length }).map((_, index) => (
-              <div
-                key={`placeholder-${index}`}
-                className="border border-gray-300 rounded-md shadow-sm h-107 flex items-center justify-center text-gray-400"
-              >
-                Events Cards
-              </div>
-            ))} */}
         </div>
       </div>
     </>

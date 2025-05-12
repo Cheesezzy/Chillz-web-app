@@ -6,6 +6,7 @@ textarea:focus {
 
 .card_wrapper {
   padding: 10px 20px 80px 20px;
+
 }
 
 .head_text {
@@ -16,14 +17,14 @@ textarea:focus {
   font-size: 24px;
   font-weight: 700;
   color: #070707;
-  padding-bottom: 20px;
+  padding-bottom: 2px;
 }
 
 .card_item {
   border-radius: 10px;
   background: #f9fafb;
-  max-width: 385px;
-  max-height: fit-content;
+  max-width: 100%;
+  max-height: 500px;
   width: 100%;
   transition: 0.3s;
   box-shadow: 0px 0px 10px rgba(170, 159, 159, 0.1);
@@ -57,6 +58,7 @@ textarea:focus {
   justify-content: space-around;
 }
 
+
 .card_text h2 {
   font-size: 26px;
   font-weight: 700;
@@ -88,6 +90,19 @@ textarea:focus {
 
 @media (max-width: 510px) {
   .card_wrapper {
-    padding: 20px;
+    padding: 20px 10px 80px 10px;
+  }
+  .sm{
+    font-size: 12px;
+    padding: 0;
+  }
+  .icon{
+    padding-right: 2px;
   }
 }
+@media (max-width: 350px) {
+  .sm{
+    font-size: 10px;
+  }
+}
+

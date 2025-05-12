@@ -11,7 +11,7 @@ const categoryImages = {
   education: "/gaming.png",
   social: "/party.png",
   cultural: "/art.png",
-  techInnovation: "/tech.png",
+  tours: "/tour.png",
   other: "/interview.png"
 };
 
@@ -27,7 +27,7 @@ function Categories() {
     { key: 'education', image: categoryImages.education },
     { key: 'social', image: categoryImages.social },
     { key: 'cultural', image: categoryImages.cultural },
-    { key: 'techInnovation', image: categoryImages.techInnovation },
+    { key: 'tours', image: categoryImages.tours },
     { key: 'other', image: categoryImages.other }
   ];
 

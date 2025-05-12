@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import { RoutesEnum } from "./routes";
 import React, { useEffect, useState } from "react";
-import ComingSoon from "./components/EventDetails/ComingSoon";
 import OnboardingFlow from './components/Onboarding/OnboardingFlow';
 import OrganizerSetupForm from "./modules/Account/components/OrganizerSetupForm";
 import { useAuth } from "./lib/firebase/components/AuthProvider";
 import { db } from "./lib/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import LoadingSpinner from "./components/LoadingSpinner";
+import VerifiedDetails from "./components/EventDetails/VerifiedDetails";
 const Home = React.lazy(() => import("./pages/Hero"));
 const Login = React.lazy(() => import("./pages/Login"));
 const Register = React.lazy(() => import("./pages/Register"));
@@ -150,7 +150,7 @@ const App = () => {
             </RequireUser>
           }
         />
-        <Route path="/coming-soon" element={<ComingSoon />} />
+        <Route path="/verified-details" element={<VerifiedDetails />} />
         <Route path={RoutesEnum.EventFeeds} element={<EventFeeds />} />
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.EventDetails} element={<EventDetails />} />

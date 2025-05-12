@@ -6,7 +6,7 @@ export type EventCategory =
   | "education"
   | "social"
   | "cultural"
-  | "techInnovation"
+  | "tours"
   | "other";
 
 export const categoryGroups: Record<EventCategory, string[]> = {
@@ -30,8 +30,9 @@ export const categoryGroups: Record<EventCategory, string[]> = {
   business: [
     "conference",
     "networkingEvent",
-    "techMeetup",
-    "careerFair"
+    "startupDemo",
+    "careerFair",
+    "businessSummit"
   ],
   food: [
     "cookingClass",
@@ -57,14 +58,18 @@ export const categoryGroups: Record<EventCategory, string[]> = {
     "art",
     "photography"
   ],
-  techInnovation: [
-    "hackathon",
-    "developerSummit",
-    "StartupDemo"
+  tours: [
+    "groupTour",
+    "travel",
+    "adventure"
   ],
   other: [
     "charityEvent",
     "religiousEvent",
-    "virtualEvent"
+    "virtualEvent",
+    "hackathon",
+    "developerSummit",
+    "fundraiser",
+    "religiousEvent"
   ]
 };

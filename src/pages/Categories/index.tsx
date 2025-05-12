@@ -20,13 +20,13 @@ function CategoryPage() {
   // Category cover images mapping
   const categoryCovers = {
     entertainment: "/category/music-concert.png",
-    sports: "/category/sport.png",
+    sports: "/category/gym.png",
     business: "/category/business.png",
     food: "/category/food-drinks.png",
     education: "/category/gaming.jpg",
     social: "/category/party.png",
     cultural: "/category/karaoke.png",
-    techInnovation: "/category/gym.png",
+    tours: "/category/tour.jpg",
     other: "/category/hangout.png"
   };
 
