@@ -201,5 +201,14 @@
   "newPassword": "New Password",
   "confirmPasswordChange": "Confirm password change",
   "currentEmailAddress": "Current Email address",
-  "newEmailAddress": "New Email address"
+  "newEmailAddress": "New Email address",
+  "subject": "Subject",
+  "message": "Message",
+  "send": "Send",
+  "selectSubject": "Select Subject",
+  "technicalIssue": "Technical Issue",
+  "accountIssue": "Account Issue",
+  "eventIssue": "Event Issue",
+  "errorSendingMessage": "Error sending message",
+  "cancel": "Cancel"
 }

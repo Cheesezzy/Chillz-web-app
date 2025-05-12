@@ -199,5 +199,13 @@
   "newPassword": "Шинэ нууц үг",
   "confirmPasswordChange": "Нууц үг шинэчилэх",
   "currentEmailAddress": "Одоогийн имэйл хаяг",
-  "newEmailAddress": "Шинэ имэйл хаяг"
+  "newEmailAddress": "Шинэ имэйл хаяг",
+  "subject": "Цахим шуудан",
+  "message": "Шуудан",
+  "send": "Илгээх",
+  "selectSubject": "Цахим шуудан сонгох",
+  "technicalIssue": "Техник шинжилгээ",
+  "accountIssue": "Цахим шуудан",
+  "eventIssue": "Онцлох Үүрээ",
+  "errorSendingMessage": "Шуудан илгээхэд алдаа гарлаа"
 }

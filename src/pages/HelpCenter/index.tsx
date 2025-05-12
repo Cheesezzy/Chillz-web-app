@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Header from "../../components/Header";
+import ContactForm from "../../components/ContactForm/ContactForm";
 
 const HelpCenter = () => {
   const [activeCategory, setActiveCategory] =
     useState<keyof typeof helpContent>("getting-started");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [expandedArticle, setExpandedArticle] = useState<string | null>(null);
+  const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
   // Help content organized by categories
   const helpContent = {
@@ -18,36 +20,47 @@ const HelpCenter = () => {
           content: `
 # Creating your first event
 
-To create your first event, follow these simple steps:
+To create your first event on Chillz, follow these steps:
 
 1. Log in to your account
-2. Click the "Create Event" button at the top-right corner
-3. Fill in your organization details (name,description, logo, contact info......)
-4. After setting up your Organization Profile, navigate to the "Create Event" page
-5. Fill in the required event details (name, date, location, description)
-6. Upload a cover image for your event (optional but recommended)
-7. Set ticket types and pricing (#Comming Soon)
-7. Click "Create Event" to make your event live
+2. Click the "Create Event" button
+3. Fill in your organization details:
+   - Organization name
+   - Description
+   - Logo
+   - Contact information
+4. Fill in the event details:
+   - Event title
+   - Description
+   - Category (Entertainment, Sports, Business, etc.)
+   - Date and time
+   - Location
+   - Maximum attendees
+5. Upload a cover image
+6. Click "Create Event"
 
-Your event will now be visible to attendees according to your visibility settings.
+Your event will be visible to potential attendees based on the category you selected.
           `,
         },
         {
           id: "gs-2",
-          title: "Setting up your organizer profile",
+          title: "Setting up your organization profile",
           content: `
-# Setting up your organizer profile
+# Setting up your organization profile
 
-A complete organizer profile helps build trust with attendees. If you haven't set one up yet, Here's how to set it up:
+A complete organization profile helps build trust with attendees:
 
-1. Click the "Create Event" button at the top-right corner
-2. Answer a brief series of On-boarding questions
-3. Add your organization name, logo, and contact information
-4. Write a brief description about your organization
-5. Add links to your website and social media accounts
-6. Click "Save Changes"
+1. Click "Create Event" to start the onboarding process
+2. Complete the onboarding questions
+3. Add your organization details:
+   - Name
+   - Logo
+   - Contact information
+   - Description
+4. Add social media links
+5. Save your profile
 
-Your profile will now be visible on all your event pages.
+Your organization profile will be visible on all your event pages.
           `,
         },
         {
@@ -56,166 +69,161 @@ Your profile will now be visible on all your event pages.
           content: `
 # Navigating the dashboard
 
-Your dashboard is your control center. Here's what you'll find:
+Your dashboard is your control center:
 
-- **Your Personal Events**: See all your past, active, and draft events
-- **Tickets**: Track ticket sales, page views, and attendee demographics (#Comming Soon)
+- **Events**: View and manage all your events
 - **Interested Events**: See events you're interested in
-- **Finance**: Monitor revenue, payouts, and transaction history (#Comming Soon)  
-- **Account Settings**: Configure your account and organizer profile
+- **Account Settings**: Manage your profile and preferences
+- **Organization Profile**: Update your organization details
 
-Use the sidebar menu to navigate between these sections.
+Use the sidebar menu to navigate between sections.
           `,
         },
       ],
     },
-    tickets: {
-      title: "Tickets & Registration",
+    "event-categories": {
+      title: "Event Categories",
       articles: [
         {
-          id: "tix-1",
-          title: "Creating ticket types",
+          id: "cat-1",
+          title: "Understanding event categories",
           content: `
-# Creating ticket types
+# Understanding event categories
 
-Different ticket types help you cater to various attendee needs:
+Chillz offers various event categories to help organize your events:
 
-1. From your event page, go to "Tickets & Registration"
-2. Click "Add Ticket Type"
-3. Choose from preset options (General Admission, VIP, Early Bird) or create a custom type
-4. Set the price, quantity available, and sales period
-5. Add a description explaining what's included with this ticket type
-6. Configure any special access permissions
-7. Save your changes
+1. **Entertainment**
+   - Musical concerts
+   - Karaoke
+   - Comedy shows
+   - Film screenings
+   - Theater performances
 
-You can create unlimited ticket types for each event.
-          `,
-        },
-        {
-          id: "tix-2",
-          title: "Setting up discount codes",
-          content: `
-# Setting up discount codes
+2. **Sports & Fitness**
+   - Sports events
+   - Gym sessions
+   - Dance classes
+   - Yoga sessions
+   - Fitness classes
 
-Discount codes can help boost sales and reward loyal attendees:
+3. **Business**
+   - Conferences
+   - Networking events
+   - Tech meetups
+   - Career fairs
 
-1. Go to your event's "Tickets & Registration" section
-2. Click on "Discount Codes"
-3. Select "Create New Code"
-4. Enter a code name (e.g., EARLYBIRD20)
-5. Choose discount type (percentage or fixed amount)
-6. Set discount value
-7. Configure usage limits and validity period
-8. Select which ticket types the code applies to
-9. Click "Create"
+4. **Food & Dining**
+   - Cooking classes
+   - Food festivals
+   - Restaurant events
 
-Share your discount codes through your marketing channels.
-          `,
-        },
-        {
-          id: "tix-3",
-          title: "Managing attendee check-in",
-          content: `
-# Managing attendee check-in
+5. **Education**
+   - Workshops
+   - Educational seminars
+   - Book clubs
 
-Efficiently manage check-in on event day:
+6. **Social**
+   - Nightlife events
+   - Gaming sessions
+   - Hangouts
+   - Birthday celebrations
 
-1. Download our mobile check-in app
-2. Log in with your organizer credentials
-3. Select the event you're managing
-4. Use the scan feature to quickly check in attendees by QR code
-5. Or search by name/email for manual check-in
-6. View real-time check-in statistics
-7. Handle special cases like ticket transfers or on-site purchases
+7. **Cultural**
+   - Cultural festivals
+   - Fashion shows
+   - Art exhibitions
+   - Photography events
 
-The check-in app works offline and will sync when connection is restored.
+8. **Tech & Innovation**
+   - Hackathons
+   - Developer summits
+   - Startup demos
+
+9. **Other**
+   - Charity events
+   - Religious events
+   - Virtual events
+
+Choose the category that best matches your event's purpose.
           `,
         },
       ],
     },
-    promotion: {
-      title: "Promotion & Marketing",
+    "account-management": {
+      title: "Account Management",
       articles: [
         {
-          id: "promo-1",
-          title: "Sharing your event on social media",
+          id: "acc-1",
+          title: "Updating your email",
           content: `
-# Sharing your event on social media
+# Updating your email
 
-Maximize your event's reach with social sharing:
+To update your email address:
 
-1. From your event dashboard, go to "Promotion"
-2. Find pre-formatted social media posts for various platforms
-3. Customize the message if desired
-4. Click "Share Now" to post directly to connected accounts
-5. Or copy the message and link to post manually
-6. Use the "Generate Image" feature to create platform-optimized graphics
-7. Schedule posts for optimal times using the calendar tool
+1. Go to Account Settings
+2. Click "Update Email"
+3. Enter your current email and password
+4. Enter your new email address
+5. Click "Update Email"
+6. Verify your new email address
 
-Remember to post updates as your event approaches.
+You'll receive a verification email at your new address.
           `,
         },
         {
-          id: "promo-2",
-          title: "Creating and sending email campaigns",
+          id: "acc-2",
+          title: "Managing your events",
           content: `
-# Creating and sending email campaigns
+# Managing your events
 
-Keep potential attendees informed with email campaigns:
+To manage your events:
 
-1. Navigate to "Marketing" > "Email Campaigns"
-2. Click "Create New Campaign"
-3. Select a template or design your own
-4. Add your event details, images, and compelling copy
-5. Preview how it looks on desktop and mobile
-6. Select your recipient list
-7. Schedule the delivery time or send immediately
-8. Track open rates and click-through statistics
+1. Go to your dashboard
+2. Find the event you want to manage
+3. Click on the event to view details
+4. You can:
+   - Edit event details
+   - Update maximum attendees
+   - Change event status
+   - View interested attendees
 
-Follow up with reminder emails as your event date approaches.
+Remember to keep your event information up to date.
           `,
         },
       ],
     },
-    troubleshooting: {
+    "troubleshooting": {
       title: "Troubleshooting",
       articles: [
         {
           id: "trbl-1",
-          title: "Payment processing issues",
+          title: "Common issues and solutions",
           content: `
-# Payment processing issues
+# Common issues and solutions
 
-If you encounter payment problems:
+If you encounter any issues:
 
-1. Check your payment account connection in "Settings" > "Payments"
-2. Verify your bank account information is current
-3. Ensure you've completed all required verification steps
-4. Check for any warning messages in your dashboard
-5. Review the specific error messages reported by attendees
-6. Test the purchase flow yourself with a small test payment
-7. Contact support if issues persist
+1. **Can't create an event?**
+   - Ensure you're logged in
+   - Complete your organization profile
+   - Check all required fields are filled
 
-Most payment issues can be resolved by reconnecting your payment processor.
-          `,
-        },
-        {
-          id: "trbl-2",
-          title: "Attendees cant access tickets",
-          content: `
-# Attendees can't access tickets
+2. **Email verification issues?**
+   - Check your spam folder
+   - Request a new verification email
+   - Ensure you're using the correct email
 
-If attendees report ticket access problems:
+3. **Event not showing up?**
+   - Verify the event is published
+   - Check category selection
+   - Ensure all required fields are completed
 
-1. Verify their purchase in your "Attendees" list
-2. Check if their confirmation email was delivered
-3. Ask them to check spam/junk folders
-4. Resend their tickets from the attendee management page
-5. Verify they're using the same email address they purchased with
-6. Check if they've accidentally created multiple accounts
-7. Manually add them to the check-in list if necessary
+4. **Profile update problems?**
+   - Clear your browser cache
+   - Try logging out and back in
+   - Check your internet connection
 
-You can always issue replacement tickets if needed.
+Contact support if issues persist.
           `,
         },
       ],
@@ -373,7 +381,10 @@ You can always issue replacement tickets if needed.
                 <p className="text-sm text-black-700 mt-2">
                   Contact our support team for personalized assistance.
                 </p>
-                <button className="mt-3 bg-red-600 text-white py-2 px-4 rounded text-sm hover:bg-red-700 transition-colors">
+                <button 
+                  onClick={() => setIsContactFormOpen(true)}
+                  className="mt-3 bg-red-600 text-white py-2 px-4 rounded text-sm hover:bg-red-700 transition-colors"
+                >
                   Contact Support
                 </button>
               </div>
@@ -419,7 +430,7 @@ You can always issue replacement tickets if needed.
 
       {/* Footer */}
       <footer className="bg-black text-white fixed bottom-0 left-0 w-full">
-        <div className="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <h2 className="text-lg font-bold">Chillz Help Center</h2>
@@ -427,20 +438,13 @@ You can always issue replacement tickets if needed.
                 © 2025 Chillz. All rights reserved.
               </p>
             </div>
-            <div className="flex flex-col space-y-2">
-              <a href="#" className="text-gray-300 hover:text-white text-sm">
-                Terms of Service
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white text-sm">
-                Privacy Policy
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white text-sm">
-                Contact Us
-              </a>
-            </div>
           </div>
         </div>
       </footer>
+
+      {isContactFormOpen && (
+        <ContactForm onClose={() => setIsContactFormOpen(false)} />
+      )}
     </div>
   );
 };
