@@ -3,12 +3,12 @@ import clock from "/clock.png";
 import map from "/location.png";
 import dates from "/calendar.png";
 import badge from "/badge.png";
-import "./Cards.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Header from "../../components/Header";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useVerifiedEvents } from "../../hooks/useVerifiedEvents";
+import "../../components/Cards/Cards.css";
 
 const VerifiedEventFeeds = () => {
   const { t } = useTranslation();

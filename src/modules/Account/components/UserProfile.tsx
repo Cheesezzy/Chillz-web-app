@@ -143,7 +143,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
         <div className="flex flex-col gap-3 mb-4">
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
           >
             {t("chooseImage")}
           </button>
@@ -169,9 +169,9 @@ const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           </p>
         )}
 
-        <div className="">
+        {/* <div className="">
           <h3 className="text-xl font-semibold text-gray-800">{user.email}</h3>
-        </div>
+        </div> */}
       </div>
     </div>
   );
