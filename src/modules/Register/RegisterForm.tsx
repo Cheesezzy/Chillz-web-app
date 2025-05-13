@@ -27,10 +27,7 @@ const RegisterForm = () => {
       t
     );
   };
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>

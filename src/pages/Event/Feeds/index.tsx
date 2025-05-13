@@ -8,10 +8,12 @@ import chillzlogo from "/chillz.png";
 import { useAllEventsData } from "../../../hooks/useAllEventsData";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import { useTranslation } from "react-i18next";
+import Footer from "../../../components/Footer/Footer";
 
 const EventsPage: React.FC = () => {
   const [filter, setFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [selectedDate, setSelectedDate] = useState<string>("");
   const { t } = useTranslation();
   const { events, loading } = useAllEventsData();
 
@@ -22,7 +24,10 @@ const EventsPage: React.FC = () => {
     const matchesSearch =
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.description.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesCategory && matchesSearch;
+    const matchesDate =
+      !selectedDate ||
+      (event.date && event.date.startsWith(selectedDate));
+    return matchesCategory && matchesSearch && matchesDate;
   });
 
   // Get unique categories for filter options
@@ -30,16 +35,22 @@ const EventsPage: React.FC = () => {
 
   return (
     <div className="bg-[#f4f4f9] min-h-screen">
-      <header className="bg-[#f7fff7] p-2 px-4 shadow-md flex items-center justify-between">
-        <Link to={RoutesEnum.Home}>
-          <img src={chillzlogo} className="logo" alt="Chillz logo" />
-        </Link>
-        <SignIn />
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+          <Link to={RoutesEnum.Home}>
+            <img src={chillzlogo} className="logo" alt="Chillz logo" />
+          </Link>
+          <div className="flex items-center">
+            <div className="relative group">
+              <SignIn />
+            </div>
+          </div>
+        </div>
       </header>
       <div className="container mx-auto px-4 py-8">
         {/* Search and filter section */}
-        <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+        <div className="bg-[#F4F4F9] rounded-lg shadow-md p-4 mb-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="mb-4 md:mb-0 md:w-1/2">
               <label
                 htmlFor="search"
@@ -76,6 +87,21 @@ const EventsPage: React.FC = () => {
                 ))}
               </select>
             </div>
+            <div className="md:w-1/3 mt-4 md:mt-0">
+              <label
+                htmlFor="date-filter"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                {t('filterByDate') || "Filter by Date"}
+              </label>
+              <input
+                type="date"
+                id="date-filter"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+              />
+            </div>
           </div>
         </div>
 
@@ -98,6 +124,7 @@ const EventsPage: React.FC = () => {
               onClick={() => {
                 setFilter("all");
                 setSearchTerm("");
+                setSelectedDate("");
               }}
             >
               {t('clearFilters')}
@@ -105,22 +132,7 @@ const EventsPage: React.FC = () => {
           </div>
         )}
       </div>
-      <footer className="bg-black text-white w-full mt-auto">
-        <div className="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <div className="md:flex items-center md:justify-between">
-            <div className="mb-6 md:mb-0">
-              <p className="mt-1 text-sm text-gray-300">
-                © 2025 Chillz. {t('allRightsReserved')}
-              </p>
-            </div>
-            <div className="flex flex-col space-y-2">
-              <a href="#" className="text-gray-300 hover:text-white text-sm">
-                {t('contactUs')}
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

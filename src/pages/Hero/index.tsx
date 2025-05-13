@@ -7,8 +7,16 @@ import DefaultLayout from "../../components/layout/DefaultLayout";
 import Carousel from "../../components/Carousel/Carousel";
 import Verified from "../../components/Cards/Verified";
 import WeatherReport from "../../components/Weather/WeatherReport";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../lib/firebase/index";
+import HowChillzWorks from "../../components/HowChillzWorks";
+import JoinChillz from "../../components/JoinChillz";
 
 const Home = () => {
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) return null;
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -16,7 +24,19 @@ const Home = () => {
         <Slides />
         <Categories />
         <Verified />
+        {!user && (
+          <>
+            <HowChillzWorks />
+           
+          </>
+        )}
         <Cards />
+
+        {!user &&(
+          <>
+           <JoinChillz />
+          </>
+        )}
         <WeatherReport/>
         <Carousel />
       </DefaultLayout>
