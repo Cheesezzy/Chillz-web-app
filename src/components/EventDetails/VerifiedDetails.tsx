@@ -8,14 +8,14 @@ import Header from "../Header";
 import Footer from "../Footer/Footer";
 import { useState, useEffect } from "react";
 import DefaultLayout from "../layout/DefaultLayout";
-import { verifiedEvents } from "../../data/verifiedEvents";
 import SkeletonLoaderV from "../SkeletonLoaderV";
+import { useVerifiedEvents, VerifiedEvent } from "../../hooks/useVerifiedEvents";
 
 const TABS = [
   { label: "Overview", key: "overview" },
-  { label: "Itinerary", key: "itinerary" },
-  { label: "Price & Date", key: "price" },
-  { label: "Background", key: "background" },
+  { label: "Schedule", key: "schedule" },
+  { label: "Price & Details", key: "price" },
+  { label: "Requirements", key: "requirements" },
   { label: "Reviews", key: "reviews" },
 ];
 
@@ -24,11 +24,12 @@ const VerifiedDetails = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const event = location.state?.event;
-  const [activeTab, setActiveTab] = useState("itinerary");
+  const [activeTab, setActiveTab] = useState("overview");
   const [loading, setLoading] = useState(true);
+  const { events } = useVerifiedEvents();
 
   useEffect(() => {
-    setLoading(true); // Reset loading every time event changes
+    setLoading(true);
     const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, [event]);
@@ -46,59 +47,93 @@ const VerifiedDetails = () => {
       </div>
     );
   }
+
   if (loading) {
-    return (
-      <>
-        <SkeletonLoaderV/>
-      </>
-    );
+    return <SkeletonLoaderV />;
   }
-  const relatedEvents = verifiedEvents.filter(e => e.id !== event.id).slice(0, 3);
+
+  const relatedEvents = events.filter((e: VerifiedEvent) => e.id !== event.id).slice(0, 3);
 
   return (
     <>
       <Header />
-     
       <div className="bg-white shadow-lg overflow-hidden w-full mt-20">
-              <div className="relative">
-                <img
-                  src={event.image}
-                  alt={event.title}
-                  className="w-full h-[320px] object-cover"
-                />
-                <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full flex items-center gap-2 shadow">
-                  <img src={badge} alt="verified" width={20} height={20} />
-                  <span className="text-sm font-semibold text-red-500">{t('verified')}</span>
-                </div>
-              </div>
-            </div>
-            {loading && (
-              <SkeletonLoaderV/>
-            )}
-       <DefaultLayout>
-       <div className="flex flex-col lg:flex-row gap-10 mt-5 px-6">
+        <div className="relative">
+          <img
+            src={event.image}
+            alt={event.title}
+            className="w-full h-[320px] object-cover"
+          />
+          <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full flex items-center gap-2 shadow">
+            <img src={badge} alt="verified" width={20} height={20} />
+            <span className="text-sm font-semibold text-red-500">{t('verified')}</span>
+          </div>
+        </div>
+      </div>
+
+      <DefaultLayout>
+        <div className="flex flex-col lg:flex-row gap-10 mt-5 px-6">
           {/* LEFT COLUMN */}
-          <div className="lg:w-1/2 flex flex-col items-center">
-            
+          <div className="lg:w-1/3 flex flex-col items-center">
             {/* Info Box */}
             <div className="bg-white rounded-lg shadow p-6 mt-6 w-full">
-              <div className="mb-2"><b>Duration:</b> {event.time}</div>
-              <div className="mb-2"><b>Location:</b> {event.location}</div>
-              <div className="mb-2"><b>Date:</b> {event.date}</div>
-              <div className="mb-2"><b>Attendees:</b> 0</div>
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold mb-2">Event Details</h3>
+                <div className="mb-2"><b>Duration:</b> {event.time}</div>
+                <div className="mb-2"><b>Location:</b> {event.venue.name || event.location}</div>
+                <div className="mb-2"><b>Address:</b> {event.venue.address}</div>
+                <div className="mb-2"><b>Date:</b> {event.schedule.startDate}</div>
+                <div className="mb-2"><b>Capacity:</b> {event.capacity} people</div>
+                <div className="mb-2"><b>Attendees:</b> {event.attendees}</div>
+                <div className="mb-2"><b>Status:</b> <span className="capitalize">{event.status}</span></div>
+              </div>
+
+              <div className="mb-4">
+                <h3 className="text-lg font-semibold mb-2">Organizer</h3>
+                <div className="flex items-center gap-3">
+                  <img src={event.organizer.image} alt={event.organizer.name} className="w-10 h-10 rounded-full" />
+                  <div>
+                    <div className="font-semibold">{event.organizer.name}</div>
+                    {event.socialLinks.website && (
+                      <a href={event.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-500">
+                        Visit Website
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+
               <div className="flex flex-col gap-3 mt-6">
-                <button className="border-2 border-red-500 text-red-500 rounded-full py-2 font-semibold hover:bg-red-50 transition">BOOK FOR THIS EVENT</button>
+                <button className="border-2 border-red-500 text-red-500 rounded-full py-2 font-semibold hover:bg-red-50 transition">
+                  BOOK FOR THIS EVENT
+                </button>
+                <div className="text-center text-gray-500">
+                  {event.price > 0 ? (
+                    <span className="font-semibold">{event.currency} {event.price}</span>
+                  ) : (
+                    "Contact for pricing"
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
           {/* RIGHT COLUMN */}
-          <div className="lg:w-3/4">
+          <div className="lg:w-2/3">
             <div className="flex flex-col gap-4">
-              {/* Title and duration */}
               <h1 className="text-3xl font-bold">
-                {event.title} <span className="text-red-500 font-bold">4 days</span>
+                {event.title}
               </h1>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {event.tags.map((tag: string, index: number) => (
+                  <span key={index} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               {/* Tabs */}
               <div className="flex flex-wrap gap-2 mt-2 mb-4">
                 {TABS.map(tab => (
@@ -115,51 +150,111 @@ const VerifiedDetails = () => {
                   </button>
                 ))}
               </div>
-              {/* Description/Itinerary */}
-              <div>
+
+              {/* Tab Content */}
+              <div className="bg-white rounded-lg shadow p-6">
                 {activeTab === "overview" && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Overview</h2>
-                    <p className="mb-4 text-gray-500">
-                      There are only two million heads of Bactrian camels or two-humped camels in the world. The two-humped camels are native to Central Asian steppes. Among them, the camels in the Mongolian Gobi Desert are an inseparable part of the nomads' livelihood...
-                    </p>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Overview</h2>
+                    <p className="mb-4 text-gray-600">{event.description}</p>
+                    {event.includedItems.length > 0 && (
+                      <div className="mt-6">
+                        <h3 className="font-semibold mb-2">What's Included:</h3>
+                        <ul className="list-disc list-inside text-gray-600">
+                          {event.includedItems.map((item: string, index: number) => (
+                            <li key={index}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
                 )}
-                {activeTab === "itinerary" && (
+
+                {activeTab === "schedule" && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Itinerary</h2>
-                    <p className="font-bold mb-1">February 1, Day 1: Drive to the Dalanzadgad</p>
-                    <p className="mb-2 text-gray-500">
-                      Meet with your guide and driver and start the adventure driving 580 km on paved roads of the vast open Gobi Desert steppes heading to Dalanzadgad town. Check-in at a hotel upon arrival in Dalanzadgad.
-                    </p>
-                    <div className="mb-2"><b>Accommodation:</b> Local hotel</div>
-                    <div className="mb-2"><b>Meals:</b> Lunch, Dinner</div>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Schedule</h2>
+                    <div className="mb-4">
+                      <div className="font-semibold">Event Period</div>
+                      <div className="text-gray-600">
+                        {event.schedule.startDate} - {event.schedule.endDate}
+                      </div>
+                    </div>
+                    {event.schedule.sessions.map((session: { title: string; startTime: string; endTime: string; description: string }, index: number) => (
+                      <div key={index} className="mb-4 p-4 bg-gray-50 rounded-lg">
+                        <h3 className="font-semibold">{session.title}</h3>
+                        <div className="text-gray-600">
+                          <div>{session.startTime} - {session.endTime}</div>
+                          <p className="mt-2">{session.description}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
+
                 {activeTab === "price" && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Price & Date</h2>
-                    <p className="text-gray-500">Contact us for the latest price and available dates.</p>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Price & Details</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <h3 className="font-semibold mb-2">Pricing</h3>
+                        <div className="text-2xl font-bold text-red-500">
+                          {event.price > 0 ? `${event.currency} ${event.price}` : "Contact for pricing"}
+                        </div>
+                      </div>
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <h3 className="font-semibold mb-2">Venue</h3>
+                        <div className="text-gray-600">
+                          <div>{event.venue.name}</div>
+                          <div>{event.venue.address}</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 )}
-                {activeTab === "background" && (
+
+                {activeTab === "requirements" && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Background</h2>
-                    <p className="text-gray-500">Background information about the event goes here.</p>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Requirements</h2>
+                    {event.requirements.length > 0 ? (
+                      <ul className="list-disc list-inside text-gray-600">
+                        {event.requirements.map((req: string, index: number) => (
+                          <li key={index} className="mb-2">{req}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-gray-600">No specific requirements listed.</p>
+                    )}
                   </div>
                 )}
+
                 {activeTab === "reviews" && (
                   <div>
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Reviews</h2>
-                    <p className="text-gray-500">No reviews yet.</p>
+                    <h2 className="text-xl font-semibold text-gray-800 mb-4">Reviews</h2>
+                    {event.reviews.length > 0 ? (
+                      <div className="space-y-4">
+                        {event.reviews.map((review: { userName: string; rating: number; comment: string; date: string }, index: number) => (
+                          <div key={index} className="border-b pb-4">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="font-semibold">{review.userName}</span>
+                              <span className="text-yellow-500">{"★".repeat(review.rating)}</span>
+                            </div>
+                            <p className="text-gray-600">{review.comment}</p>
+                            <div className="text-sm text-gray-500 mt-2">{review.date}</div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-600">No reviews yet.</p>
+                    )}
                   </div>
                 )}
               </div>
             </div>
           </div>
         </div>
+
         {/* Related Events Section */}
-        <div className="px-6 mt-10" >
+        <div className="px-6 mt-10">
           <h2 className="text-xl font-semibold mb-4">Related Events</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {relatedEvents.map((relEvent) => (
@@ -170,7 +265,7 @@ const VerifiedDetails = () => {
                   setLoading(true);
                   setTimeout(() => {
                     navigate("/verified-details", { state: { event: relEvent } });
-                  }, 500); // 500ms for a quick loading effect
+                  }, 500);
                 }}
               >
                 <img src={relEvent.image} alt={relEvent.title} className="w-full h-40 object-cover" />
@@ -178,11 +273,11 @@ const VerifiedDetails = () => {
                   <h3 className="font-bold text-lg mb-2 line-clamp-2">{relEvent.title}</h3>
                   <div className="flex items-center text-sm text-gray-500 mb-1">
                     <img src={map} alt="map" className="w-4 h-4 mr-1" />
-                    {relEvent.location}
+                    {relEvent.venue.name || relEvent.location}
                   </div>
                   <div className="flex items-center text-sm text-gray-500 mb-1">
                     <img src={dates} alt="date" className="w-4 h-4 mr-1" />
-                    {relEvent.date}
+                    {relEvent.schedule.startDate}
                   </div>
                   <div className="flex items-center text-sm text-gray-500">
                     <img src={clock} alt="clock" className="w-4 h-4 mr-1" />
@@ -193,8 +288,7 @@ const VerifiedDetails = () => {
             ))}
           </div>
         </div>
-       </DefaultLayout>
-      
+      </DefaultLayout>
       <Footer />
     </>
   );

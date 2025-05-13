@@ -14,18 +14,6 @@ export enum RoutesEnum {
   CategoryPage = "/events",
   OrganizerProfile = "/organizer-profile/",
   Onboarding = "/onboarding",
+  VerifiedEventFeeds = "/verified-event-feeds",
 }
 
-export enum RoutesEnumMN {
-  Login = "/mn/login",
-  Register = "/mn/register",
-  Home = "/mn/",
-  ForgotPassword = "/mn/forgot-password",
-  Account = "/mn/account",
-  Tickets = "/mn/tickets",
-  EventFeeds = "/mn/event-feeds",
-  HelpCenter = "/mn/help-center",
-  CreateAnEvent = "/mn/create-event",
-  UserDashboard = "/mn/dashboard",
-  EventDetails = "/mn/event/:id",
-}

@@ -21,6 +21,7 @@ const CreateAnEvent = React.lazy(() => import("./pages/Event/CreateEvent"));
 const UserDashboard = React.lazy(() => import("./pages/UserDashboard"));
 const EventDetails = React.lazy(() => import("./pages/Event/EventDetails"));
 const CategoryPage = React.lazy(() => import("./pages/Categories"));
+const VerifiedEventFeeds = React.lazy(() => import("./pages/Verified/VerifiedEventFeeds"));
 
 // Protected Route Component for Organization Setup
 const OrganizationSetupRoute = ({ children }: { children: React.ReactNode }) => {
@@ -154,6 +155,7 @@ const App = () => {
         <Route path={RoutesEnum.EventFeeds} element={<EventFeeds />} />
         <Route path={RoutesEnum.HelpCenter} element={<HelpCenter />} />
         <Route path={RoutesEnum.EventDetails} element={<EventDetails />} />
+        <Route path={RoutesEnum.VerifiedEventFeeds} element={<VerifiedEventFeeds />} />
         <Route
           path={RoutesEnum.Onboarding}
           element={
