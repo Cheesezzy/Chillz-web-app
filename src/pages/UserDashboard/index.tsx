@@ -172,9 +172,9 @@ const UserDashboard: React.FC = () => {
         {/* Welcome Section */}
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <h2 className="text-xl font-medium text-gray-900">
-            <b>{t("welcomeBack")},</b>{" "}
+            <b>{t("welcomeBack")},</b>
             <span className="text-2xl  ml-2">
-              <b>{user?.email}</b>
+              <b>{user?.email && user.email.split("@")[0].charAt(0).toUpperCase() + user.email.split("@")[0].slice(1)}</b>
             </span>
           </h2>
           <p className="mt-1 text-sm text-gray-500">

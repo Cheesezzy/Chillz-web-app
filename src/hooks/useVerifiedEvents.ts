@@ -11,7 +11,11 @@ export interface VerifiedEvent {
   image: string;
   category: string;
   description: string;
-  price: number;
+  price: {
+    regular: number;
+    vip: number;
+    vvip: number;
+  };
   currency: string;
   organizer: {
     id: string;
@@ -84,11 +88,15 @@ export const useVerifiedEvents = (): UseVerifiedEventsReturn => {
             location: data.location || "",
             date: data.date || "",
             time: data.time || "",
-            image: data.image || "/event-img.jpeg",
+            image: data.image || "/card-default.png",
             category: data.category || "other",
             description: data.description || "",
-            price: data.price || 0,
-            currency: data.currency || "USD",
+            price: {
+              regular: data.price?.regular || 0,
+              vip: data.price?.vip || 0,
+              vvip: data.price?.vvip || 0
+            },
+            currency: data.currency || "MNT",
             organizer: data.organizer || {
               id: "",
               name: "",
@@ -113,7 +121,7 @@ export const useVerifiedEvents = (): UseVerifiedEventsReturn => {
             },
             requirements: data.requirements || [],
             includedItems: data.includedItems || [],
-            reviews: data.reviews || [],
+            reviews: data.reviews || [], 
             socialLinks: data.socialLinks || {}
           };
         });

@@ -2,8 +2,13 @@ import "./Footer.css";
 import playstore from "/play-store.png";
 import appstore from "/app-store.png";
 import { useTranslation } from "react-i18next";
-export default function Footer() {
+import { useState } from "react";
+import ContactForm from "../ContactForm/ContactForm";
+
+const Footer = () => {
   const { t } = useTranslation();
+  const [showContactForm, setShowContactForm] = useState(false);
+
   return (
     <div className="pg-footer mt-8">
       <footer className="footer">
@@ -79,7 +84,10 @@ export default function Footer() {
               <a
                 className="footer-call-to-action-button button"
                 href="#"
-                target="_self"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowContactForm(true);
+                }}
               >
                 {" "}
                 {t('getInTouch')}
@@ -175,7 +183,12 @@ export default function Footer() {
                 <a href="#" className="text-gray-300 hover:text-white text-sm">
                   {t('privacyPolicy')}
                 </a>
-                <a href="#" className="text-gray-300 hover:text-white text-sm">
+                <a href="#" className="text-gray-300 hover:text-white text-sm"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowContactForm(true);
+                  }}
+                >
                   {t('contactUs')}
                 </a>
               </div>
@@ -183,6 +196,13 @@ export default function Footer() {
           </div>
         </footer>
       </footer>
+
+      {/* Contact Form Modal */}
+      {showContactForm && (
+        <ContactForm onClose={() => setShowContactForm(false)} />
+      )}
     </div>
   );
-}
+};
+
+export default Footer;

@@ -80,7 +80,35 @@ const VerifiedDetails = () => {
               <div className="mb-4">
                 <h3 className="text-lg font-semibold mb-2">Event Details</h3>
                 <div className="mb-2"><b>Duration:</b> {event.time}</div>
-                <div className="mb-2"><b>Location:</b> {event.venue.name || event.location}</div>
+                <div className="mb-2">
+                  <b>Location:</b>{" "}
+                  {event.venue.coordinates.latitude && event.venue.coordinates.longitude ? (
+                    <a
+                      href={`https://www.google.com/maps?q=${event.venue.coordinates.latitude},${event.venue.coordinates.longitude}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 hover:text-blue-700 hover:underline flex items-center gap-1"
+                    >
+                      {event.venue.name || event.location}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </a>
+                  ) : (
+                    event.venue.name || event.location
+                  )}
+                </div>
                 <div className="mb-2"><b>Address:</b> {event.venue.address}</div>
                 <div className="mb-2"><b>Date:</b> {event.schedule.startDate}</div>
                 <div className="mb-2"><b>Capacity:</b> {event.capacity} people</div>
@@ -108,8 +136,12 @@ const VerifiedDetails = () => {
                   BOOK FOR THIS EVENT
                 </button>
                 <div className="text-center text-gray-500">
-                  {event.price > 0 ? (
-                    <span className="font-semibold">{event.currency} {event.price}</span>
+                  {event.price.regular > 0 ? (
+                    <div className="space-y-1">
+                      <div className="font-semibold">Regular: {event.currency} {event.price.regular}</div>
+                      {event.price.vip > 0 && <div className="font-semibold">VIP: {event.currency} {event.price.vip}</div>}
+                      {event.price.vvip > 0 && <div className="font-semibold">VVIP: {event.currency} {event.price.vvip}</div>}
+                    </div>
                   ) : (
                     "Contact for pricing"
                   )}
@@ -141,8 +173,8 @@ const VerifiedDetails = () => {
                     key={tab.key}
                     className={`px-6 py-2 border-2 rounded-full font-semibold transition
                       ${activeTab === tab.key
-                        ? 'bg-red-500 text-white border-red-500'
-                        : 'bg-white text-red-500 border-red-500 hover:bg-red-50'}
+                        ? 'bg-[#1a535c] text-white border-[#1a535c]'
+                        : 'bg-white text-[#1a535c] border-[#1a535c] hover:bg-cyan-50'}
                     `}
                     onClick={() => setActiveTab(tab.key)}
                   >
@@ -197,9 +229,25 @@ const VerifiedDetails = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="p-4 bg-gray-50 rounded-lg">
                         <h3 className="font-semibold mb-2">Pricing</h3>
-                        <div className="text-2xl font-bold text-red-500">
-                          {event.price > 0 ? `${event.currency} ${event.price}` : "Contact for pricing"}
-                        </div>
+                        {event.price.regular > 0 ? (
+                          <div className="space-y-2">
+                            <div className="text-xl font-bold text-red-500">
+                              Regular: {event.currency} {event.price.regular}
+                            </div>
+                            {event.price.vip > 0 && (
+                              <div className="text-xl font-bold text-red-500">
+                                VIP: {event.currency} {event.price.vip}
+                              </div>
+                            )}
+                            {event.price.vvip > 0 && (
+                              <div className="text-xl font-bold text-red-500">
+                                VVIP: {event.currency} {event.price.vvip}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="text-2xl font-bold text-red-500">Contact for pricing</div>
+                        )}
                       </div>
                       <div className="p-4 bg-gray-50 rounded-lg">
                         <h3 className="font-semibold mb-2">Venue</h3>
