@@ -2,6 +2,7 @@ import clock from "/clock.png";
 import map from "/location.png";
 import dates from "/calendar.png";
 import badge from "/badge.png";
+import {Users, User} from "lucide-react";
 import "./Cards.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -75,37 +76,44 @@ const Verified = () => {
                       </p>
                       <p className="calender">
                         <img src={dates} alt="calender" width={10} height={10} className="icon" />
-                        <i className="text-sm sm">{event.date}</i>
+                        <i className="text-sm sm">{event.date || event.schedule.startDate + " - " + event.schedule.endDate}</i>
                       </p>
                       <p className="clock">
                         <img src={clock} alt="clock" width={10} height={10} className="icon" />
                         <i className="text-sm sm">{event.time}</i>
                       </p>
                     </div>
-                    <div className="flex flex-wrap items-center">
-                     <div className="flex flex-wrap items-center gap-2 mt-2 px-2">
-                     <span className=" inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
-      {t(event.category)}
-    </span>
-    {(event.subcategories ?? []).map((subcategory) => (
-      <span key={subcategory} className="inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
-        {t(subcategory)}
-      </span>
-    ))}
-    {/* Status */}
-    <span
-      className={`
-        inline-block text-xs font-semibold px-3 py-1 rounded-full capitalize
-        ${event.status === 'upcoming' ? 'bg-green-100 text-green-800' : ''}
-        ${event.status === 'ongoing' ? 'bg-yellow-100 text-yellow-800' : ''}
-        ${event.status === 'completed' ? 'bg-gray-200 text-gray-600' : ''}
-        ${event.status === 'cancelled' ? 'bg-red-100 text-red-700' : ''}
-      `}
-    >
-      {t(event.status || '')}
-    </span>
-                     </div>
-    </div>
+              <div className="flex flex-wrap items-center justify-between mt-2 ">
+                <div className="flex  flex-wrap items-center gap-2 mt-2 px-2">
+                      <span className=" inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
+                            {t(event.category)}
+                        </span>
+                          {(event.subcategories ?? []).map((subcategory) => (
+                        <span key={subcategory} className="inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
+                          {t(subcategory)}
+                      </span>
+                      ))}
+                  {/* Status */}
+                  <span
+                    className={`
+                      inline-block text-xs font-semibold px-3 py-1 rounded-full capitalize
+                      ${event.status === 'upcoming' ? 'bg-green-100 text-green-800' : ''}
+                      ${event.status === 'ongoing' ? 'bg-yellow-100 text-yellow-800' : ''}
+                      ${event.status === 'completed' ? 'bg-gray-200 text-gray-600' : ''}
+                      ${event.status === 'cancelled' ? 'bg-red-100 text-red-700' : ''}
+                    `}
+                  >
+                    {t(event.status || '')}
+                  </span>
+                </div>
+                <div className="flex items-center pr-4">
+                    <Users className="w-5 h-5 text-gray-600" />
+                    <span>{event.capacity}</span>
+                  </div>
+                 
+               </div>
+
+
                     <div className="flex flex-col px-4">
                       <h2 className="text-lg font-semibold">{truncateText(event.title, 3)}</h2>
                       <div>

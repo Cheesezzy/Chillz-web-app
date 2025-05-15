@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useAllEventsData } from "../../hooks/useAllEventsData";
 import search from "/search.svg";
 import DefaultLayout from "../../components/layout/DefaultLayout";
@@ -83,9 +83,16 @@ function CategoryPage() {
 
           {/* Category Title and Subcategories */}
           <div className="my-6">
+            <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold mb-4">
               {category ? t("eventsForCategory", { category: t(category) }) : t("allEvents")}
             </h2>
+            <Link to="/verified-event-feeds">
+            <p className="text-sm text-red-500 hover:text-red-700 cursor-pointer">
+              View Others
+            </p>
+            </Link>
+            </div>
             {category && subcategories.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-6">
                 {subcategories.map((subcategory) => (

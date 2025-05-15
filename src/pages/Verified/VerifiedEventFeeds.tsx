@@ -9,6 +9,7 @@ import Header from "../../components/Header";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useVerifiedEvents } from "../../hooks/useVerifiedEvents";
 import "../../components/Cards/Cards.css";
+import { Users } from "lucide-react";
 
 const VerifiedEventFeeds = () => {
   const { t } = useTranslation();
@@ -107,14 +108,14 @@ const VerifiedEventFeeds = () => {
                       </p>
                       <p className="calender">
                         <img src={dates} alt="calender" width={10} height={10} className="icon" />
-                        <i className="text-sm sm">{event.date}</i>
+                        <i className="text-sm sm">{event.date || event.schedule.startDate + " - " + event.schedule.endDate}</i>
                       </p>
                       <p className="clock">
                         <img src={clock} alt="clock" width={10} height={10} className="icon" />
                         <i className="text-sm sm">{event.time}</i>
                       </p>
                     </div>
-                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <div className="flex flex-wrap items-center justify-between mt-2 gap-2 mb-2">
                      <div className="flex flex-wrap items-center gap-2 mt-2 px-2">
                      <span className=" inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
       {event.category}
@@ -137,6 +138,10 @@ const VerifiedEventFeeds = () => {
       {event.status}
     </span>
                      </div>
+                     <div className="flex items-center pr-4">
+                    <Users className="w-5 h-5 text-gray-600" />
+                    <span>{event.capacity}</span>
+                  </div>
     </div>
                     <div className="flex flex-col px-4 py-2">
                       <h2 className="text-lg font-semibold">{truncateText(event.title, 3)}</h2>

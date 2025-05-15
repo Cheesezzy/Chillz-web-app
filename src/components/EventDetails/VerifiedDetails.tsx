@@ -114,7 +114,7 @@ const VerifiedDetails = () => {
                   )}
                 </div>
                 <div className="mb-2"><b>Address:</b> {event.venue.address}</div>
-                <div className="mb-2"><b>Date:</b> {event.schedule.startDate}</div>
+                <div className="mb-2"><b>Date:</b> {event.date || event.schedule.startDate + " - " + event.schedule.endDate || event.schedule}</div>
                 <div className="mb-2"><b>Capacity:</b> {event.capacity} people</div>
                 <div className="mb-2"><b>Attendees:</b> {event.attendees}</div>
                 <div className="mb-2"><b>Status:</b> <span className="capitalize">{event.status}</span></div>
@@ -393,20 +393,57 @@ const VerifiedDetails = () => {
                 }}
               >
                 <img src={relEvent.image ? relEvent.image : "/card-default.png"} alt={relEvent.title} className="w-full h-40 object-cover" onError={e => { e.currentTarget.src = "/card-default.png"; }} />
+                <div className="flex flex-wrap items-center">
+                     <div className="flex flex-wrap items-center gap-2 mt-2 px-2">
+                     <span className=" inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
+      {t(relEvent.category)}
+    </span>
+    {(relEvent.subcategories ?? []).map((subcategory) => (
+      <span key={subcategory} className="inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
+        {t(subcategory)}
+      </span>
+    ))}
+    {/* Status */}
+    <span
+      className={`
+        inline-block text-xs font-semibold px-3 py-1 rounded-full capitalize
+        ${relEvent.status === 'upcoming' ? 'bg-green-100 text-green-800' : ''}
+        ${relEvent.status === 'ongoing' ? 'bg-yellow-100 text-yellow-800' : ''}
+        ${relEvent.status === 'completed' ? 'bg-gray-200 text-gray-600' : ''}
+        ${relEvent.status === 'cancelled' ? 'bg-red-100 text-red-700' : ''}
+      `}
+    >
+      {t(relEvent.status || '')}
+    </span>
+                     </div>
+    </div>
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-2 line-clamp-2">{relEvent.title}</h3>
+                  <p className="text-gray-600 line-clamp-2 pb-2">{relEvent.description}</p>
                   <div className="flex items-center text-sm text-gray-500 mb-1">
                     <img src={map} alt="map" className="w-4 h-4 mr-1" />
                     {relEvent.venue.name || relEvent.location}
                   </div>
                   <div className="flex items-center text-sm text-gray-500 mb-1">
                     <img src={dates} alt="date" className="w-4 h-4 mr-1" />
-                    {relEvent.schedule.startDate}
+                    {relEvent.date || relEvent.schedule.startDate + " - " + relEvent.schedule.endDate}
                   </div>
                   <div className="flex items-center text-sm text-gray-500">
                     <img src={clock} alt="clock" className="w-4 h-4 mr-1" />
                     {relEvent.time}
                   </div>
+                  <div className="flex items-end justify-between">
+                        
+                        <div className="inline-block bg-red-50 text-red-700 font-bold text-sm mt-4 px-3 py-2 rounded-full shadow-sm">
+                          {event.price.regular > 0
+                            ? `${event.currency} ${event.price.regular.toLocaleString()}`
+                            : t('free')}
+                        </div>
+                        <span className="flex items-center gap-1">
+                          <img src={badge} alt="badge" width={20} height={20} />
+                          <p className="text-xs font-semibold">{t('verified')}</p>
+                        </span>
+                      </div>
                 </div>
               </div>
             ))}
