@@ -77,7 +77,7 @@ const VerifiedEventFeeds = () => {
         </div>
 
         {/* Events Grid */}
-        <div className="card grid grid-cols-1 lg:px-18 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div className="card grid grid-cols-1 lg:px-18 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {loading ? (
             <div className="col-span-full flex justify-center items-center">
               <LoadingSpinner />
@@ -109,12 +109,42 @@ const VerifiedEventFeeds = () => {
                         <i className="text-sm sm">{event.time}</i>
                       </p>
                     </div>
-                    <div className="flex flex-col gap-2 px-4 py-2">
-                      <h2 className="text-lg font-semibold line-clamp-2">{truncateText(event.title, 4)}</h2>
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                     <div className="flex flex-wrap items-center gap-2 mt-2 px-2">
+                     <span className=" inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
+      {event.category}
+    </span>
+    {(event.subcategories ?? []).map((subcategory) => (
+      <span key={subcategory} className="inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
+        {subcategory}
+      </span>
+    ))}
+    {/* Status */}
+    <span
+      className={`
+        inline-block text-xs font-semibold px-3 py-1 rounded-full capitalize
+        ${event.status === 'upcoming' ? 'bg-green-100 text-green-800' : ''}
+        ${event.status === 'ongoing' ? 'bg-yellow-100 text-yellow-800' : ''}
+        ${event.status === 'completed' ? 'bg-gray-200 text-gray-600' : ''}
+        ${event.status === 'cancelled' ? 'bg-red-100 text-red-700' : ''}
+      `}
+    >
+      {event.status}
+    </span>
+                     </div>
+    </div>
+                    <div className="flex flex-col px-4 py-2">
+                      <h2 className="text-lg font-semibold">{truncateText(event.title, 3)}</h2>
+                      <div>
+                          {truncateText(event.description, 10)}
+                      </div>
                       <div className="flex items-end justify-between">
-                        <button className="ticket_btn">
-                          {t('getTicket')}
-                        </button>
+                        
+                        <div className="inline-block bg-red-50 text-red-700 font-bold text-sm mt-4 px-3 py-2 rounded-full shadow-sm">
+                          {event.price.regular > 0
+                            ? `${event.currency} ${event.price.regular.toLocaleString()}`
+                            : t('free')}
+                        </div>
                         <span className="flex items-center gap-1">
                           <img src={badge} alt="badge" width={20} height={20} />
                           <p className="text-xs font-semibold">{t('verified')}</p>

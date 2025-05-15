@@ -10,6 +10,7 @@ export interface VerifiedEvent {
   time: string;
   image: string;
   category: string;
+  subcategories?: string[];
   description: string;
   price: {
     regular: number;
@@ -90,6 +91,8 @@ export const useVerifiedEvents = (): UseVerifiedEventsReturn => {
             time: data.time || "",
             image: data.image || "/card-default.png",
             category: data.category || "other",
+            subcategories: data.subcategories || [],
+            mainCategory: data.mainCategory || "",
             description: data.description || "",
             price: {
               regular: data.price?.regular || 0,
@@ -140,3 +143,66 @@ export const useVerifiedEvents = (): UseVerifiedEventsReturn => {
 
   return { events, loading, error };
 }; 
+
+
+
+
+
+
+// const today = new Date();
+//         const fetchedEvents: VerifiedEvent[] = querySnapshot.docs
+//           .map((doc) => {
+//             const data = doc.data();
+//             return {
+//               id: doc.id,
+//               title: data.title || "",
+//               location: data.location || "",
+//               date: data.date || "",
+//               time: data.time || "",
+//               image: data.image || "/card-default.png",
+//               category: data.category || "other",
+//               subcategories: data.subcategories || [],
+//               mainCategory: data.mainCategory || "",
+//               description: data.description || "",
+//               price: {
+//                 regular: data.price?.regular || 0,
+//                 vip: data.price?.vip || 0,
+//                 vvip: data.price?.vvip || 0
+//               },
+//               currency: data.currency || "MNT",
+//               organizer: data.organizer || {
+//                 id: "",
+//                 name: "",
+//                 image: ""
+//               },
+//               capacity: data.capacity || 0,
+//               attendees: data.attendees || 0,
+//               status: data.status || "upcoming",
+//               tags: data.tags || [],
+//               venue: data.venue || {
+//                 name: "",
+//                 address: "",
+//                 coordinates: {
+//                   latitude: 0,
+//                   longitude: 0
+//                 }
+//               },
+//               schedule: data.schedule || {
+//                 startDate: "",
+//                 endDate: "",
+//                 sessions: []
+//               },
+//               requirements: data.requirements || [],
+//               includedItems: data.includedItems || [],
+//               reviews: data.reviews || [], 
+//               socialLinks: data.socialLinks || {}
+//             };
+//           })
+//           .filter(event => {
+//             const eventDate = new Date(event.date);
+//             // Only include if eventDate is today or in the future
+//             return !isNaN(eventDate.getTime()) && eventDate >= new Date(today.toDateString());
+//           });
+
+//         setEvents(fetchedEvents);
+//       } catch (err) {
