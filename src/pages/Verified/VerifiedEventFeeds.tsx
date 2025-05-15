@@ -92,7 +92,12 @@ const VerifiedEventFeeds = () => {
               >
                 <div className="card_item h-full">
                   <div className="card_img px-1">
-                    <img src={event.image} alt={event.title} className="w-full h-48 object-cover" />
+                  <img
+                      src={event.image ? event.image : "/card-default.png"}
+                      alt={event.title}
+                      className="w-full h-48 object-cover"
+                      onError={e => { e.currentTarget.src = "/card-default.png"; }}
+                    />
                   </div>
                   <div className="card_text">
                     <div className="card_icon">

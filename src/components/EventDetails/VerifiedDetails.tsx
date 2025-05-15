@@ -26,6 +26,9 @@ const VerifiedDetails = () => {
   const event = location.state?.event;
   const [activeTab, setActiveTab] = useState("overview");
   const [loading, setLoading] = useState(true);
+  const [bookingError, setBookingError] = useState<string | null>(null);
+  const [showSocialLinks, setShowSocialLinks] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const { events } = useVerifiedEvents();
 
   useEffect(() => {
@@ -60,9 +63,10 @@ const VerifiedDetails = () => {
       <div className="bg-white shadow-lg overflow-hidden w-full mt-20">
         <div className="relative">
           <img
-            src={event.image}
+            src={event.image ? event.image : "/card-default.png"}
             alt={event.title}
             className="w-full h-[320px] object-cover"
+            onError={e => { e.currentTarget.src = "/card-default.png"; }}
           />
           <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full flex items-center gap-2 shadow">
             <img src={badge} alt="verified" width={20} height={20} />
@@ -119,20 +123,92 @@ const VerifiedDetails = () => {
               <div className="mb-4">
                 <h3 className="text-lg font-semibold mb-2">Organizer</h3>
                 <div className="flex items-center gap-3">
-                  <img src={event.organizer.image} alt={event.organizer.name} className="w-10 h-10 rounded-full" />
+                  {(event.organizer.image && !imageError) ? (
+                    <img 
+                      src={event.organizer.image} 
+                      alt={event.organizer.name} 
+                      className="w-10 h-10 rounded-full"
+                      onError={() => setImageError(true)}
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+                      {event.organizer.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                   <div>
-                    <div className="font-semibold">{event.organizer.name}</div>
-                    {event.socialLinks.website && (
-                      <a href={event.socialLinks.website} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-500">
-                        Visit Website
-                      </a>
+                    <button 
+                      onClick={() => setShowSocialLinks(!showSocialLinks)}
+                      className="font-semibold hover:text-blue-600 transition-colors focus:outline-none"
+                    >
+                      {event.organizer.name}
+                    </button>
+                    {/* Show content when name is clicked */}
+                    {showSocialLinks && (
+                      <div className="mt-2">
+                        {event.socialLinks && Object.values(event.socialLinks).some(link => link) ? (
+                          <div className="space-y-1">
+                            {event.socialLinks.website && (
+                              <a 
+                                href={event.socialLinks.website} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="block text-sm text-blue-500 hover:underline"
+                              >
+                                Visit Website
+                              </a>
+                            )}
+                            {event.socialLinks.facebook && (
+                              <a 
+                                href={event.socialLinks.facebook} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="block text-sm text-blue-500 hover:underline"
+                              >
+                                Facebook
+                              </a>
+                            )}
+                            {event.socialLinks.twitter && (
+                              <a 
+                                href={event.socialLinks.twitter} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="block text-sm text-blue-500 hover:underline"
+                              >
+                                Twitter
+                              </a>
+                            )}
+                            {event.socialLinks.instagram && (
+                              <a 
+                                href={event.socialLinks.instagram} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="block text-sm text-blue-500 hover:underline"
+                              >
+                                Instagram
+                              </a>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="text-sm text-red-500 mt-1">
+                            No social links or website available for this organizer
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-col gap-3 mt-6">
-                <button className="border-2 border-red-500 text-red-500 rounded-full py-2 font-semibold hover:bg-red-50 transition">
+                {bookingError && (
+                  <div className="text-red-500 text-center mb-2">
+                    {bookingError}
+                  </div>
+                )}
+                <button 
+                  className="border-2 border-red-500 text-red-500 rounded-full py-2 font-semibold hover:bg-red-50 transition"
+                  onClick={() => setBookingError("Unable to book for this event at the moment")}
+                >
                   BOOK FOR THIS EVENT
                 </button>
                 <div className="text-center text-gray-500">
@@ -316,7 +392,7 @@ const VerifiedDetails = () => {
                   }, 500);
                 }}
               >
-                <img src={relEvent.image} alt={relEvent.title} className="w-full h-40 object-cover" />
+                <img src={relEvent.image ? relEvent.image : "/card-default.png"} alt={relEvent.title} className="w-full h-40 object-cover" onError={e => { e.currentTarget.src = "/card-default.png"; }} />
                 <div className="p-4">
                   <h3 className="font-bold text-lg mb-2 line-clamp-2">{relEvent.title}</h3>
                   <div className="flex items-center text-sm text-gray-500 mb-1">

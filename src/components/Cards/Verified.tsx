@@ -60,7 +60,12 @@ const Verified = () => {
               >
                 <div className="card_item h-full">
                   <div className="card_img px-1">
-                    <img src={event.image} alt={event.title} className="w-full h-48 object-cover" />
+                    <img
+                      src={event.image ? event.image : "/card-default.png"}
+                      alt={event.title}
+                      className="w-full h-48 object-cover"
+                      onError={e => { e.currentTarget.src = "/card-default.png"; }}
+                    />
                   </div>
                   <div className="card_text">
                     <div className="card_icon">
@@ -80,11 +85,11 @@ const Verified = () => {
                     <div className="flex flex-wrap items-center">
                      <div className="flex flex-wrap items-center gap-2 mt-2 px-2">
                      <span className=" inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
-      {event.category}
+      {t(event.category)}
     </span>
     {(event.subcategories ?? []).map((subcategory) => (
       <span key={subcategory} className="inline-block bg-cyan-100 text-cyan-800 text-xs font-semibold px-3 py-1 rounded-full capitalize">
-        {subcategory}
+        {t(subcategory)}
       </span>
     ))}
     {/* Status */}
@@ -97,7 +102,7 @@ const Verified = () => {
         ${event.status === 'cancelled' ? 'bg-red-100 text-red-700' : ''}
       `}
     >
-      {event.status}
+      {t(event.status || '')}
     </span>
                      </div>
     </div>
