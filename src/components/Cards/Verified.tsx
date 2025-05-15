@@ -2,7 +2,7 @@ import clock from "/clock.png";
 import map from "/location.png";
 import dates from "/calendar.png";
 import badge from "/badge.png";
-import {Users, User} from "lucide-react";
+import {Users} from "lucide-react";
 import "./Cards.css";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
