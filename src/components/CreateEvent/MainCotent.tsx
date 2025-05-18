@@ -235,9 +235,9 @@ const MainContent = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           {t("selectWeekDays")} <span className="text-red-400">*</span>
                         </label>
-                        <div className="grid grid-cols-7 gap-2">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
                           {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day) => (
-                            <label key={day} className="inline-flex items-center">
+                            <label key={day} className="inline-flex items-center p-2 rounded hover:bg-gray-50">
                               <input
                                 type="checkbox"
                                 checked={formData.recurringPattern?.selectedWeekDays?.includes(day)}
@@ -255,7 +255,7 @@ const MainContent = () => {
                                 }}
                                 className="form-checkbox h-4 w-4 text-[#FF6B6B]"
                               />
-                              <span className="ml-2 text-sm">{t(day.toLowerCase())}</span>
+                              <span className="ml-2 text-sm whitespace-nowrap">{t(day.toLowerCase())}</span>
                             </label>
                           ))}
                         </div>
@@ -352,8 +352,8 @@ const MainContent = () => {
                   />
                 </div>
 
-                <div className="flex flex-row gap-2 items-center">
-                  <div className="col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
                     <label
                       htmlFor="mainCategory"
                       className="block text-sm font-medium text-gray-700"
@@ -366,7 +366,7 @@ const MainContent = () => {
                       required
                       value={selectedMainCategory}
                       onChange={(e) => setSelectedMainCategory(e.target.value as EventCategory)}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     >
                       {Object.keys(categoryGroups).map((category) => (
                         <option key={category} value={category}>
@@ -376,7 +376,7 @@ const MainContent = () => {
                     </select>
                   </div>
 
-                  <div className="col-span-2">
+                  <div>
                     <label
                       htmlFor="category"
                       className="block text-sm font-medium text-gray-700"
@@ -389,7 +389,7 @@ const MainContent = () => {
                       required
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     >
                       {categoryGroups[selectedMainCategory].map((category) => (
                         <option key={category} value={category}>
@@ -401,7 +401,7 @@ const MainContent = () => {
                 </div>
 
                 {formData.eventType === 'one-time' && (
-                  <div>
+                  <div className="w-full">
                     <label
                       htmlFor="date"
                       className="block text-sm font-medium text-gray-700"
@@ -415,52 +415,52 @@ const MainContent = () => {
                       required
                       value={formData.date}
                       onChange={handleInputChange}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-1 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                     />
                   </div>
                 )}
 
                 {formData.eventType === 'recurring' && formData.recurringPattern?.frequency === 'weekly' && (
-                  <div>
+                  <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700">
                       {t("eventDate")} <span className="text-red-400">*</span>
                     </label>
-                    <div className="mt-1 p-2 border border-gray-300 rounded-md bg-gray-50">
+                    <div className="mt-1 p-3 border border-gray-300 rounded-md bg-gray-50">
                       {formData.recurringPattern?.selectedWeekDays && formData.recurringPattern.selectedWeekDays.length > 0 ? (
-                        <span>
+                        <span className="text-sm sm:text-base">
                           {t("every")} {formData.recurringPattern.selectedWeekDays.map(day => t(day.toLowerCase())).join(", ")}
                         </span>
                       ) : (
-                        <span className="text-gray-500">{t("selectWeekDays")}</span>
+                        <span className="text-gray-500 text-sm sm:text-base">{t("selectWeekDays")}</span>
                       )}
                     </div>
                   </div>
                 )}
 
                 {formData.eventType === 'recurring' && formData.recurringPattern?.frequency === 'monthly' && (
-                  <div>
+                  <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700">
                       {t("eventDate")} <span className="text-red-400">*</span>
                     </label>
-                    <div className="mt-1 p-2 border border-gray-300 rounded-md bg-gray-50">
+                    <div className="mt-1 p-3 border border-gray-300 rounded-md bg-gray-50">
                       {formData.recurringPattern?.selectedMonthDays && formData.recurringPattern.selectedMonthDays.length > 0 ? (
-                        <span>
+                        <span className="text-sm sm:text-base">
                           {t("every")} {formData.recurringPattern.selectedMonthDays.join(", ")} {t("ofTheMonth")}
                         </span>
                       ) : (
-                        <span className="text-gray-500">{t("selectMonthDays")}</span>
+                        <span className="text-gray-500 text-sm sm:text-base">{t("selectMonthDays")}</span>
                       )}
                     </div>
                   </div>
                 )}
 
                 {formData.eventType === 'recurring' && formData.recurringPattern?.frequency === 'daily' && (
-                  <div>
+                  <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700">
                       {t("eventDate")} <span className="text-red-400">*</span>
                     </label>
-                    <div className="mt-1 p-2 border border-gray-300 rounded-md bg-gray-50">
-                      {t("everyDay")}
+                    <div className="mt-1 p-3 border border-gray-300 rounded-md bg-gray-50">
+                      <span className="text-sm sm:text-base">{t("everyDay")}</span>
                     </div>
                   </div>
                 )}
