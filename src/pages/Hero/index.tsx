@@ -5,7 +5,6 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer/Footer";
 import DefaultLayout from "../../components/layout/DefaultLayout";
 import Carousel from "../../components/Carousel/Carousel";
-import Verified from "../../components/Cards/Verified";
 import WeatherReport from "../../components/Weather/WeatherReport";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase/index";

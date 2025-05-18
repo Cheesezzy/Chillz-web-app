@@ -1,4 +1,3 @@
-import { useState } from "react";
 import EventCard from "../CreateEvent/Feeds/EventCard";
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
@@ -6,25 +5,6 @@ import LoadingSpinner from "../LoadingSpinner";
 import { useTranslation } from "react-i18next";
 import { useAllEventsData } from "../../hooks/useAllEventsData";
 
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  category: string;
-  interestedUsers: string[];
-  posts: { user: string; message: string; timestamp: string }[];
-  image?: string;
-  eventType: string;
-  recurringPattern?: {
-    frequency: string;
-    selectedWeekDays?: string[];
-    selectedMonthDays?: string[];
-  };
-}
 
 function Cards() {
   const { t } = useTranslation();
