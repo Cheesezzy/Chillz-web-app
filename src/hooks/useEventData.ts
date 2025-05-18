@@ -26,6 +26,12 @@ interface Event {
   posts: { user: string; message: string; timestamp: string }[];
   interest: number; // Field to track the number of interested users
   organizationProfileId: string;
+  eventType: string;
+  recurringPattern?: {
+    frequency: string;
+    selectedWeekDays?: string[];
+    selectedMonthDays?: string[];
+  };
 }
 interface OrganizationProfile {
   id: string;
@@ -85,6 +91,8 @@ export const useEventData = (
             posts: eventData.posts || [],
             interest: eventData.interest || 0,
             organizationProfileId: eventData.organizationProfileId || "",
+            eventType: eventData.eventType || "one-time",
+            recurringPattern: eventData.recurringPattern || undefined,
           };
 
           setEvent(eventObj);

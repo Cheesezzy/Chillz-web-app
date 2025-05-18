@@ -15,6 +15,12 @@ interface Event {
   interestedUsers: string[];
   posts: { user: string; message: string; timestamp: string }[]; // Updated type
   image?: string | null;
+  eventType: string;
+  recurringPattern?: {
+    frequency: string;
+    selectedWeekDays?: string[];
+    selectedMonthDays?: string[];
+  };
 }
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
@@ -76,7 +82,25 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
             ></path>
           </svg>
-          <span>{event.date}</span>
+          <span>
+            {event.eventType === 'recurring' ? (
+              <>
+                {event.recurringPattern?.frequency === 'daily' && t('everyDay')}
+                {event.recurringPattern?.frequency === 'weekly' && (
+                  <>
+                    {t('every')} {event.recurringPattern?.selectedWeekDays?.map(day => t(day.toLowerCase())).join(", ")}
+                  </>
+                )}
+                {event.recurringPattern?.frequency === 'monthly' && (
+                  <>
+                    {t('every')} {event.recurringPattern?.selectedMonthDays?.join(", ")} {t('ofTheMonth')}
+                  </>
+                )}
+              </>
+            ) : (
+              event.date
+            )}
+          </span>
         </div>
         <div className="flex items-center text-sm text-gray-500 mb-2">
           <svg

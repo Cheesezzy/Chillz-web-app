@@ -76,7 +76,7 @@ function DesktopHeader({
           <input
             className="nav-input"
             type="text"
-            placeholder={t('search')}
+            placeholder={t('searchEvents')}
           />
         </Link>
         <img src={search} alt="search" className="ser" />

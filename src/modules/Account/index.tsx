@@ -6,10 +6,11 @@ import UserProfile from "./components/UserProfile";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { Link } from "react-router-dom";
 import { RoutesEnum } from "../../routes";
+import { useTranslation } from "react-i18next";
 
 export default function AccountLayout() {
   const [user, loading] = useAuthState(auth);
-
+  const { t } = useTranslation();
   if (loading) {
     return <LoadingSpinner />;
   }
@@ -27,31 +28,31 @@ export default function AccountLayout() {
       <div className="flex flex-col gap-4 w-full min-w-0">
         <div className="w-full bg-rose-50 rounded-xl shadow p-6 flex flex-col justify-center gap-2 mt-12">
           <h2 className="text-xl font-bold text-gray-800 mb-1">
-            Welcome to Chillz!{" "}
+            {t("welcomeToChillz")}
             <span className="font-extrabold inline-block text-2xl">
               {user.email && user.email.split("@")[0].charAt(0).toUpperCase() + user.email.split("@")[0].slice(1)}
             </span>
           </h2>
           <p className="text-gray-600 mb-2">
-            Ready to host your first event? Click below to get started and connect with your community.
+            {t("readyToHostYourFirstEvent")}
           </p>
           <Link
             to={RoutesEnum.CreateAnEvent}
             className="self-end bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
           >
-            Create an Event
+            {t("createAnEvent")}
           </Link>
         </div>
         <div className="w-full bg-orange-50 rounded-xl shadow p-6 flex flex-col justify-center gap-2">
-          <h2 className="text-xl font-bold text-gray-800 mb-1">Your Dashboard</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-1">{t("yourDashboard")}</h2>
           <p className="text-gray-600 mb-2">
-            Manage your events, track your bookings, and see your activity all in one place.
+            {t("manageYourEvents")}
           </p>
           <Link
             to={RoutesEnum.UserDashboard}
             className="self-end bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium"
           >
-            Go to Dashboard
+            {t("goToDashboard")}
           </Link>
         </div>
       </div>

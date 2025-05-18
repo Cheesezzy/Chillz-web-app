@@ -23,7 +23,7 @@ const Home = () => {
       <DefaultLayout>
         <Slides />
         <Categories />
-        <Verified />
+        {/* <Verified /> */}
         {!user && (
           <>
             <HowChillzWorks />

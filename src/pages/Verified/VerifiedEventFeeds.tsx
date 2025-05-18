@@ -10,6 +10,7 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 import { useVerifiedEvents } from "../../hooks/useVerifiedEvents";
 import "../../components/Cards/Cards.css";
 import { Users } from "lucide-react";
+import DefaultLayout from "../../components/layout/DefaultLayout";
 
 const VerifiedEventFeeds = () => {
   const { t } = useTranslation();
@@ -60,6 +61,7 @@ const VerifiedEventFeeds = () => {
   return (
     <>
       <Header/>
+      <DefaultLayout>
       <div className="card_wrapper mt-18">
         {/* Categories Filter */}
         <div className="flex flex-wrap gap-4 mt-6 lg:px-18">
@@ -172,6 +174,7 @@ const VerifiedEventFeeds = () => {
           )}
         </div>
       </div>
+      </DefaultLayout>
     </>
   );
 };

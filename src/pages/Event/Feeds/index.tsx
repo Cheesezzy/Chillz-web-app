@@ -12,22 +12,32 @@ import Footer from "../../../components/Footer/Footer";
 
 const EventsPage: React.FC = () => {
   const [filter, setFilter] = useState<string>("all");
+  const [eventTypeFilter, setEventTypeFilter] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
   const { t } = useTranslation();
   const { events, loading } = useAllEventsData();
 
-  // Filter events based on category and search term
+  // Filter events based on category, event type, search term, and date
   const filteredEvents = events.filter((event) => {
     const matchesCategory =
       filter === "all" || event.category.toLowerCase() === filter.toLowerCase();
+    const matchesEventType =
+      eventTypeFilter === "all" || event.eventType === eventTypeFilter;
     const matchesSearch =
       event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDate =
-      !selectedDate ||
-      (event.date && event.date.startsWith(selectedDate));
-    return matchesCategory && matchesSearch && matchesDate;
+    
+    // Date filtering logic
+    let matchesDate = true;
+    if (selectedDate) {
+      if (event.eventType === 'one-time') {
+        matchesDate = Boolean(event.date && event.date.startsWith(selectedDate));
+      }
+      // Skip date filtering for recurring events
+    }
+
+    return matchesCategory && matchesEventType && matchesSearch && matchesDate;
   });
 
   // Get unique categories for filter options
@@ -67,7 +77,7 @@ const EventsPage: React.FC = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="md:w-1/3">
+            <div className="md:w-1/4">
               <label
                 htmlFor="category-filter"
                 className="block text-sm font-medium text-gray-700 mb-1"
@@ -87,21 +97,46 @@ const EventsPage: React.FC = () => {
                 ))}
               </select>
             </div>
-            <div className="md:w-1/3 mt-4 md:mt-0">
+            <div className="md:w-1/4">
               <label
-                htmlFor="date-filter"
+                htmlFor="event-type-filter"
                 className="block text-sm font-medium text-gray-700 mb-1"
               >
-                {t('filterByDate') || "Filter by Date"}
+                {t('eventType')}
               </label>
-              <input
-                type="date"
-                id="date-filter"
+              <select
+                id="event-type-filter"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-              />
+                value={eventTypeFilter}
+                onChange={(e) => {
+                  setEventTypeFilter(e.target.value);
+                  if (e.target.value === 'recurring') {
+                    setSelectedDate('');
+                  }
+                }}
+              >
+                <option value="all">{t('allEventTypes')}</option>
+                <option value="one-time">{t('oneTimeEvents')}</option>
+                <option value="recurring">{t('recurringEvents')}</option>
+              </select>
             </div>
+            {eventTypeFilter !== 'recurring' && (
+              <div className="md:w-1/4">
+                <label
+                  htmlFor="date-filter"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  {t('filterByDate')}
+                </label>
+                <input
+                  type="date"
+                  id="date-filter"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                  value={selectedDate}
+                  onChange={(e) => setSelectedDate(e.target.value)}
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -123,6 +158,7 @@ const EventsPage: React.FC = () => {
               className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
               onClick={() => {
                 setFilter("all");
+                setEventTypeFilter("all");
                 setSearchTerm("");
                 setSelectedDate("");
               }}

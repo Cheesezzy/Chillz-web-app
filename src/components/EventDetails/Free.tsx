@@ -12,7 +12,6 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { useState } from "react";
-import free from "/free.png";
 import Share from "../Button/ShareBtn";
 import AlertModal from "../../Modals/AlertModal";
 import OrganizationName from "../OrganizationName";
@@ -107,7 +106,25 @@ export default function Free() {
           <div className="flex flex-wrap items-center text-gray-600 gap-y-2">
             <div className="flex items-center mr-6">
               <Calendar className="w-5 h-5 mr-2" />
-              <span>{event.date}</span>
+              <span>
+                {event.eventType === 'recurring' ? (
+                  <>
+                    {event.recurringPattern?.frequency === 'daily' && t('everyDay')}
+                    {event.recurringPattern?.frequency === 'weekly' && (
+                      <>
+                        {t('every')} {event.recurringPattern?.selectedWeekDays?.map(day => t(day.toLowerCase())).join(", ")}
+                      </>
+                    )}
+                    {event.recurringPattern?.frequency === 'monthly' && (
+                      <>
+                        {t('every')} {event.recurringPattern?.selectedMonthDays?.join(", ")} {t('ofTheMonth')}
+                      </>
+                    )}
+                  </>
+                ) : (
+                  event.date
+                )}
+              </span>
             </div>
             <div className="flex items-center mr-6">
               <Clock className="w-5 h-5 mr-2" />
@@ -154,9 +171,6 @@ export default function Free() {
           </button>
 
           <Share event={event} />
-          <div className="flex items-center w-14 h-12">
-            <img src={free} alt="free" />
-          </div>
         </div>
 
         <div className="mb-8">

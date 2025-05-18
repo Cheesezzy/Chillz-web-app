@@ -50,7 +50,7 @@ function MobileHeader({
                 <Link to={RoutesEnum.EventFeeds} className="display rev">
                   <div className="icon-sec ">
                     <img src={search} alt="search" className="search-img" />
-                    <input type="text" placeholder="Search for Events" />
+                    <input type="text" placeholder={t('searchEvents')} />
                   </div>
                 </Link>
                 <Link
